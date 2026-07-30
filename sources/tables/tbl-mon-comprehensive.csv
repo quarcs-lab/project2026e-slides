@@ -1,0 +1,17 @@
+Goal index,Goal,Out-of-sample R²,Department range
+SDG 1,No Poverty,0.537,"[-0.50, 0.75]"
+SDG 7,Affordable and Clean Energy,0.484,"[-0.16, 0.61]"
+SDG 13,Climate Action,0.435,"[-1.46, 0.47]"
+SDG 9,"Industry, Innovation and Infrastructure",0.371,"[-2.11, 0.62]"
+SDG 6,Clean Water and Sanitation,0.371,"[-0.40, 0.48]"
+SDG 2,Zero Hunger,0.341,"[-6.58, 0.27]"
+SDG 11,Sustainable Cities and Communities,0.321,"[-3.09, 0.59]"
+SDG 10,Reduced Inequalities,0.224,"[-1.52, 0.47]"
+SDG 4,Quality Education,0.213,"[-0.83, 0.30]"
+SDG 5,Gender Equality,0.178,"[-0.50, 0.53]"
+SDG 8,Decent Work and Economic Growth,0.128,"[-1.95, 0.37]"
+SDG 17,Partnerships for the Goals,0.082,"[-3.12, 0.31]"
+SDG 3,Good Health and Well-being,0.071,"[-1.22, 0.30]"
+SDG 16,"Peace, Justice and Strong Institutions",-0.044,"[-0.51, 0.16]"
+SDG 15,Life on Land,-0.187,"[-1.00, -0.04]"
+All 15 goals (mean),,0.235,

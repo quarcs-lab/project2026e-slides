@@ -1,0 +1,330 @@
+# Provenance for the vendored snapshot in this directory.
+#
+# Written by `scripts/_sync_check.py --root <checkout> --freeze`. Do not hand-edit: the
+# hashes are what makes divergence detectable, and a hand-corrected hash is a lie that
+# silences the only check that would have caught the problem.
+#
+# `sha256` is the file as vendored; `sha256_body` is the same file with any vendored-snapshot
+# banner stripped, and it is `sha256_body` that gets compared upstream. Only .py files carry
+# a banner — a comment line would break every CSV reader, and binaries cannot carry one at all.
+#
+# `last_commit = "untracked"` is normal, not an error: the pickled fits are gitignored
+# upstream, so git has no object for them and the date is the file's mtime.
+
+[meta]
+source_repo     = "https://github.com/quarcs-lab/project2026e"
+snapshot_commit = "9856b81b4f44c1fb958aad200438ac1c7f3c7fee"
+snapshot_date   = "2026-07-30"
+frozen_by       = "scripts/_sync_check.py --root <checkout> --freeze"
+hash            = "sha256"
+note = """
+Read-only snapshot. Paths below are relative to BOTH sources/ and the manuscript repository
+root, with one deliberate exception: upstream `.notebook-cache/` is vendored as
+`notebook-cache/` (no dot), because the repository's root .gitignore pattern
+`.notebook-cache/` matches at any depth and would have silently refused to track these
+files. `_sync_check.py` maps the name back when comparing.
+"""
+
+[[file]]
+path        = "code/hf_data.py"
+upstream    = "code/hf_data.py"
+sha256      = "b4b040364b394514516faf83115614faa90d8b43044ee3e7f8d492a532485616"
+sha256_body = "52cac3409909c4e1d9110a30f4c15555ae1be1af07db731fa38000476097df7c"
+bytes       = 2580
+banner      = true
+last_commit = "ba2ac79b754879849fa03e050a8a8f3ef1a56e5d"
+last_date   = "2026-07-12"
+
+[[file]]
+path        = "code/labels.py"
+upstream    = "code/labels.py"
+sha256      = "67e8afc4701b19d1dad84141a097fef206cff924d525f922d1e6c7db30ac7505"
+sha256_body = "41f19eab88659f0e07820f9e6cdf2281ec33f49a0a55547b667210fb943d1525"
+bytes       = 10252
+banner      = true
+last_commit = "75e469ef2304e01565037304d8a1265c062c3ee2"
+last_date   = "2026-07-20"
+
+[[file]]
+path        = "code/plot_data_overview.py"
+upstream    = "code/plot_data_overview.py"
+sha256      = "53763821176f804b8a2dddceba423fe766ecda13037ad40d04221b90c10f8c2d"
+sha256_body = "6c8aa22e8cd4f4c26513efbc21d34aee7808b2479a084888e8bc9a8b08c386a5"
+bytes       = 21022
+banner      = true
+last_commit = "690441f729ffd8b3ff0052057fd59a7176da7066"
+last_date   = "2026-07-18"
+
+[[file]]
+path        = "code/plot_embedding_raster.py"
+upstream    = "code/plot_embedding_raster.py"
+sha256      = "504e9a6bfa9ae96b953839d2b9a8b454562bc0561c7b53eb85b28f5d4366e39d"
+sha256_body = "d1e054924dd76a4d6516f6c00eb5f6a06b67167e4357f74b85b679cb1bdb52ee"
+bytes       = 7246
+banner      = true
+last_commit = "690441f729ffd8b3ff0052057fd59a7176da7066"
+last_date   = "2026-07-18"
+
+[[file]]
+path        = "code/plot_ntl_raster.py"
+upstream    = "code/plot_ntl_raster.py"
+sha256      = "4c4620d2438799dafa4c989eaf3e0d91d226052e285c96088c7dbeececd69ccb"
+sha256_body = "e213b6756d8f1dd916f97a978f3e79c08449c85b8273a8117258380d060f675d"
+bytes       = 12971
+banner      = true
+last_commit = "690441f729ffd8b3ff0052057fd59a7176da7066"
+last_date   = "2026-07-18"
+
+[[file]]
+path        = "code/plot_population_raster.py"
+upstream    = "code/plot_population_raster.py"
+sha256      = "b809f1661645898a0016e585dd98051ff2f6853a2e917a4d5669358affe4bd6f"
+sha256_body = "051a98a65d435fbadb1d0ac8ca7d128b16f1a49d5ba7969f507f38d531f88141"
+bytes       = 9780
+banner      = true
+last_commit = "c2594c67cad1de438638bfb169f88489e8926e5a"
+last_date   = "2026-07-12"
+
+[[file]]
+path        = "code/spatial_weights.py"
+upstream    = "code/spatial_weights.py"
+sha256      = "4445ff3ffde06d9090858eadc36f4705ad47a9fa17a0d3c0616c16362af6752f"
+sha256_body = "9e5b826723051f2094a32e2c28022f6e4781ffca6ef5effb729a6280137cc07c"
+bytes       = 7116
+banner      = true
+last_commit = "314cb381afd5778720c16ee4a12d2aefe0b1b66c"
+last_date   = "2026-07-20"
+
+[[file]]
+path        = "data/maps/bolivia339geoqueryOpt.geojson"
+upstream    = "data/maps/bolivia339geoqueryOpt.geojson"
+sha256      = "52f50770b20fc8d73540151c1c625deec19ae712f44bcecb8ba2364f11620372"
+bytes       = 918945
+banner      = false
+last_commit = "182b10ef5148a37a3cb129af6c0516fcea74ad50"
+last_date   = "2026-05-30"
+
+[[file]]
+path        = "data/population/rasters/bolivia_ghspop_2017.tif"
+upstream    = "data/population/rasters/bolivia_ghspop_2017.tif"
+sha256      = "200818df54ac3b2be757b51bb0b03b5d06148e966bdf968a6f0a4c7ed2e6d55a"
+bytes       = 4750872
+banner      = false
+last_commit = "a4221957e966505987bca2dd7f81326c34e386dd"
+last_date   = "2026-07-12"
+
+[[file]]
+path        = "data/predictions/sdg13_fourview_2017.csv"
+upstream    = "data/predictions/sdg13_fourview_2017.csv"
+sha256      = "115f12ae79d179e3e6134cb74c540c0967e8374f6b220844960ef534fb57ff31"
+bytes       = 29131
+banner      = false
+last_commit = "9ace3adca51d2468e104a23244461802806f208c"
+last_date   = "2026-07-19"
+
+[[file]]
+path        = "data/predictions/sdg1_fourview_2017.csv"
+upstream    = "data/predictions/sdg1_fourview_2017.csv"
+sha256      = "6ba8e2bbbd39e5c48ec859be71979c276a365fed632ba0b8a40315869ff448d1"
+bytes       = 29324
+banner      = false
+last_commit = "cf047c0d95ca650ccfb20bd139cc8272cb57603c"
+last_date   = "2026-07-19"
+
+[[file]]
+path        = "data/predictions/sdg7_fourview_2017.csv"
+upstream    = "data/predictions/sdg7_fourview_2017.csv"
+sha256      = "74384aed81c326d1a4843387de3729f8f07ba76b0a764672288d59251ea254ea"
+bytes       = 29152
+banner      = false
+last_commit = "9ace3adca51d2468e104a23244461802806f208c"
+last_date   = "2026-07-19"
+
+[[file]]
+path        = "data/regionNames/regionNames.csv"
+upstream    = "data/regionNames/regionNames.csv"
+sha256      = "281a086ffa8ad8c87465430c8c652e272d09f1884e8e97dbe4d29d071c069914"
+bytes       = 27324
+banner      = false
+last_commit = "dba34051b0ddc204e2f08153615ad3eeeee28e6c"
+last_date   = "2026-05-27"
+
+[[file]]
+path        = "data/satelliteEmbeddings/rasters/bolivia_embeddings_pca_rgb_2017.tif"
+upstream    = "data/satelliteEmbeddings/rasters/bolivia_embeddings_pca_rgb_2017.tif"
+sha256      = "7a56093bd58a38956c931cf71d0e58f4358259798ed9146541964b143187a0d7"
+bytes       = 11646727
+banner      = false
+last_commit = "304d4743dc5272b5ba22df5c7c5925bd311c524d"
+last_date   = "2026-07-12"
+
+[[file]]
+path        = "data/sdg/sdg.csv"
+upstream    = "data/sdg/sdg.csv"
+sha256      = "ed099d0af4d5fcbaf331b3f4b1ece6f29b7b4409899a8f26a32787e1b01e0a5d"
+bytes       = 48829
+banner      = false
+last_commit = "dba34051b0ddc204e2f08153615ad3eeeee28e6c"
+last_date   = "2026-05-27"
+
+[[file]]
+path        = "notebook-cache/sdg13_combow.pkl"
+upstream    = ".notebook-cache/sdg13_combow.pkl"
+sha256      = "6ef624e42e108644167b855a321d4affa57c962ca4016238440993247273eedd"
+bytes       = 7416
+banner      = false
+last_commit = "untracked"
+last_date   = "2026-06-04"
+
+[[file]]
+path        = "notebook-cache/sdg13_ntlw8.pkl"
+upstream    = ".notebook-cache/sdg13_ntlw8.pkl"
+sha256      = "449d68f7bb0f725768ae85f3c9707c8023232fa812e58d163d8b9db6d813f6ae"
+bytes       = 6901
+banner      = false
+last_commit = "untracked"
+last_date   = "2026-06-03"
+
+[[file]]
+path        = "notebook-cache/sdg13_weighted.pkl"
+upstream    = ".notebook-cache/sdg13_weighted.pkl"
+sha256      = "219c1e60a29d5bb3979bcb661ad0e6c7a0798d651ffbf5983b2e4520aa73c03d"
+bytes       = 7352
+banner      = false
+last_commit = "untracked"
+last_date   = "2026-05-31"
+
+[[file]]
+path        = "notebook-cache/sdg1_combow.pkl"
+upstream    = ".notebook-cache/sdg1_combow.pkl"
+sha256      = "8914c59c6e9e374bd2c17ff7aab9a3f3441f6f30c9697f4568c75a59f4d07b23"
+bytes       = 7415
+banner      = false
+last_commit = "untracked"
+last_date   = "2026-06-04"
+
+[[file]]
+path        = "notebook-cache/sdg1_ntlw8.pkl"
+upstream    = ".notebook-cache/sdg1_ntlw8.pkl"
+sha256      = "773979b38009760cf5e113da2c906c214d48d6652d4e7e2c7a7153af1215a277"
+bytes       = 6900
+banner      = false
+last_commit = "untracked"
+last_date   = "2026-06-03"
+
+[[file]]
+path        = "notebook-cache/sdg1_weighted.pkl"
+upstream    = ".notebook-cache/sdg1_weighted.pkl"
+sha256      = "ebb5d9bc0519dc7c2f94017f3e4446b800fd589594c9c074891bbc4ee2f0366e"
+bytes       = 7351
+banner      = false
+last_commit = "untracked"
+last_date   = "2026-05-31"
+
+[[file]]
+path        = "notebook-cache/sdg7_combow.pkl"
+upstream    = ".notebook-cache/sdg7_combow.pkl"
+sha256      = "d725a419d207ca6a73cb0fa0867af2eef2f7652c63d909dc0893687a4b214347"
+bytes       = 7415
+banner      = false
+last_commit = "untracked"
+last_date   = "2026-06-04"
+
+[[file]]
+path        = "notebook-cache/sdg7_ntlw8.pkl"
+upstream    = ".notebook-cache/sdg7_ntlw8.pkl"
+sha256      = "41282d71c94615f47507cd7b28ae152828000e9dcfb9362da04628e1e887c71d"
+bytes       = 6900
+banner      = false
+last_commit = "untracked"
+last_date   = "2026-06-03"
+
+[[file]]
+path        = "notebook-cache/sdg7_weighted.pkl"
+upstream    = ".notebook-cache/sdg7_weighted.pkl"
+sha256      = "f3de323be470b72bc21d2244294ea2e5709eadad82826efca3e9063b645c5b7b"
+bytes       = 7351
+banner      = false
+last_commit = "untracked"
+last_date   = "2026-05-31"
+
+[[file]]
+path        = "tables/tbl-circularity-deforestation.csv"
+upstream    = "tables/tbl-circularity-deforestation.csv"
+sha256      = "42d13f6ec5e7e5f3a73cafcf0f101a0c39a68826a4ce3635a03d298296c2e240"
+bytes       = 421
+banner      = false
+last_commit = "f913ff2c317dc121e71aaec3e829a32a47089280"
+last_date   = "2026-07-18"
+
+[[file]]
+path        = "tables/tbl-mon-comprehensive.csv"
+upstream    = "tables/tbl-mon-comprehensive.csv"
+sha256      = "eac688b28cf4d9e13ceec2b2d158652cb7b29695071a92db4e25e303d9893cfa"
+bytes       = 873
+banner      = false
+last_commit = "f913ff2c317dc121e71aaec3e829a32a47089280"
+last_date   = "2026-07-18"
+
+[[file]]
+path        = "tables/tbl-mon-featureset-comparison.csv"
+upstream    = "tables/tbl-mon-featureset-comparison.csv"
+sha256      = "bfe379ade2fa007877e591207f85e5c2cd67531bcb17803e85029d4e999b0714"
+bytes       = 858
+banner      = false
+last_commit = "f913ff2c317dc121e71aaec3e829a32a47089280"
+last_date   = "2026-07-18"
+
+[[file]]
+path        = "tables/tbl-outcomes-descriptives.csv"
+upstream    = "tables/tbl-outcomes-descriptives.csv"
+sha256      = "f6c56591de1177e6da2a1d3eba973e6f05b8f6c769c9ff22aefbd49d1d82b2a1"
+bytes       = 756
+banner      = false
+last_commit = "a0f798f7a964ba9ee4f07e9490276b3371d18822"
+last_date   = "2026-07-28"
+
+[[file]]
+path        = "tables/tbl-popweighting-master.csv"
+upstream    = "tables/tbl-popweighting-master.csv"
+sha256      = "74031989b8fd8f1a55f75c2bfa5f6a1ece18d081d1d5abdf706325063155ac4f"
+bytes       = 1087
+banner      = false
+last_commit = "97d968417a05b79b0c7bda8ef388bedba9aa12b4"
+last_date   = "2026-07-19"
+
+[[file]]
+path        = "tables/tbl-views-comparison-sdg1.csv"
+upstream    = "tables/tbl-views-comparison-sdg1.csv"
+sha256      = "1808b6514abe3020b80fa482d6cd0e2189120ab3a42d65c7c2daf4596b99d10c"
+bytes       = 324
+banner      = false
+last_commit = "314cb381afd5778720c16ee4a12d2aefe0b1b66c"
+last_date   = "2026-07-20"
+
+[[file]]
+path        = "tables/tbl-views-comparison-sdg13.csv"
+upstream    = "tables/tbl-views-comparison-sdg13.csv"
+sha256      = "972e457dd740af4df9d2abc64499e3229bcfe5474a84ab14e9c57b86170fdc9f"
+bytes       = 323
+banner      = false
+last_commit = "314cb381afd5778720c16ee4a12d2aefe0b1b66c"
+last_date   = "2026-07-20"
+
+[[file]]
+path        = "tables/tbl-views-comparison-sdg7.csv"
+upstream    = "tables/tbl-views-comparison-sdg7.csv"
+sha256      = "1403764ea191a2fc27dc87771f69bdd7aca7f1360dfb3c7b685927f23dd14b47"
+bytes       = 322
+banner      = false
+last_commit = "314cb381afd5778720c16ee4a12d2aefe0b1b66c"
+last_date   = "2026-07-20"
+
+[[file]]
+path        = "tables/tbl-views-lodo.csv"
+upstream    = "tables/tbl-views-lodo.csv"
+sha256      = "4367a8b1eb3c1f17b5bdc6818521f42313aa6a8e66fe2afcd0abce8e04ed3454"
+bytes       = 883
+banner      = false
+last_commit = "f913ff2c317dc121e71aaec3e829a32a47089280"
+last_date   = "2026-07-18"

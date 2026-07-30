@@ -1,0 +1,6 @@
+Goal,Component,Satellite-derived,R² daytime embeddings → component,Spearman $\rho$ with index,R² daytime embeddings → goal index
+SDG 13 Climate,Deforestation rate,yes,0.453,-0.65,0.63
+SDG 13 Climate,CO2 emissions per capita,no,0.16,-0.54,0.63
+SDG 13 Climate,Climate-change vulnerability,no,0.612,-0.34,0.63
+SDG 15 Land,Biodiversity loss (deforest.),yes,0.474,-0.26,0.1
+SDG 15 Land,Protected areas,no,0.149,0.62,0.1

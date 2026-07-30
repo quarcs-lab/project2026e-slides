@@ -1,0 +1,17 @@
+Goal index,R² nighttime lights (simple),R² nighttime lights (pop-weighted),ΔR² nighttime lights,R² daytime embeddings (simple),R² daytime embeddings (pop-weighted),ΔR² daytime embeddings
+Poverty (SDG 1),0.515,0.553,+0.039,0.375,0.691,+0.316
+Energy (SDG 7),0.507,0.500,-0.008,0.319,0.634,+0.315
+Climate (SDG 13),0.352,0.250,-0.103,0.558,0.630,+0.072
+Hunger (SDG 2),0.289,0.133,-0.156,0.504,0.582,+0.078
+Inequality (SDG 10),0.129,0.133,+0.004,0.531,0.572,+0.041
+Infrastructure (SDG 9),0.384,0.416,+0.032,0.219,0.461,+0.242
+Cities (SDG 11),0.454,0.399,-0.054,0.199,0.449,+0.250
+Education (SDG 4),0.191,0.137,-0.053,0.330,0.435,+0.104
+Water (SDG 6),0.242,0.227,-0.015,0.179,0.416,+0.237
+Jobs (SDG 8),0.205,0.159,-0.045,0.325,0.359,+0.033
+Health (SDG 3),0.128,0.085,-0.043,0.247,0.281,+0.034
+Gender (SDG 5),0.113,0.057,-0.056,0.251,0.269,+0.018
+Partnerships (SDG 17),0.251,0.183,-0.068,0.175,0.248,+0.073
+Land (SDG 15),0.047,0.025,-0.022,0.176,0.100,-0.076
+Institutions (SDG 16),0.016,0.030,+0.014,-0.076,-0.051,+0.025
+All 15 goal indices (mean),0.255,0.219,-0.036,0.287,0.405,+0.118

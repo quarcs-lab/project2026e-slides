@@ -1,0 +1,17 @@
+Goal index,Goal,R² nighttime lights,R² daytime embeddings,ΔR² (daytime embeddings − nighttime lights)
+SDG 13,Climate Action,-0.282,0.458,0.74
+SDG 1,No Poverty,0.451,0.442,-0.01
+SDG 7,Affordable and Clean Energy,0.459,0.412,-0.047
+SDG 2,Zero Hunger,-0.257,0.306,0.563
+SDG 9,"Industry, Innovation and Infrastructure",0.368,0.282,-0.085
+SDG 6,Clean Water and Sanitation,0.2,0.279,0.079
+SDG 10,Reduced Inequalities,-0.286,0.245,0.531
+SDG 4,Quality Education,-0.106,0.214,0.32
+SDG 5,Gender Equality,-0.084,0.181,0.265
+SDG 11,Sustainable Cities and Communities,0.379,0.173,-0.206
+SDG 8,Decent Work and Economic Growth,-0.124,0.156,0.28
+SDG 3,Good Health and Well-being,-0.06,0.059,0.12
+SDG 17,Partnerships for the Goals,0.036,-0.023,-0.058
+SDG 16,"Peace, Justice and Strong Institutions",0.047,-0.041,-0.087
+SDG 15,Life on Land,-0.115,-0.186,-0.071
+All 15 goals (mean),,0.042,0.197,

@@ -1,0 +1,8 @@
+Statistic,Nighttime lights,Daytime embeddings,Combined,Actual (reference)
+Pearson r,0.731,0.815,0.816,
+R² (out-of-sample),0.5,0.634,0.642,
+Same-class %,38.348,42.478,48.083,
+Within-one-class %,89.086,95.28,95.28,
+LISA agreement %,76.696,82.891,82.301,
+LISA hot/cold %,49.451,74.725,70.33,
+Moran's I,0.28,0.491,0.404,0.43

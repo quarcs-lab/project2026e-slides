@@ -1,0 +1,144 @@
+# Frozen manuscript claims — the numbers this deck takes from the paper's PROSE.
+#
+# Written by `scripts/_sync_check.py --root <checkout> --freeze-claims`.
+#
+# These are the values for which no `tables/*.csv` cell exists. numbers.toml's own header
+# explains the preference: a cell survives a prose edit, a regex does not — and eight of
+# twelve regexes in an earlier manifest had already gone stale by the time anyone checked.
+#
+# THE MANUSCRIPT TEXT IS NOT SHIPPED. Each entry records the matched VALUE, the LINE it was
+# found on, and the sha256 of that line. Storing the hash rather than the sentence is what
+# keeps the paper out of this repository while still failing loudly if the number changes.
+#
+# Standalone, `_source_checks.py` verifies the slides against these frozen values, and is
+# fail-closed: a missing key is a failure, exactly like a missing manifest. Given
+# `--root <checkout>` it re-runs each pattern against the live manuscript and separates
+#   the number changed        -> FAIL
+#   the value holds, prose moved -> WARN (re-freeze)
+
+[meta]
+source        = "index.qmd"
+source_sha256 = "8d138e840bd3898aacccc5e0bbfb15b20c3c8233af951606041a182dbaf54c67"
+source_commit = "9856b81b4f44c1fb958aad200438ac1c7f3c7fee"
+source_lines  = 814
+frozen        = "2026-07-30"
+
+[[claim]]
+key         = "municipalities"
+value       = 339
+pattern     = '(339) municipalities'
+line        = 41
+line_sha256 = "0d19a313a1f98d51fd30445b645db965491cf22935a6bf9268389f81ebebcc13"
+claim       = "municipalities (slides 2, 4, 8)"
+
+[[claim]]
+key         = "component-indicators"
+value       = 62
+pattern     = '(62) indicators'
+line        = 181
+line_sha256 = "a08411e1be5bcf7b1b704b89f5adbbb9d4bd6c9ea7be563ffe3a86382f694523"
+claim       = "component indicators behind the indices (slides 4, 22 notes)"
+
+[[claim]]
+key         = "embedding-dimensions"
+value       = 64
+pattern     = 'the (64)-dimensional'
+line        = 383
+line_sha256 = "c6d544e98c3e420e6b8186782a0cd43facf6e1ed36fd153114a01a9bfa5f46f4"
+claim       = "embedding dimensions per patch (slides 4, 8, 16)"
+
+[[claim]]
+key         = "institutions-popw-embeddings"
+value       = 0.05
+pattern     = 'embeddings .{0,12}-(0\.05)'
+line        = 406
+line_sha256 = "cac2dc6ddad1a97d1de4d5a6ed58993f630ade6ce3a40618d4373371aaba0422"
+claim       = "institutions, population-weighted embeddings (slide 13) — negative on the slide"
+
+[[claim]]
+key         = "spearman-clustering-legibility"
+value       = 0.67
+pattern     = 'Spearman .{0,12}= (0\.67)'
+line        = 430
+line_sha256 = "89cccd65d7663f1facfab5a94df1bd2638bb2da4d96f8462976bb082ae3eab81"
+claim       = "Spearman rho, spatial clustering against legibility (slide 14 figure and notes)"
+
+[[claim]]
+key         = "ntl-mean-simple"
+value       = 0.25
+pattern     = 'from about (0\.25) to 0\.22'
+line        = 440
+line_sha256 = "2f1ec5608e9e8ec203a808241db04f3cfb3c15f7fe1910934a30c57c316268d9"
+claim       = "nighttime lights mean, simple average (slide 11) — 0.255 in the table, 0.25 in the paper"
+
+[[claim]]
+key         = "climate-transfer-bound"
+value       = 0.44
+pattern     = 'Climate Action \((0\.44) to 0\.64\)'
+line        = 480
+line_sha256 = "c6767ade8dc275a34f290e0a1772bfb5aa30784a98d8bf3954ca0e43167b2d9e"
+claim       = "climate action, combined predictor, department transfer (slide 18) — 0.435 in the table"
+
+[[claim]]
+key         = "poverty-best-department"
+value       = 0.75
+pattern     = 'ranges from \$\+(0\.75)\$'
+line        = 498
+line_sha256 = "b059e09c6b6be1f48912b925e1945de23397f3163a5090beecfe1ee48728d6f6"
+claim       = "poverty's best held-out department under transfer (slide 17 notes)"
+
+[[claim]]
+key         = "poverty-worst-department"
+value       = 0.5
+pattern     = 'to \$-(0\.50)\$'
+line        = 498
+line_sha256 = "b059e09c6b6be1f48912b925e1945de23397f3163a5090beecfe1ee48728d6f6"
+claim       = "poverty's worst held-out department under transfer (slide 17 notes) — negative"
+
+[[claim]]
+key         = "map-drawing-bar"
+value       = 0.6
+pattern     = 'above \$(0\.60)\$'
+line        = 520
+line_sha256 = "ec50e24e58305158d731bfb6c9d856c8b41750388f70fe85776144f029e73ac6"
+claim       = "the bar for drawing a map in space (slides 16, 17)"
+
+[[claim]]
+key         = "poverty-hotcold-count"
+value       = 104
+pattern     = '\$n = (104)\$ for SDG 1'
+line        = 551
+line_sha256 = "8ef96c66cb09b4dc4101e24d8590fb34280510a0d4e9bc709afa69fc72812682"
+claim       = "municipalities the actual poverty map flags as a hotspot or coldspot (slides 19, 23 notes)"
+
+[[claim]]
+key         = "energy-hotcold-count"
+value       = 91
+pattern     = 'flags (91) municipalities'
+line        = 613
+line_sha256 = "a1e6127c0ca0d308c37d3fb46622d9899fa2fef335fe73e2e890f73267bfece9"
+claim       = "municipalities the actual clean-energy map flags as a hotspot or coldspot (slide 20 notes)"
+
+[[claim]]
+key         = "climate-hotcold-count"
+value       = 124
+pattern     = 'of the (124) municipalities'
+line        = 637
+line_sha256 = "0f7957f394af4b2c63f308003b9082cb633dfb544b6ba9473825d96302901ee3"
+claim       = "municipalities the actual climate map flags as a hotspot or coldspot (slide 21 notes)"
+
+[[claim]]
+key         = "goal-indices"
+value       = 15
+pattern     = 'from 8 of 15 to 14 of (15)'
+line        = 765
+line_sha256 = "7d14e371eee331bea765ec0f328bf6a05a37d654aa7c409e7234f5599bfc9495"
+claim       = "goal indices in total (slides 4, 10, 12)"
+
+[[claim]]
+key         = "goals-embeddings-lead-popw"
+value       = 14
+pattern     = 'from 8 of 15 to (14) of 15'
+line        = 765
+line_sha256 = "7d14e371eee331bea765ec0f328bf6a05a37d654aa7c409e7234f5599bfc9495"
+claim       = "goals where the embeddings lead once population-weighted (slide 12)"

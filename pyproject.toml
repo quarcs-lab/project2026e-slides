@@ -1,0 +1,81 @@
+[project]
+name = "monitoring-local-development-deck"
+version = "1.0.0"
+description = "Self-contained Quarto reveal.js deck: predicting and monitoring local development from outer space."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.12"
+authors = [{ name = "Carlos Mendez", email = "carlosmendez777@gmail.com" }]
+
+# Derived from the imports these scripts actually reach, not copied from the manuscript's
+# environment. Everything the paper needs but this deck does not — jupyter, nbstata, optuna,
+# tabulate, splot, folium, plotly, bibtexparser — is deliberately absent.
+#
+# Rendering the deck needs NONE of this: `quarto render` runs no code (the .qmd has zero
+# executable cells). These are for regenerating figures and running the verification tiers.
+dependencies = [
+  # --- figure drawing ------------------------------------------------------------------
+  # Held to the 3.10 line ON PURPOSE, and `uv.lock` pins the exact patch. matplotlib output is
+  # not byte-stable across versions — not even patch versions, and not even for SVG: 3.11.1
+  # changed text metrics enough that `bbox_inches="tight"` cropped to a different canvas height
+  # (401.05 pt vs 394.33 pt) and every path coordinate shifted. Nothing about the FINDINGS
+  # changed; _fourview.verify_against_paper() passed against the published tables under both.
+  #
+  # So the committed figures are reproducible for anyone who runs `uv sync` (the lock fixes the
+  # version), and only for them. Bumping matplotlib is fine — expect to re-commit every figure in
+  # the same change, and expect the diff to be large and meaningless.
+  "matplotlib>=3.10,<3.11",  # every scripts/fig-*.py
+  "seaborn>=0.13.2",        # _palette.apply_deck_style -> sns.set_theme
+  "pandas>=2.2.0",
+  "numpy>=1.26.4",
+  "scipy>=1.11.0",          # fig-legibility-clustering: spearmanr
+
+  # --- geospatial ----------------------------------------------------------------------
+  "geopandas>=1.0",
+  "rasterio>=1.5.0",
+  "mapclassify>=2.8",       # fig-views-choropleth: Fisher-Jenks brackets
+  "libpysal>=4.12",         # sources/code/spatial_weights: Queen contiguity
+  "esda>=2.9",              # Moran's I and LISA in scripts/_fourview.py
+  # Optional accelerator for esda/libpysal, declared for two practical reasons: without it every
+  # LISA run prints "Numba not installed. Using slow pure python version." and the three cluster
+  # maps take minutes rather than seconds. Results are IDENTICAL either way — verified, because
+  # _fourview.verify_against_paper() passed against the published tables in an environment
+  # without numba before this line was added. Version-pinned below in [tool.uv].
+  "numba>=0.61,<0.63",
+
+  # DO NOT "TIDY THESE AWAY." Both are imported at MODULE level inside vendored files that the
+  # deck imports, so the import must resolve even though the code paths never run:
+  #   sources/code/plot_ntl_raster.py and plot_data_overview.py  ->  import contextily as cx
+  #   sources/code/plot_embedding_raster.py                      ->  from sklearn.decomposition
+  #                                       (reached via plot_data_overview's flat sibling import)
+  # The deck draws no basemap (scripts/_rasters.py explains at length why not) and computes no
+  # PCA. The vendored modules are byte-identical to upstream on purpose, so the imports stay.
+  "contextily>=1.7.0",
+  "scikit-learn>=1.3.0",
+
+  # --- the one input too large to vendor ------------------------------------------------
+  # The 118 MB VIIRS nighttime-lights raster is over GitHub's 100 MB per-file limit, so it
+  # streams from the cmg777/project2026e Hugging Face dataset via sources/code/hf_data.py.
+  # Needed only by fig-ntl-raster.py and one panel of fig-data-layers.py.
+  "huggingface-hub>=1.23.0",
+
+  # --- verification ---------------------------------------------------------------------
+  # scripts/_qa_checks.py does `from PIL import Image` inside a bare try/except and sets
+  # Image = None on failure, which SILENTLY disables the figure palette-drift check. matplotlib
+  # happens to pull Pillow in today; declared explicitly so a resolver change cannot quietly
+  # remove a check.
+  "pillow>=10.0",
+]
+
+[project.optional-dependencies]
+# Tiers A / A' / C only — the live-page checks: the font probe, per-slide screenshots and the
+# print-background PDF. scripts/_browser_checks.py imports playwright lazily and degrades to a
+# Chrome --dump-dom fallback, so the deck renders and passes Tiers S / B / B' without it.
+# It drives the SYSTEM Chrome via channel="chrome", so no `playwright install` is needed.
+qa = ["playwright>=1.45"]
+
+[tool.uv]
+# Pinned from the manuscript project, where an unpinned resolve picked a numba/llvmlite pair
+# with no x86_64-macOS wheels and fell back to building from source. libpysal/esda pull numba
+# transitively, so the same trap applies here.
+constraint-dependencies = ["numba>=0.61,<0.63", "llvmlite>=0.44,<0.46"]

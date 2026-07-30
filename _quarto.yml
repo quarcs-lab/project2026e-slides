@@ -1,0 +1,6 @@
+# Local project file: makes this deck folder a self-contained Quarto project so it
+# renders in isolation, independent of the repo-root `type: manuscript` project
+# (which renders all *.qmd and would otherwise pull in index.qmd). Also keeps this
+# deck out of the manuscript build.
+project:
+  type: default
