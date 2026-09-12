@@ -2,7 +2,7 @@
      Image-led academic cover: serif title, a subtitle framed by a thin rule, then a
      left-aligned author/affiliation block (the NAME is the link to author-site) and a small-caps footer
      (venue · date, paper/project link). Driven by the deck's top-level metadata: title, subtitle,
-     author, author-site, affil-school, affil-university, venue, date, paper-url. Any absent field is
+     author, author-site, affil-school, affil-university, affil-country, venue, date, paper-url. Any absent field is
      omitted. All visual styling lives in theme.scss, scoped to #title-slide so other slides are untouched.
      NOTE: do not use `website:` for the link — it is a reserved Quarto key; use `author-site:`. -->
 <section id="$idprefix$title-slide" data-background-color="#06101F" data-background-image="figures/fig-title-orbital-monitoring.png" data-background-size="cover" data-background-position="center center"$for(title-slide-attributes/pairs)$ $it.key$="$it.value$"$endfor$>
@@ -20,6 +20,9 @@ $if(affil-school)$
 $endif$
 $if(affil-university)$
     <p class="affil">$affil-university$</p>
+$endif$
+$if(affil-country)$
+    <p class="affil">$affil-country$</p>
 $endif$
   </div>
   <div class="title-footer">

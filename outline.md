@@ -1,9 +1,13 @@
 # Outline — Predicting and monitoring local development from outer space
 
 **Deck:** `slides/monitoring-local-development/`
-**Format:** conference cut, ~15–20 minutes, **24 slides** (21 content + 2 act dividers + title)
-**Status:** rebuilt, rendered and verified 2026-07-28 — Tiers B, B′, S and A/A′/C all pass; both
-`beautiful-deck full` Agent audits run (reports in `notes/monitoring-local-development/`).
+**Format:** conference cut, **20 minutes**, **30 sections** — 22 on the linear path (18 content
++ 3 act dividers + title) and 8 in an appendix that sits after the Thank-you slide.
+**Status:** re-cut for a 20-minute international conference 2026-09-12 — Tiers B, B′, S and the
+snapshot check all pass; every slide measured in-browser at 720px, none overflows. Tier A/A′/C did
+not run this round (`uv sync --extra qa` cannot build llvmlite under Python 3.14 on this machine);
+the overflow sweep was done directly in Chrome instead. Earlier: rebuilt and audited 2026-07-28,
+both `beautiful-deck full` Agent audits run (reports in `notes/monitoring-local-development/`).
 **Built with:** `/project:beautiful-deck full` · `nightlight` preset, **inverted to dark**
 **Supersedes:** `legacy/visible-from-space-conference-20260719/`
 
@@ -21,10 +25,16 @@ this file is a bug.
 
 ## Audience triage
 
-Conference (applied economics / development / geospatial). **Logos 55 · Ethos 30 · Pathos 15.**
-Assume the room knows cross-validation and Moran's I but not AlphaEarth, not the Bolivian SDG
-atlas, and not why aggregation choice matters. No code on slides. One running example —
-**poverty (SDG 1)** — carried from prediction through the range to the cluster map.
+International conference, **applied and development economists**. **Logos 55 · Ethos 30 ·
+Pathos 15.** Assume the room knows cross-validation and reads a regression table, but knows
+**nothing** about satellite embeddings, nothing about the Bolivian SDG atlas, and does not yet see
+why aggregation choice matters. That assumption is what the four *How we measure it* slides exist
+for — the 2026-07-28 cut assumed a geospatial room and asserted the data construction instead of
+explaining it. No code on slides. One running example — **poverty (SDG 1)** — carried from
+prediction through the range to the cluster map.
+
+**Bullet rule, binding.** One sentence or one phrase per bullet. Never two sentences. A bullet that
+needs a second sentence is either two bullets or a speaker note.
 
 ## Acronym policy
 
@@ -38,62 +48,147 @@ embeddings*, *department transfer* (`code/labels.py` treats the acronyms as reti
 ## The arc
 
 Two acts, mirroring the manuscript. The paper's abstract, introduction and conclusion all run
-**predict → monitor**, with two findings in each half, and the deck now runs the same way. Slide
-numbers are the ones reveal.js shows.
+**predict → monitor**, and the deck runs the same way. What the 2026-09-12 cut adds in front of
+them is a third block, *How we measure it*, because an economics room cannot judge the results
+until it knows what the outcome variable is and what an embedding is.
 
-### Opening (1–4)
+Slide numbers are the ones reveal.js shows, counted over all 30 sections.
+
+### Opening (1–3)
 
 | # | Archetype | Assertion title | Carries |
 |---|---|---|---|
 | 1 | Title | *Predicting and monitoring local development from outer space* | Subtitle *Evidence from the Bolivian municipalities*, over the full-bleed orbital background. No date — the talk is reused across venues |
-| 2 | Bullets + quote | **Where development data is scarcest, it is needed most** | A census is a snapshot, not a series; 339 municipalities. Names no census year — see *Design decisions* below |
-| 3 | Figure `fig-data-layers.png` | **Lights, landscape, and people: three ways to see Bolivia** | All three data layers on one frame. The lights being dark exactly where the embeddings are richest is visible at a glance; the population panel plants the weighting turn |
-| 2 | | | *(continued)* The mayor with no current poverty number opens the slide, not the note — it is the deck's one human image and its whole pathos budget |
-| 4 | Two-column | **Development is visible from space — but which dimensions?** | Left: 64 numbers per patch, learned with *no* socioeconomic labels; the lights add eight bands. Right: 15 indices from 62 indicators, the two questions the two acts answer, the learner, and the honesty rule — which carries the slide's bold, not the optimizer |
+| 2 | Bullets + quote | **Where development data is scarcest, it is needed most** | The mayor with no current poverty number — the deck's one human image and its whole pathos budget. A census is a snapshot, not a series; 339 municipalities. Names no census year, see *Design decisions* |
+| 3 | Incremental | **Two questions, and they are not the same question** | Read vs map, stated as the two things the two acts answer. Replaces the old two-column slide 4, whose left half is now slides 5–7 and whose right half is this |
 
-### Act I — *Can satellites read development?* (divider 5; content 6–14)
+### Block 0 — *How we measure it* (divider 4; content 5–9) — **new in the 2026-09-12 cut**
 
 | # | Archetype | Assertion title | Carries |
 |---|---|---|---|
-| 5 | Divider (full-bleed) | *Can satellites read development?* | Kicker: **Part one · Prediction** |
-| 6 | Figure `fig-nasa-viirs.jpg` | **Nighttime lights offer an opportunity to measure local development** | NASA Black Marble global context. Luminosity is an established proxy, but darkness is ambiguous |
-| 7 | Figure `fig-dte-alphaearth.png` | **Daytime embeddings: a new way to measure local development** | Conceptual six-tile workflow. Explicitly illustrative, not a map or a development score. The title says *daytime embeddings*, not "satellite embeddings" — the retired name had survived here alone |
-| 8 | Figure `fig-pipeline.svg` | **A satellite sees pixels; an index describes a municipality** | **New.** The pixel-to-municipality bridge, and the aggregation fork that slides 10–12 then cash in |
-| 9 | Incremental (`.vcenter`) | **What a goal is made of decides if satellites see it** | Things you can see vs things you cannot. Stated *before* the evidence, as a claim to be tested |
-| 10 | Figure `fig-r2-master-simple.svg` | **On the raw average, the lights win the goals we care about most** | Fifteen goals, **simple municipal mean**. The lights lead on poverty (0.52 vs 0.38) and energy (0.51 vs 0.32); the embeddings lead 8 of 15 overall, which is why the title claims the two goals rather than the scoreboard |
-| 11 | Quote + figure `fig-data-layers.png` (`.figure-with-quote`) | **Most of a municipality is empty — weight where people live** | The methodological turn. Weighting lifts the embeddings 0.29 → 0.41; the lights slip 0.25 → 0.22. **Quote above the figure**, so the claim can never be pushed off the bottom by the image |
-| 12 | Figure `fig-r2-master.svg` | **Weight where people live, and the embeddings pull ahead** | Same fifteen goals, same axis as slide 10, now **population-weighted**. 8 → 14, with the source line conceding that the lead clears fold noise on only 5 of the 15 |
-| 13 | Incremental (`.vcenter`) | **The contribution is not one number — it is a map of legibility** | The verdict on slide 9's claim: physical goals 0.69/0.63/0.63/0.58; social goals −0.05/0.27/0.28; Reduced Inequalities the best-read *of* the social goals at 0.57; and Life on Land at 0.10 as the goal weighting **costs** us |
-| 14 | Figure `fig-legibility-clustering.svg` | **Legibility has a spatial signature** | **New.** The hinge into Act II: the goals that cluster most are the goals the imagery reads, ρ = 0.67. Carries the paper's own hedge — an observation, not a result |
+| 4 | Divider (full-bleed) | *How we measure it* | Kicker: **The data and the method, in four slides** |
+| 5 | `.chain` + bullets | **What we predict is not satellite data** | **New.** The outcome variable, said out loud: 62 census and administrative indicators → 15 goal indices → one value per municipality. The single most easily misheard thing in the talk. Also plants the bound on circularity (two of 62 come from space) |
+| 6 | Figure `fig-nasa-viirs.jpg` | **Nighttime lights: the proxy economists already know** | NASA Black Marble global context. Retitled to name the audience's existing knowledge rather than announce an opportunity |
+| 7 | Bullets + figure `fig-dte-alphaearth.png` (`.figure-with-quote`) | **A satellite embedding: one year of images, summarised** | **Rewritten.** Absorbs the old slide 7. The three bullets are the explainer; the middle one — *think of it as a fixed-effect vector for a place* — is the analogy that lands for this room |
+| 8 | Quote + figure `fig-pipeline.svg` (`.figure-lede`) | **From pixels to municipalities** | The pixel-to-municipality bridge and the aggregation fork that slides 11–13 cash in. Kicker dropped and the quote cut to one line so the chart clears 430px and its internal labels are readable from the back |
+| 9 | `.cards` + bullets | **How we test: out of sample, two ways** | **New.** Random folds vs department transfer, side by side, so the reader already knows what two bounds mean before slide 18 shows them. Ends on *no place ever helps predict itself* |
 
-### Act II — *Which goals can we map — and how well?* (divider 15; content 16–22)
+### Act I — *Can satellites read development?* (divider 10; content 11–15)
 
 | # | Archetype | Assertion title | Carries |
 |---|---|---|---|
-| 15 | Divider (full-bleed) | *Which goals can we map — and how well?* | Kicker: **Part two · Monitoring**. The divider used to ask *"Can we draw the map?"* and was then followed by three R² charts before the first map arrived — a promise the act broke for three minutes. It now asks the question slides 16–18 actually answer |
-| 16 | Stat card + list | **Together, the two views read poverty best of all** | `0.72` in a stat card labelled *the upper bound of a 0.54–0.72 range*, so the headline number carries its scope limit in the same breath. 64 + 8 features, one consistent weighting. Three goals pass 0.60; Zero Hunger is the 0.59 near miss |
-| 17 | Figure `fig-combined-range.svg` | **How you test decides what you get: 0.54 to 0.72** | The estimation range for all fifteen goals. The gap is the reach of spatial autocorrelation, and it cuts both ways |
-| 18 | Figure `fig-transfer-floor.svg` | **Under the hard test, only the fusion never collapses** | **New.** The deck's only evidence that combining beats *both* singles — and at the lower bound, the regime not flattered by leakage. The title claims what the figure shows: on climate action the fusion is a hair behind the embeddings alone, while the lights collapse to −0.28 |
-| 19 | Figure `fig-views-lisa-sdg1.png` | **The combined view recovers the geography of poverty** | Agreement 77 / 78 / 80; hot-coldspots 53 / 80 / 75 of 104; Moran's *I* actual 0.50, lights 0.33, embeddings 0.60, combined 0.50. Every panel header now prints all three, because when it printed only the hot/coldspot share the figure appeared to **refute its own title** — see *Audit fixes* below |
-| 20 | Figure `fig-views-lisa-sdg7.png` | **Clean energy: the lights read the level, not the pattern** | The sharpest illustration that prediction ≠ monitoring: lights reach *r* = 0.73 on the level but place only 49% of the 91 hot/coldspots. Embeddings lift to 83% / 75%, combined 82% / 70% |
-| 21 | Figure `fig-views-lisa-sdg13.png` | **Climate action: it finds the clusters — and overstates them** | Best recovery of the three (combined 92%, embeddings 91% of 124) — but Moran's *I* 0.84 and 0.81 against an actual 0.65, and neither embedding view recovers any of the six spatial outliers |
-| 22 | Devil's advocate (`.incremental`) | **The lead is real, but smaller than it looks** | Five objections, revealed one at a time. See *Reversals* below — this slide's fifth bullet was factually wrong before this round |
+| 10 | Divider (full-bleed) | *Can satellites read development?* | Kicker: **Part one · Prediction** |
+| 11 | Figure `fig-r2-master-simple.svg` | **On the raw average, the lights win the headline goals** | Fifteen goals, **simple municipal mean**. The lights lead on poverty (0.52 vs 0.38) and energy (0.51 vs 0.32); the embeddings lead 8 of 15. Title shortened to one line — at 62 characters it wrapped and pushed the source caption onto the footer |
+| 12 | Quote + figure `fig-data-layers.png` (`.figure-with-quote`) | **Most land is empty — weight where people live** | The methodological turn. Weighting lifts the embeddings 0.29 → 0.41; the lights slip 0.25 → 0.22. **Quote above the figure**, so the claim can never be pushed off the bottom by the image |
+| 13 | Figure `fig-r2-master.svg` | **Weight where people live — the embeddings pull ahead** | Same fifteen goals, same axis as slide 11, now **population-weighted**. 8 → 14, with the source line conceding the lead clears fold noise on only 5 of the 15 |
+| 14 | Incremental (`.vcenter`) | **What a goal is made of decides whether satellites see it** | **Merged** from the old slides 9 and 13: the claim and its evidence in one beat. Carries two numbers only — poverty 0.69 and institutions −0.05. The other seven values moved to appendix slide 26 |
+| 15 | Figure `fig-legibility-clustering.svg` | **Legibility has a spatial signature** | The hinge into Act II: the goals that cluster most are the goals the imagery reads, ρ = 0.67. Carries the paper's own hedge — an observation, not a result |
 
-### Close (23–24)
+### Act II — *Which goals can we map — and how well?* (divider 16; content 17–20)
 
 | # | Archetype | Assertion title | Carries |
 |---|---|---|---|
-| 23 | Closing (full-bleed) | **Satellites see the material geography of development** | The decision first — let imagery carry the legible goals between survey rounds, spend survey money on the rest — then the limit. Says *justice stays invisible, health and gender barely register*, because at 0.27 and 0.28 those two are weakly read, not invisible. A source line marks the forward step as a **projection, not a measurement** |
-| 24 | Sign-off (full-bleed, centred) | **Thank you** | `carlos-mendez.org` |
+| 16 | Divider (full-bleed) | *Which goals can we map — and how well?* | Kicker: **Part two · Monitoring** |
+| 17 | Stat card + bullets | **Together, the two views read poverty best of all** | `0.72` in a stat card labelled *the upper bound of a 0.54–0.72 range*, so the headline number carries its scope limit in the same breath. 64 + 8 features, one consistent weighting. Three goals pass 0.60; Zero Hunger is the 0.59 near miss, in the notes |
+| 18 | Figure `fig-combined-range.svg` | **How you test decides what you get: 0.54 to 0.72** | The estimation range for all fifteen goals. The gap is the reach of spatial autocorrelation, and it cuts both ways. Slide 9 has already taught the two protocols, so this slide no longer has to |
+| 19 | Figure `fig-transfer-floor.svg` | **Under the hard test, only the fusion never collapses** | The deck's only evidence that combining beats *both* singles — and at the lower bound. On climate action the fusion is a hair behind the embeddings alone, while the lights collapse to −0.28 |
+| 20 | Figure `fig-views-lisa-sdg1.png` | **The combined view recovers the geography of poverty** | Agreement 77 / 78 / 80; hot-coldspots 53 / 80 / 75 of 104; Moran's *I* actual 0.50, lights 0.33, embeddings 0.60, combined 0.50. Every panel header prints all three — see *Audit fixes* |
 
-**If it runs long,** slide 20 (clean energy) is the first cut: it is the goal where nighttime lights
-alone nearly suffice, so it carries the least new information, and cutting it keeps the poverty
-worked example and the climate contrast that makes the argument. Slide 8 (the pipeline) is second.
-**Never cut 14 or 18** — they are the two beats that make the fusion argument.
+### Close (21–22)
+
+| # | Archetype | Assertion title | Carries |
+|---|---|---|---|
+| 21 | Closing (full-bleed) | **Satellites see the material geography of development** | The decision first — let imagery carry the legible goals between survey rounds, spend survey money on the rest — then the limit. Three one-sentence paragraphs instead of the old two long ones. A source line marks the forward step as a **projection, not a measurement** |
+| 22 | Sign-off (full-bleed, centred) | **Thank you** | `carlos-mendez.org` |
+
+### Appendix (divider 23; content 24–30) — **new in the 2026-09-12 cut**
+
+Not part of the twenty minutes. Reached with the right arrow from *Thank you*, or by pressing `M`
+and jumping straight to the slide a questioner is asking about.
+
+| # | Archetype | Assertion title | Carries |
+|---|---|---|---|
+| 23 | Divider (full-bleed) | *Appendix* | Kicker: **Backup slides · not part of the twenty minutes** |
+| 24 | Incremental | **Objections, answered — one of two** | The first three of the old slide 22's five objections. Split across two slides so each bullet is an objection plus a single-clause answer rather than two sentences |
+| 25 | Incremental | **Objections, answered — two of two** | Circularity and "combining always wins?", plus the bounded-circularity count. Carries the long note the old slide 22 carried |
+| 26 | Bullets (`.vcenter`) | **The full legibility ladder** | The seven R² values cut from slide 14: 0.63 / 0.63 / 0.58 read well, 0.27 / 0.28 barely, Reduced Inequalities 0.57 the best-read social goal, Life on Land 0.10 the goal weighting **costs** us |
+| 27 | Figure `fig-views-lisa-sdg7.png` | **Clean energy: the lights read the level, not the pattern** | Was slide 20. Lights reach *r* = 0.73 on the level but place only 49% of the 91 hot/coldspots. Embeddings lift to 83% / 75%, combined 82% / 70% |
+| 28 | Figure `fig-views-lisa-sdg13.png` | **Climate action: it finds the clusters — and overstates them** | Was slide 21. Best recovery of the three (combined 92%, embeddings 91% of 124) — but Moran's *I* 0.84 and 0.81 against an actual 0.65, and neither embedding view recovers any of the six spatial outliers |
+| 29 | Figure `fig-data-layers.png` | **Lights, landscape, and people: three ways to see Bolivia** | Was slide 3. The three-layer frame, kept for the "what does an embedding map look like?" question. The figure is still inlined twice (here and on slide 12) — that duplication is ~3.6 MB of the 21 MB artifact and is deliberate |
+| 30 | Bullets (`.vcenter`) | **How the estimate is produced** | **New.** Random forest, Optuna TPE, nested CV, and the mean-of-per-fold-R² convention — the methods detail slide 9 deliberately does not carry |
+
+**If it runs long,** slide 6 (the NASA lights context) is the first cut: it is the one slide whose
+content this audience already knows, and it carries no result. Slide 8 (the pipeline) is second.
+**Never cut 15 or 19** — they are the two beats that make the fusion argument. **Never cut 5, 7 or
+9** — they are why this cut exists.
+
+---
+
+## What changed on 2026-09-12, and why
+
+The 2026-07-28 deck was written for a room that already knew what a satellite raster was. This cut
+is for applied economists in a hard 20-minute slot, and three things had to change.
+
+**1. The data and the method got their own block (slides 4–9).** Three explanations the old deck
+either skipped or compressed into a bridge:
+
+- *What we predict is not satellite data* (5) — the outcome variable is an official index built
+  from 62 census and administrative indicators. The old deck said this in half a bullet inside a
+  two-column slide. For this audience it is the first thing that has to be true.
+- *A satellite embedding: one year of images, summarised* (7) — the old slide 7 showed the
+  AlphaEarth workflow figure and left the viewer to infer what an embedding is. It now says it, and
+  offers the fixed-effect analogy.
+- *How we test: out of sample, two ways* (9) — the two bounds used to be explained for the first
+  time in slide 17's speaker notes, three slides after the deck started quoting both of them.
+
+Slides 5 and 9 are **HTML/CSS in the `.qmd`**, using the new `.chain` and `.cards` primitives in
+`theme.scss`. No new figure script, and no new number: every value on them was already declared.
+
+**2. Eight slides left the linear path, none was deleted.** The devil's advocate slide, the clean
+energy and climate action cluster maps, and the three-layer opener all moved to the appendix, where
+`M` reaches them in one keystroke during questions. Old slides 9 and 13 merged into slide 14.
+
+**3. Every bullet is now one sentence or one phrase.** The old slides 2, 4 and 22 each carried
+bullets of two full sentences. Slide 22 was also the deck's only Tier B overflow flag (541 body
+chars against a 480 heuristic); split across appendix slides 24 and 25, that flag is gone and
+`_qa_checks.py` now reports **0 overflow-risk slides**.
+
+Consequential smaller fixes, each measured rather than guessed:
+
+- **Three titles shortened.** *On the raw average…*, *Most of a municipality is empty…* and *Weight
+  where people live, and…* each wrapped to two lines at 34px, which pushed their `.source` caption
+  onto the footer band — 738px measured against a 720px slide. Shortened, all three fit.
+- **`.figure-lede` added to `theme.scss`.** The pipeline chart was capped at 340px by
+  `.figure-with-quote` and its internal labels were unreadable at distance; removing the cap pushed
+  its lowest box under the footer. 430px is the measured fit for title + one-line quote + footer.
+- **Speaker notes rewritten**, 2,586 → **1,696 words** on the linear path, about 12 minutes of pure
+  speech, leaving roughly 8 for pauses, figure walks and the walk-on. This was the one open action
+  item the 2026-07-28 outline flagged and did not close. The appendix carries a further 787 words
+  that are Q&A material, not spoken.
+- **`numbers.toml` `claim` labels renumbered** to the 30-section deck. They are documentation only —
+  Tier S matches on the bare token, deck-wide — but they are the map a reviewer uses.
+
+### Not done, deliberately
+
+- **No figure was regenerated.** `fig-pipeline.svg` is the one figure that is genuinely too dense
+  for this audience and it was the plan's candidate for simplification, but `uv sync` cannot build
+  `llvmlite` under Python 3.14 on this machine, so matplotlib is unavailable and rule 1 forbids
+  `pip install`. The slide was fixed by layout instead. `fig-r2-master*.svg` and
+  `fig-legibility-clustering.svg` also carry fifteen labelled goals each and are dense — but both
+  *are* the result, and thinning them risks the claim. Flagged, not changed.
+- **`.vcenter` was left inert.** Reveal's own `section { display: block }` outranks the theme's
+  `.reveal .slide.vcenter { display: flex }`, so slides carrying that class are top-aligned like
+  every other slide. Making it work would restyle slides the author has already approved, and the
+  deck's void is closed by the footer band and the surfaces, not by re-centring — see
+  `theme.scss` lines 74–78.
 
 ---
 
 ## What changed on 2026-07-28, and why
+
+> **Slide numbers below, and in every section after this one, are the 2026-07-28 deck's 24-slide
+> numbering.** They are left as they were written rather than renumbered, because the reasoning is
+> about what was decided at the time. The *arc* table above is the current map.
 
 The deck was last touched 2026-07-20; `index.qmd` was last edited 2026-07-28. The manuscript moved
 underneath it in four ways.
@@ -203,7 +298,9 @@ Full reports: `notes/monitoring-local-development/monitoring-local-development_{
 
 ## Figures
 
-Twelve figures on slides, from ten scripts. Three are new this round.
+Twelve figures on slides, from ten scripts. **No figure changed in the 2026-09-12 cut** — only
+which slide each one sits on. See *Not done, deliberately* above for why `fig-pipeline.svg` was not
+simplified even though it is the one that most needed it.
 
 ```bash
 uv run python scripts/fig-r2-master.py  simple    # -> figures/fig-r2-master-simple.svg (raw)
@@ -213,16 +310,16 @@ uv run python scripts/fig-views-lisa.py sdg13     # -> figures/fig-views-lisa-sd
 | Slide | File | Source |
 |---|---|---|
 | 1 | `fig-title-orbital-monitoring.png` | Generated cover art, set as the background in `title-slide.html`; provenance in `figures/README.md` |
-| 3, 11 | `fig-data-layers.png` | All three rasters on one shared bbox via `scripts/_rasters.py`: VIIRS band `average` (gitignored ~118 MB, HF-mirrored), the **committed 11 MB** embeddings PCA composite, and the committed GHS-POP grid |
+| 12, 29 | `fig-data-layers.png` | All three rasters on one shared bbox via `scripts/_rasters.py`: VIIRS band `average` (gitignored ~118 MB, HF-mirrored), the **committed 11 MB** embeddings PCA composite, and the committed GHS-POP grid |
 | 6 | `fig-nasa-viirs.jpg` | NASA Earth at Night / Black Marble; broad visual context, not the study raster |
 | 7 | `fig-dte-alphaearth.png` | Built-in image-generation workflow graphic; prompt, scientific-status disclosure and alt text in `figures/README.md` |
-| **8** | **`fig-pipeline.svg`** | **New.** `scripts/fig-pipeline.py` — no data reads; a hand-laid flow chart |
-| 10 | `fig-r2-master-simple.svg` | `tables/tbl-popweighting-master.csv`, the **simple-mean** columns |
-| 12 | `fig-r2-master.svg` | Same table, the **pop-weighted** columns. Shares slide 10's goal order and x-axis so the two read as a before/after pair |
-| **14** | **`fig-legibility-clustering.svg`** | **New.** `tables/tbl-outcomes-descriptives.csv` (`Moran's I`) ⋈ `tables/tbl-popweighting-master.csv` (`R² daytime embeddings (pop-weighted)`) on `Goal index` |
-| 17 | `fig-combined-range.svg` | `tbl-mon-comprehensive.csv` (lower) ⋈ `tbl-mon-featureset-comparison.csv` `Combined (pop-weighted)` (upper) |
-| **18** | **`fig-transfer-floor.svg`** | **New.** `tables/tbl-views-lodo.csv` (lights, embeddings) + `tables/tbl-mon-comprehensive.csv` (combined) |
-| 19, 20, 21 | `fig-views-lisa-sdg{1,7,13}.png` | `data/predictions/sdg{1,7,13}_fourview_2017.csv`, exported by `scripts/_fourview.py` from `.notebook-cache/sdg*_{ntlw8,weighted,combow}.pkl` key `oof_pred`. **Queen contiguity** via `code/spatial_weights.queen_repaired`, `Moran_Local(permutations=999, seed=12345)`, p < 0.05 |
+| 8 | `fig-pipeline.svg` | `scripts/fig-pipeline.py` — no data reads; a hand-laid flow chart. Shown under `.figure-lede` (430px), not `.figure-with-quote` (340px), so its internal labels survive projection |
+| 11 | `fig-r2-master-simple.svg` | `tables/tbl-popweighting-master.csv`, the **simple-mean** columns |
+| 13 | `fig-r2-master.svg` | Same table, the **pop-weighted** columns. Shares slide 11's goal order and x-axis so the two read as a before/after pair |
+| 15 | `fig-legibility-clustering.svg` | `tables/tbl-outcomes-descriptives.csv` (`Moran's I`) ⋈ `tables/tbl-popweighting-master.csv` (`R² daytime embeddings (pop-weighted)`) on `Goal index` |
+| 18 | `fig-combined-range.svg` | `tbl-mon-comprehensive.csv` (lower) ⋈ `tbl-mon-featureset-comparison.csv` `Combined (pop-weighted)` (upper) |
+| 19 | `fig-transfer-floor.svg` | `tables/tbl-views-lodo.csv` (lights, embeddings) + `tables/tbl-mon-comprehensive.csv` (combined) |
+| 20, 27, 28 | `fig-views-lisa-sdg{1,7,13}.png` | `data/predictions/sdg{1,7,13}_fourview_2017.csv`, exported by `scripts/_fourview.py` from `.notebook-cache/sdg*_{ntlw8,weighted,combow}.pkl` key `oof_pred`. **Queen contiguity** via `code/spatial_weights.queen_repaired`, `Moran_Local(permutations=999, seed=12345)`, p < 0.05 |
 
 **Retired but kept on disk:** `fig-popweighting-flip.svg`, the three `fig-views-choropleth-sdg*.png`
 levels maps, and the three single-layer rasters (`fig-{ntl,emb,pop}-raster.png`) with their thin
@@ -304,27 +401,32 @@ Carried forward from earlier rounds; each was arrived at the hard way.
 ## Verification
 
 ```bash
-uv run python slides/monitoring-local-development/scripts/_qa_checks.py     slides/monitoring-local-development
-uv run python slides/monitoring-local-development/scripts/_html_checks.py   slides/monitoring-local-development
-uv run python slides/monitoring-local-development/scripts/_source_checks.py slides/monitoring-local-development
-uv run --with playwright python slides/monitoring-local-development/scripts/_browser_checks.py \
-    slides/monitoring-local-development all
+quarto render monitoring-local-development.qmd
+uv run python scripts/_source_checks.py .                  # Tier S  — gates
+uv run python scripts/_html_checks.py .                    # Tier B′ — gates
+uv run python scripts/_qa_checks.py .                      # Tier B  — diagnostic
+uv run python scripts/_sync_check.py .                     # snapshot intact
+uv run --extra qa python scripts/_browser_checks.py . all  # Tiers A/A′/C — run LAST
 ```
 
-Result on 2026-07-28, after the audit fixes:
+Result on 2026-09-12, after the conference re-cut:
 
 | Tier | Surface | Result |
 |---|---|---|
-| B | source: contrast, figure fit, overflow, palette drift | 0 contrast failures, 0 palette drift, **1 overflow-risk slide** (22, the devil's advocate, 541 chars against a 480 heuristic — accepted, see below) |
-| B′ | rendered HTML | **PASS**, 0 failures |
-| S | every number against its declared source | **PASS**, 0 unresolved, 0 noted — all 53 numbers traced |
-| A′ / A / C | live page | 24 screenshots, an 11.1 MB PDF with backgrounds, no math to verify |
-| Rhetoric audit | arc, titles, honesty rules, claim–evidence match | PASS-WITH-FIXES → **fixes applied** |
-| Graphics audit | legibility, colour discipline, encoding honesty | PASS-WITH-FIXES → **fixes applied** |
+| B | source: contrast, figure fit, overflow, palette drift | 0 contrast failures, 0 palette drift, **0 overflow-risk slides** (was 1) |
+| B′ | rendered HTML | **PASS**, 0 failures — 34 `<section>` tags from 29 headings, 25 note blocks, 7 dividers, 14 of 14 figures inlined |
+| S | every number against its declared source | **PASS**, 0 unresolved, 0 noted — all 61 entries traced, and every number on a slide and in a speaker note accounted for |
+| Sync | frozen snapshot | **PASS** — 33 files unchanged, 15 claims frozen |
+| A′ / A / C | live page | **not run this round.** `uv sync --extra qa` cannot build `llvmlite` under Python 3.14 here, so playwright is unavailable and rule 1 forbids `pip install` |
+| In-browser sweep | every section measured at 720px with all fragments revealed | **0 slides overflow** — this stood in for Tier C |
 
-**The one accepted flag.** Slide 22 is the steel-man, and it is bullet-heavy by design: five
-objections revealed one at a time by `.incremental`, so the room never sees 541 characters at once.
-It was trimmed from 737 this round. The same slide carried this flag in the previous deck.
+**How the sweep was done,** since it is the substitute for the screenshots and worth repeating:
+serve the rendered `index.html` over `python3 -m http.server`, then walk `Reveal.slide(h, v)` across
+every section, force `.fragment` elements visible, and compare `scrollHeight` against 720. Three
+slides failed it at 738px on the first pass — all three because a long title wrapped to two lines
+and pushed the `.source` caption onto the footer band. That is a defect the static heuristic in
+`_qa_checks.py` cannot see, and it is the same class of defect the 2026-07-28 round needed
+screenshots to find.
 
 ⚠ **Run the screenshots LAST.** The graphics audit caught the `_qa/` PNGs having been written four
 minutes before two of the three new figures were last regenerated, so it was reviewing a build that

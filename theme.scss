@@ -275,6 +275,79 @@ $divider-dark: $bg-deep;
 .reveal .slide.vcenter { display: flex; flex-direction: column; justify-content: center; height: 100%; }
 
 // ====================================================================
+//  EXPLAINER PRIMITIVES — .chain and .cards
+//  Added for the 20-minute conference cut, whose audience is applied economists rather than
+//  remote-sensing people. Three slides now have to EXPLAIN rather than assert (what the outcome
+//  variable is, what an embedding is, how the model is tested), and prose bullets were the wrong
+//  instrument for all three: a chain of steps and a two-panel comparison are shapes, and a shape is
+//  read before it is parsed.
+//
+//  NO NEW COLOURS. Every declaration below resolves to a variable already in the palette block, so
+//  _palette.py does not move and the drift check has nothing new to compare. If you ever need a
+//  colour here that is not already above, change BOTH files (CLAUDE.md rule 7) — do not inline a hex.
+// ====================================================================
+
+// A vertical sequence of steps with connectors. Used on the outcome-variable slide, where the point
+// is the DIRECTION of construction (indicators -> indices -> municipalities) and not the wording of
+// any one step.
+.reveal .slide .chain {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  margin: 0.2em 0;
+}
+.reveal .slide .chain-step {
+  background: $surface;
+  border: 1px solid rgba($accent, 0.20);
+  border-radius: 12px;
+  padding: 0.42em 0.7em;
+  font-size: 0.78em;
+  line-height: 1.3;
+  color: $ink;
+}
+// The connector is ornament: it must be visible without competing with the steps it joins, hence
+// $accent-dim (the deck's declared ornament colour) rather than $accent.
+.reveal .slide .chain-arrow {
+  color: $accent-dim;
+  font-size: 0.8em;
+  line-height: 1.0;
+  text-align: center;
+  margin: 0.12em 0;
+  user-select: none;
+}
+
+// Two panels side by side, for a contrast the audience must hold simultaneously rather than in
+// sequence — the two test protocols. Grid rather than .columns because the panels must share a
+// baseline and an equal height regardless of which carries more text.
+.reveal .slide .cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.55em;
+  margin: 0.35em 0 0.45em;
+}
+.reveal .slide .card {
+  background: $surface;
+  border: 1px solid rgba($accent, 0.20);
+  border-radius: 14px;
+  padding: 0.6em 0.75em 0.7em;
+  box-shadow: 0 10px 30px rgba(3, 8, 18, 0.35);
+}
+.reveal .slide .card .card-head {
+  display: block;
+  color: $accent;
+  font-weight: 700;
+  font-size: 0.62em;
+  text-transform: uppercase;
+  letter-spacing: 0.11em;
+  margin-bottom: 0.5em;
+}
+.reveal .slide .card ul { margin: 0; }
+.reveal .slide .card li { font-size: 0.78em; line-height: 1.32; }
+// A .card holding one bare line of prose instead of a list still needs the list's optical size.
+.reveal .slide .card p { font-size: 0.78em; line-height: 1.32; margin: 0; }
+
+// ====================================================================
 //  TABLES
 // ====================================================================
 .reveal .slide table {
@@ -351,6 +424,16 @@ $divider-dark: $bg-deep;
 // Budget on the 720px logical canvas: a one-line title (~110px with its margin), the kicker (~40px),
 // the quote block (~150px for two lines with its padding) and the footer band (~55px) leave ~365px.
 // 340px keeps a margin for a title that wraps.
+// A figure carrying a ONE-LINE lede above it. .figure-with-quote's 340px cap assumes a kicker plus
+// a two-line pull-quote; on the pixels-to-municipalities slide that cap shrank a flow chart's
+// internal labels below reading distance, and removing the cap entirely pushed the chart's lowest
+// box under the footer band. 430px is the measured fit for title + one-line quote + footer.
+// Like .figure-with-quote this is a LANDSCAPE cap — it assumes the figure is wider than it is tall.
+.reveal .slides section.figure-lede img {
+  max-height: 430px;
+  width: auto;
+}
+
 .reveal .slides section.figure-with-quote img {
   max-height: 340px;
 }

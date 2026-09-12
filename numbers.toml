@@ -40,6 +40,12 @@
 # scanned as its positive token: the slide's "-0.05" is looked up as "0.05". Such entries are
 # sourced by regex with the sign left OUTSIDE the capture group.
 #
+# SLIDE NUMBERS IN `claim` ARE DOCUMENTATION ONLY, and they are counted over the whole deck as
+# reveal.js numbers it — 30 sections, of which 1-22 are the twenty-minute linear path and 23-30 are
+# the appendix that sits after the Thank-you slide. Nothing parses them; Tier S matches on the bare
+# TOKEN, deck-wide. They were last renumbered for the 2026-09-12 conference cut, so if you reorder
+# slides again they go stale silently — they are a map for a human reader, not a binding.
+#
 # COLLISIONS ARE DECLARED SEPARATELY. Where two unrelated quantities round to the same token
 # (0.63, 0.64, 0.50, 0.44, 0.46, 64, 75, 77, 80, 91, 0.28), each gets its own entry, so a change in
 # either one is caught independently rather than masked by its twin.
@@ -50,28 +56,28 @@ ignore = []
 # ================================================================ counts and study design
 [[number]]
 value  = 339
-claim  = "municipalities (slides 2, 4, 8)"
+claim  = "municipalities (slides 2, 5, 8)"
 source = "claims.toml"   # frozen snapshot in sources/; ships with the deck
 frozen = "municipalities"
 pattern = '(339) municipalities'
 
 [[number]]
 value  = 15
-claim  = "goal indices in total (slides 4, 10, 12)"
+claim  = "goal indices in total (slides 5, 11, 13)"
 source = "claims.toml"   # frozen snapshot in sources/; ships with the deck
 frozen = "goal-indices"
 pattern = 'from 8 of 15 to 14 of (15)'
 
 [[number]]
 value  = 62
-claim  = "component indicators behind the indices (slides 4, 22 notes)"
+claim  = "component indicators behind the indices (slides 5, 25)"
 source = "claims.toml"   # frozen snapshot in sources/; ships with the deck
 frozen = "component-indicators"
 pattern = '(62) indicators'
 
 [[number]]
 value  = 64
-claim  = "embedding dimensions per patch (slides 4, 8, 16)"
+claim  = "embedding dimensions per patch (slides 7, 8, 17)"
 source = "claims.toml"   # frozen snapshot in sources/; ships with the deck
 frozen = "embedding-dimensions"
 pattern = 'the (64)-dimensional'
@@ -79,7 +85,7 @@ pattern = 'the (64)-dimensional'
 # ============================================================= the population-weighting effect
 [[number]]
 value  = 0.29
-claim  = "daytime embeddings mean, simple average (slide 11)"
+claim  = "daytime embeddings mean, simple average (slide 12)"
 source = "tables/tbl-popweighting-master.csv"
 row    = "All 15 goal indices (mean)"
 col    = "R² daytime embeddings (simple)"
@@ -87,7 +93,7 @@ round  = 2
 
 [[number]]
 value  = 0.41
-claim  = "daytime embeddings mean, population-weighted (slide 11)"
+claim  = "daytime embeddings mean, population-weighted (slide 12)"
 source = "tables/tbl-popweighting-master.csv"
 row    = "All 15 goal indices (mean)"
 col    = "R² daytime embeddings (pop-weighted)"
@@ -98,14 +104,14 @@ round  = 2
 # rather than to the cell — this is the trap described at the head of this file.
 [[number]]
 value  = 0.25
-claim  = "nighttime lights mean, simple average (slide 11) — 0.255 in the table, 0.25 in the paper"
+claim  = "nighttime lights mean, simple average (slide 12) — 0.255 in the table, 0.25 in the paper"
 source = "claims.toml"   # frozen snapshot in sources/; ships with the deck
 frozen = "ntl-mean-simple"
 pattern = 'from about (0\.25) to 0\.22'
 
 [[number]]
 value  = 0.22
-claim  = "nighttime lights mean, population-weighted (slide 11)"
+claim  = "nighttime lights mean, population-weighted (slide 12)"
 source = "tables/tbl-popweighting-master.csv"
 row    = "All 15 goal indices (mean)"
 col    = "R² nighttime lights (pop-weighted)"
@@ -113,7 +119,7 @@ round  = 2
 
 [[number]]
 value  = 14
-claim  = "goals where the embeddings lead once population-weighted (slide 12)"
+claim  = "goals where the embeddings lead once population-weighted (slides 13, 24)"
 source = "claims.toml"   # frozen snapshot in sources/; ships with the deck
 frozen = "goals-embeddings-lead-popw"
 pattern = 'from 8 of 15 to (14) of 15'
@@ -121,7 +127,7 @@ pattern = 'from 8 of 15 to (14) of 15'
 # ================================================ the simple-mean starting point (slide 10 notes)
 [[number]]
 value  = 0.52
-claim  = "poverty, nighttime lights, simple mean (slide 10 notes)"
+claim  = "poverty, nighttime lights, simple mean (slide 11 notes)"
 source = "tables/tbl-popweighting-master.csv"
 row    = "Poverty (SDG 1)"
 col    = "R² nighttime lights (simple)"
@@ -129,7 +135,7 @@ round  = 2
 
 [[number]]
 value  = 0.38
-claim  = "poverty, daytime embeddings, simple mean (slide 10 notes)"
+claim  = "poverty, daytime embeddings, simple mean (slide 11 notes)"
 source = "tables/tbl-popweighting-master.csv"
 row    = "Poverty (SDG 1)"
 col    = "R² daytime embeddings (simple)"
@@ -137,7 +143,7 @@ round  = 2
 
 [[number]]
 value  = 0.51
-claim  = "clean energy, nighttime lights, simple mean (slide 10 notes)"
+claim  = "clean energy, nighttime lights, simple mean (slide 11 notes)"
 source = "tables/tbl-popweighting-master.csv"
 row    = "Energy (SDG 7)"
 col    = "R² nighttime lights (simple)"
@@ -145,7 +151,7 @@ round  = 2
 
 [[number]]
 value  = 0.32
-claim  = "clean energy, daytime embeddings, simple mean (slide 10 notes)"
+claim  = "clean energy, daytime embeddings, simple mean (slide 11 notes)"
 source = "tables/tbl-popweighting-master.csv"
 row    = "Energy (SDG 7)"
 col    = "R² daytime embeddings (simple)"
@@ -154,7 +160,7 @@ round  = 2
 # ==================================================== the legibility gradient (slides 13 and 14)
 [[number]]
 value  = 0.69
-claim  = "poverty, population-weighted embeddings (slide 13)"
+claim  = "poverty, population-weighted embeddings (slides 14, 26)"
 source = "tables/tbl-popweighting-master.csv"
 row    = "Poverty (SDG 1)"
 col    = "R² daytime embeddings (pop-weighted)"
@@ -162,7 +168,7 @@ round  = 2
 
 [[number]]
 value  = 0.63
-claim  = "clean energy, population-weighted embeddings (slide 13)"
+claim  = "clean energy, population-weighted embeddings (slide 26)"
 source = "tables/tbl-popweighting-master.csv"
 row    = "Energy (SDG 7)"
 col    = "R² daytime embeddings (pop-weighted)"
@@ -172,7 +178,7 @@ round  = 2
 # either goal is caught on its own.
 [[number]]
 value  = 0.63
-claim  = "climate action, population-weighted embeddings (slide 13)"
+claim  = "climate action, population-weighted embeddings (slide 26)"
 source = "tables/tbl-popweighting-master.csv"
 row    = "Climate (SDG 13)"
 col    = "R² daytime embeddings (pop-weighted)"
@@ -180,7 +186,7 @@ round  = 2
 
 [[number]]
 value  = 0.58
-claim  = "zero hunger, population-weighted embeddings (slide 13)"
+claim  = "zero hunger, population-weighted embeddings (slide 26)"
 source = "tables/tbl-popweighting-master.csv"
 row    = "Hunger (SDG 2)"
 col    = "R² daytime embeddings (pop-weighted)"
@@ -190,14 +196,14 @@ round  = 2
 # outside the capture group. The cell itself is -0.051.
 [[number]]
 value  = 0.05
-claim  = "institutions, population-weighted embeddings (slide 13) — negative on the slide"
+claim  = "institutions, population-weighted embeddings (slides 14, 26) — negative on the slide"
 source = "claims.toml"   # frozen snapshot in sources/; ships with the deck
 frozen = "institutions-popw-embeddings"
 pattern = 'embeddings .{0,12}-(0\.05)'
 
 [[number]]
 value  = 0.10
-claim  = "life on land, population-weighted embeddings (slide 13)"
+claim  = "life on land, population-weighted embeddings (slide 26)"
 source = "tables/tbl-popweighting-master.csv"
 row    = "Land (SDG 15)"
 col    = "R² daytime embeddings (pop-weighted)"
@@ -205,7 +211,7 @@ round  = 2
 
 [[number]]
 value  = 0.27
-claim  = "gender, population-weighted embeddings (slide 13)"
+claim  = "gender, population-weighted embeddings (slide 26)"
 source = "tables/tbl-popweighting-master.csv"
 row    = "Gender (SDG 5)"
 col    = "R² daytime embeddings (pop-weighted)"
@@ -213,7 +219,7 @@ round  = 2
 
 [[number]]
 value  = 0.28
-claim  = "health, population-weighted embeddings (slide 13)"
+claim  = "health, population-weighted embeddings (slide 26)"
 source = "tables/tbl-popweighting-master.csv"
 row    = "Health (SDG 3)"
 col    = "R² daytime embeddings (pop-weighted)"
@@ -221,7 +227,7 @@ round  = 2
 
 [[number]]
 value  = 0.57
-claim  = "reduced inequalities, population-weighted embeddings (slide 13)"
+claim  = "reduced inequalities, population-weighted embeddings (slide 26)"
 source = "tables/tbl-popweighting-master.csv"
 row    = "Inequality (SDG 10)"
 col    = "R² daytime embeddings (pop-weighted)"
@@ -229,7 +235,7 @@ round  = 2
 
 [[number]]
 value  = 0.67
-claim  = "Spearman rho, spatial clustering against legibility (slide 14 figure and notes)"
+claim  = "Spearman rho, spatial clustering against legibility (slide 15 figure and notes)"
 source = "claims.toml"   # frozen snapshot in sources/; ships with the deck
 frozen = "spearman-clustering-legibility"
 pattern = 'Spearman .{0,12}= (0\.67)'
@@ -237,7 +243,7 @@ pattern = 'Spearman .{0,12}= (0\.67)'
 # ============================================== the combined predictor and its estimation range
 [[number]]
 value  = 0.72
-claim  = "poverty, combined predictor, interpolation upper bound (slides 16, 17, 23)"
+claim  = "poverty, combined predictor, interpolation upper bound (slides 17, 18, 21)"
 source = "tables/tbl-mon-featureset-comparison.csv"
 row    = "SDG 1"
 col    = "Combined (pop-weighted)"
@@ -245,7 +251,7 @@ round  = 2
 
 [[number]]
 value  = 0.64
-claim  = "clean energy, combined predictor, upper bound (slide 16)"
+claim  = "clean energy, combined predictor, upper bound (slide 17)"
 source = "tables/tbl-mon-featureset-comparison.csv"
 row    = "SDG 7"
 col    = "Combined (pop-weighted)"
@@ -253,7 +259,7 @@ round  = 2
 
 [[number]]
 value  = 0.64
-claim  = "climate action, combined predictor, upper bound (slide 16)"
+claim  = "climate action, combined predictor, upper bound (slide 17)"
 source = "tables/tbl-mon-featureset-comparison.csv"
 row    = "SDG 13"
 col    = "Combined (pop-weighted)"
@@ -261,7 +267,7 @@ round  = 2
 
 [[number]]
 value  = 0.59
-claim  = "zero hunger, the near miss below the 0.60 bar (slide 16 notes)"
+claim  = "zero hunger, the near miss below the 0.60 bar (slide 17 notes)"
 source = "tables/tbl-mon-featureset-comparison.csv"
 row    = "SDG 2"
 col    = "Combined (pop-weighted)"
@@ -269,14 +275,14 @@ round  = 2
 
 [[number]]
 value  = 0.60
-claim  = "the bar for drawing a map in space (slides 16, 17)"
+claim  = "the bar for drawing a map in space (slides 17, 18)"
 source = "claims.toml"   # frozen snapshot in sources/; ships with the deck
 frozen = "map-drawing-bar"
 pattern = 'above \$(0\.60)\$'
 
 [[number]]
 value  = 0.54
-claim  = "poverty, combined predictor, department-transfer lower bound (slides 17, 18, 23)"
+claim  = "poverty, combined predictor, department-transfer lower bound (slides 18, 19, 21)"
 source = "tables/tbl-mon-comprehensive.csv"
 row    = "SDG 1"
 col    = "Out-of-sample R²"
@@ -284,7 +290,7 @@ round  = 2
 
 [[number]]
 value  = 0.75
-claim  = "poverty's best held-out department under transfer (slide 17 notes)"
+claim  = "poverty's best held-out department under transfer (slide 18 notes)"
 source = "claims.toml"   # frozen snapshot in sources/; ships with the deck
 frozen = "poverty-best-department"
 pattern = 'ranges from \$\+(0\.75)\$'
@@ -292,7 +298,7 @@ pattern = 'ranges from \$\+(0\.75)\$'
 # NEGATIVE, and a token shared with poverty's Moran's I below. The slide writes "minus 0.50".
 [[number]]
 value  = 0.50
-claim  = "poverty's worst held-out department under transfer (slide 17 notes) — negative"
+claim  = "poverty's worst held-out department under transfer (slide 18 notes) — negative"
 source = "claims.toml"   # frozen snapshot in sources/; ships with the deck
 frozen = "poverty-worst-department"
 pattern = 'to \$-(0\.50)\$'
@@ -300,7 +306,7 @@ pattern = 'to \$-(0\.50)\$'
 # ================================================= the transfer floors (slide 18 figure and notes)
 [[number]]
 value  = 0.44
-claim  = "poverty, daytime embeddings alone, department transfer (slide 18)"
+claim  = "poverty, daytime embeddings alone, department transfer (slide 19)"
 source = "tables/tbl-views-lodo.csv"
 row    = "SDG 1"
 col    = "R² daytime embeddings"
@@ -313,14 +319,14 @@ round  = 2
 # from the cell, because the cell would certify a number that contradicts the figure above it.
 [[number]]
 value  = 0.44
-claim  = "climate action, combined predictor, department transfer (slide 18) — 0.435 in the table"
+claim  = "climate action, combined predictor, department transfer (slide 19) — 0.435 in the table"
 source = "claims.toml"   # frozen snapshot in sources/; ships with the deck
 frozen = "climate-transfer-bound"
 pattern = 'Climate Action \((0\.44) to 0\.64\)'
 
 [[number]]
 value  = 0.46
-claim  = "clean energy, nighttime lights alone, department transfer (slide 18)"
+claim  = "clean energy, nighttime lights alone, department transfer (slide 19)"
 source = "tables/tbl-views-lodo.csv"
 row    = "SDG 7"
 col    = "R² nighttime lights"
@@ -328,7 +334,7 @@ round  = 2
 
 [[number]]
 value  = 0.46
-claim  = "climate action, daytime embeddings alone, department transfer (slide 18)"
+claim  = "climate action, daytime embeddings alone, department transfer (slide 19)"
 source = "tables/tbl-views-lodo.csv"
 row    = "SDG 13"
 col    = "R² daytime embeddings"
@@ -337,14 +343,14 @@ round  = 2
 # ============================================================ poverty's cluster map (slide 19)
 [[number]]
 value  = 104
-claim  = "municipalities the actual poverty map flags as a hotspot or coldspot (slides 19, 23 notes)"
+claim  = "municipalities the actual poverty map flags as a hotspot or coldspot (slides 20, 21 notes)"
 source = "claims.toml"   # frozen snapshot in sources/; ships with the deck
 frozen = "poverty-hotcold-count"
 pattern = '\$n = (104)\$ for SDG 1'
 
 [[number]]
 value  = 77
-claim  = "poverty, LISA agreement, nighttime lights (slide 19 notes)"
+claim  = "poverty, LISA agreement, nighttime lights (slide 20 notes)"
 source = "tables/tbl-views-comparison-sdg1.csv"
 row    = "LISA agreement %"
 col    = "Nighttime lights"
@@ -352,7 +358,7 @@ round  = 0
 
 [[number]]
 value  = 53
-claim  = "poverty, hotspots and coldspots matched, nighttime lights (slide 19 notes)"
+claim  = "poverty, hotspots and coldspots matched, nighttime lights (slide 20 notes)"
 source = "tables/tbl-views-comparison-sdg1.csv"
 row    = "LISA hot/cold %"
 col    = "Nighttime lights"
@@ -360,7 +366,7 @@ round  = 0
 
 [[number]]
 value  = 80
-claim  = "poverty, LISA agreement, combined predictor (slide 19 notes)"
+claim  = "poverty, LISA agreement, combined predictor (slide 20 notes)"
 source = "tables/tbl-views-comparison-sdg1.csv"
 row    = "LISA agreement %"
 col    = "Combined"
@@ -368,7 +374,7 @@ round  = 0
 
 [[number]]
 value  = 80
-claim  = "poverty, hotspots and coldspots matched, daytime embeddings (slides 19, 22 notes)"
+claim  = "poverty, hotspots and coldspots matched, daytime embeddings (slides 20, 25 notes)"
 source = "tables/tbl-views-comparison-sdg1.csv"
 row    = "LISA hot/cold %"
 col    = "Daytime embeddings"
@@ -376,7 +382,7 @@ round  = 0
 
 [[number]]
 value  = 75
-claim  = "poverty, hotspots and coldspots matched, combined predictor (slides 19, 22 notes)"
+claim  = "poverty, hotspots and coldspots matched, combined predictor (slides 20, 25 notes)"
 source = "tables/tbl-views-comparison-sdg1.csv"
 row    = "LISA hot/cold %"
 col    = "Combined"
@@ -384,7 +390,7 @@ round  = 0
 
 [[number]]
 value  = 0.50
-claim  = "poverty, Moran's I of the actual map, matched by the combined predictor (slide 19 notes)"
+claim  = "poverty, Moran's I of the actual map, matched by the combined predictor (slide 20 notes)"
 source = "tables/tbl-views-comparison-sdg1.csv"
 row    = "Moran's I"
 col    = "Actual (reference)"
@@ -392,7 +398,7 @@ round  = 2
 
 [[number]]
 value  = 0.33
-claim  = "poverty, Moran's I from nighttime lights (slide 19 notes)"
+claim  = "poverty, Moran's I from nighttime lights (slide 20 notes)"
 source = "tables/tbl-views-comparison-sdg1.csv"
 row    = "Moran's I"
 col    = "Nighttime lights"
@@ -401,7 +407,7 @@ round  = 2
 # ========================================================= clean energy's cluster map (slide 20)
 [[number]]
 value  = 0.73
-claim  = "clean energy, Pearson r of the level, nighttime lights (slide 20 source line and notes)"
+claim  = "clean energy, Pearson r of the level, nighttime lights (slide 27 source line and notes)"
 source = "tables/tbl-views-comparison-sdg7.csv"
 row    = "Pearson r"
 col    = "Nighttime lights"
@@ -409,14 +415,14 @@ round  = 2
 
 [[number]]
 value  = 91
-claim  = "municipalities the actual clean-energy map flags as a hotspot or coldspot (slide 20 notes)"
+claim  = "municipalities the actual clean-energy map flags as a hotspot or coldspot (slide 27 notes)"
 source = "claims.toml"   # frozen snapshot in sources/; ships with the deck
 frozen = "energy-hotcold-count"
 pattern = 'flags (91) municipalities'
 
 [[number]]
 value  = 49
-claim  = "clean energy, hotspots and coldspots matched, nighttime lights (slide 20 notes)"
+claim  = "clean energy, hotspots and coldspots matched, nighttime lights (slide 27 notes)"
 source = "tables/tbl-views-comparison-sdg7.csv"
 row    = "LISA hot/cold %"
 col    = "Nighttime lights"
@@ -424,7 +430,7 @@ round  = 0
 
 [[number]]
 value  = 83
-claim  = "clean energy, LISA agreement, daytime embeddings (slide 20 notes)"
+claim  = "clean energy, LISA agreement, daytime embeddings (slide 27 notes)"
 source = "tables/tbl-views-comparison-sdg7.csv"
 row    = "LISA agreement %"
 col    = "Daytime embeddings"
@@ -432,7 +438,7 @@ round  = 0
 
 [[number]]
 value  = 82
-claim  = "clean energy, LISA agreement, combined predictor (slide 20 notes)"
+claim  = "clean energy, LISA agreement, combined predictor (slide 27 notes)"
 source = "tables/tbl-views-comparison-sdg7.csv"
 row    = "LISA agreement %"
 col    = "Combined"
@@ -440,7 +446,7 @@ round  = 0
 
 [[number]]
 value  = 70
-claim  = "clean energy, hotspots and coldspots matched, combined predictor (slides 20, 22 notes)"
+claim  = "clean energy, hotspots and coldspots matched, combined predictor (slides 25, 27 notes)"
 source = "tables/tbl-views-comparison-sdg7.csv"
 row    = "LISA hot/cold %"
 col    = "Combined"
@@ -448,7 +454,7 @@ round  = 0
 
 [[number]]
 value  = 0.43
-claim  = "clean energy, Moran's I of the actual map (slide 20 notes)"
+claim  = "clean energy, Moran's I of the actual map (slide 27 notes)"
 source = "tables/tbl-views-comparison-sdg7.csv"
 row    = "Moran's I"
 col    = "Actual (reference)"
@@ -456,7 +462,7 @@ round  = 2
 
 [[number]]
 value  = 0.40
-claim  = "clean energy, Moran's I from the combined predictor (slide 20 notes)"
+claim  = "clean energy, Moran's I from the combined predictor (slide 27 notes)"
 source = "tables/tbl-views-comparison-sdg7.csv"
 row    = "Moran's I"
 col    = "Combined"
@@ -464,7 +470,7 @@ round  = 2
 
 [[number]]
 value  = 0.28
-claim  = "clean energy, Moran's I from nighttime lights (slide 20 notes)"
+claim  = "clean energy, Moran's I from nighttime lights (slide 27 notes)"
 source = "tables/tbl-views-comparison-sdg7.csv"
 row    = "Moran's I"
 col    = "Nighttime lights"
@@ -472,7 +478,7 @@ round  = 2
 
 [[number]]
 value  = 0.49
-claim  = "clean energy, Moran's I from daytime embeddings (slide 20 notes)"
+claim  = "clean energy, Moran's I from daytime embeddings (slide 27 notes)"
 source = "tables/tbl-views-comparison-sdg7.csv"
 row    = "Moran's I"
 col    = "Daytime embeddings"
@@ -481,7 +487,7 @@ round  = 2
 # ======================================================== climate action's cluster map (slide 21)
 [[number]]
 value  = 64
-claim  = "climate action, LISA agreement, nighttime lights (slide 21 notes)"
+claim  = "climate action, LISA agreement, nighttime lights (slide 28 notes)"
 source = "tables/tbl-views-comparison-sdg13.csv"
 row    = "LISA agreement %"
 col    = "Nighttime lights"
@@ -489,14 +495,14 @@ round  = 0
 
 [[number]]
 value  = 124
-claim  = "municipalities the actual climate map flags as a hotspot or coldspot (slide 21 notes)"
+claim  = "municipalities the actual climate map flags as a hotspot or coldspot (slide 28 notes)"
 source = "claims.toml"   # frozen snapshot in sources/; ships with the deck
 frozen = "climate-hotcold-count"
 pattern = 'of the (124) municipalities'
 
 [[number]]
 value  = 92
-claim  = "climate action, hotspots and coldspots matched, combined predictor (slide 21 panel header and notes)"
+claim  = "climate action, hotspots and coldspots matched, combined predictor (slide 28 panel header and notes)"
 source = "tables/tbl-views-comparison-sdg13.csv"
 row    = "LISA hot/cold %"
 col    = "Combined"
@@ -504,7 +510,7 @@ round  = 0
 
 [[number]]
 value  = 91
-claim  = "climate action, hotspots and coldspots matched, daytime embeddings (slide 21 notes)"
+claim  = "climate action, hotspots and coldspots matched, daytime embeddings (slide 28 notes)"
 source = "tables/tbl-views-comparison-sdg13.csv"
 row    = "LISA hot/cold %"
 col    = "Daytime embeddings"
@@ -512,7 +518,7 @@ round  = 0
 
 [[number]]
 value  = 0.84
-claim  = "climate action, Moran's I from the combined predictor (slides 21, 22 notes)"
+claim  = "climate action, Moran's I from the combined predictor (slides 25, 28 notes)"
 source = "tables/tbl-views-comparison-sdg13.csv"
 row    = "Moran's I"
 col    = "Combined"
@@ -520,7 +526,7 @@ round  = 2
 
 [[number]]
 value  = 0.81
-claim  = "climate action, Moran's I from daytime embeddings (slide 21 notes)"
+claim  = "climate action, Moran's I from daytime embeddings (slide 28 notes)"
 source = "tables/tbl-views-comparison-sdg13.csv"
 row    = "Moran's I"
 col    = "Daytime embeddings"
@@ -528,7 +534,7 @@ round  = 2
 
 [[number]]
 value  = 0.65
-claim  = "climate action, Moran's I of the actual map (slides 21, 22 notes)"
+claim  = "climate action, Moran's I of the actual map (slides 25, 28 notes)"
 source = "tables/tbl-views-comparison-sdg13.csv"
 row    = "Moran's I"
 col    = "Actual (reference)"
@@ -542,7 +548,7 @@ round  = 2
 # comment beside that speaker note.
 [[number]]
 value  = 0.45
-claim  = "climate action's deforestation component, read by the embeddings (slide 22 notes)"
+claim  = "climate action's deforestation component, read by the embeddings (slide 25 notes)"
 source = "tables/tbl-circularity-deforestation.csv"
 row    = "SDG 13 Climate"
 col    = "R² daytime embeddings → component"
