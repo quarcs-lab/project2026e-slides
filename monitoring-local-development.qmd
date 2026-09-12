@@ -42,6 +42,11 @@ format:
     #   math plugin fetches at runtime. This deck carries no equations, so Tier C reports "no math".
 ---
 
+
+
+# Motivation {background-color="#06101F" .center}
+
+
 ## Where development data is scarcest, it is needed most
 
 [The problem]{.kicker}
@@ -53,7 +58,7 @@ format:
 > The places that most need watching are the ones surveys reach last.
 
 
-## Satellite imagery: A modern instrument for measuring local development 
+## Satellite imagery: A modern instrument for measuring local development {.figure-with-source}
 
 [Three ways to see Bolivia]{.kicker}
 
@@ -67,18 +72,17 @@ format:
 
 [What we ask]{.kicker}
 
-::: {.incremental}
 - Can satellites **read (predict)** development — how much a place has?
 - Can satellites **map (monitor)** it — where the good and bad clusters sit?
-:::
+
 
 > A global average prediction may not be useful for local monitoring purposes.
 
 
 
-# How we measure it {background-color="#06101F" .center}
+# Data and methods {background-color="#06101F" .center}
 
-[The data and the method, in four slides]{.kicker}
+
 
 ## What we predict is not satellite data
 
@@ -112,16 +116,6 @@ format:
 
 [VIIRS annual composite, population-weighted municipal means · ordinary least squares, in-sample]{.source}
 
-::: {.notes}
-One variable, one goal, one line — this is the baseline the room already trusts.
-Brighter municipalities score better on the poverty goal, and a single log-radiance regressor
-tracks about half the cross-sectional variation in the SDG 1 index. Two honest caveats before the
-talk moves on. This R squared is in-sample and bivariate, so it is an upper bound on what this
-picture alone would predict; the cross-validated numbers come later. And the scatter is wide
-exactly where policy cares most: among the dim municipalities on the left, the index ranges from
-near zero to nearly seventy at the same level of light. Lights are a real proxy and a coarse one.
-That gap is the opening for the daytime embeddings.
-:::
 
 
 
@@ -375,9 +369,32 @@ If the room wants one sentence: what a development goal is made of decides wheth
 see it, and weighting by where people live decides how well.
 :::
 
-## Thank you {background-color="#06101F" .center .signoff}
+## Thank you {background-color="#06101F" background-image="figures/fig-title-orbital-monitoring.png" background-size="cover" background-position="center center" .closing-cover}
 
-[carlos-mendez.org](https://carlos-mendez.org)
+<!-- The closing card is the COVER again, with the thank-you set across the bottom (the h2 above,
+     which theme.scss positions there). The card below repeats the front-matter metadata by hand
+     because a Quarto template partial renders only once, on #title-slide, and there is no way to
+     re-emit it from inside the body. Keep these five lines in sync with the YAML at the top of this
+     file: title, subtitle, author + author-site, affil-school, affil-university, affil-country.
+     The background veil and every type rule are shared with the real cover — see theme.scss
+     § TITLE SLIDE, where `.closing-cover` @extends `#title-slide` rather than copying it. -->
+<!-- NOT INDENTED, deliberately: four leading spaces inside a raw HTML block make Pandoc treat the
+     nested <p> tags as an indented code block, and the affiliations render as literal markup. -->
+<div class="title-card">
+<h1 class="title">Predicting and monitoring local development from outer space</h1>
+<p class="subtitle">Evidence from the Bolivian municipalities</p>
+<div class="author-block">
+<p class="author"><a href="https://carlos-mendez.org">Carlos Mendez</a></p>
+<p class="affil">Graduate School of International Development</p>
+<p class="affil">Nagoya University</p>
+<p class="affil">Japan</p>
+</div>
+<!-- Empty on purpose. The cover emits this div even with no venue/date/paper-url, and its 1.15em
+     top margin is 35px of the cover card's height; without it the closing card centres 18px higher
+     than the cover and the two slides visibly jump. If a venue is ever set in the YAML, put the
+     same line here. -->
+<div class="title-footer"></div>
+</div>
 
 ::: {.notes}
 Sign-off. Leave this up for questions. The appendix is one press of the right arrow away, or press

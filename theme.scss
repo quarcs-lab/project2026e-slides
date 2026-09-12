@@ -438,6 +438,22 @@ $divider-dark: $bg-deep;
   max-height: 340px;
 }
 
+// A landscape figure on a slide that carries a TWO-LINE title, a kicker AND a source line. Same
+// pixels-not-vh reasoning as above. On the three-ways-to-see-Bolivia slide the figure is bound by
+// `max-width: 94%` (it is ~3:1, so 94% of the 1280px canvas renders it ~405px tall), and with the
+// title wrapping to two lines the source line underneath landed ON the footer hairline — the two
+// ran together in the rendered screenshot. No static checker sees this: each element fits on its
+// own, only the stack overflows.
+//
+// Budget on the 720px logical canvas: a two-line title (~180px with its margin), the kicker
+// (~40px), the source line (~45px with its top margin) and the footer band (~55px) leave ~400px.
+// 350px keeps a clear gap between the source line and the hairline without shrinking the three
+// maps' internal labels the way .figure-with-quote's 340px would.
+.reveal .slides section.figure-with-source img {
+  max-height: 350px;
+  width: auto;
+}
+
 // Small caption / source line — the third text step. Before this existed, captions were set in the
 // same muted grey as secondary body copy and competed with it.
 .reveal .slide .source {
@@ -607,6 +623,44 @@ $divider-dark: $bg-deep;
   font-size: 0.4em;
   margin: 0.35em 0 0;
 }
+
+// ---- Closing card: the cover, reprised, with the thank-you across the bottom ----------------
+// The last slide is the first slide again. It cannot BE #title-slide (one id, one slide), and the
+// title-slide partial renders only once, so the deck body hand-writes the same .title-card markup
+// and this one `@extend` hands it every rule scoped to `#title-slide` above — the flex centring,
+// the card geometry, the serif title with its amber rule, the subtitle, the author block. Copying
+// those ninety lines instead would have created a second palette to keep in sync, which is the
+// exact failure mode `_palette.py` and `theme.scss` already document.
+// The directional veil needs nothing here: it keys off the BACKGROUND IMAGE
+// (`.slide-background-content[style*="fig-title-orbital-monitoring"]`), not off the slide id, so
+// the closing slide gets it by using the same file.
+.reveal .slides section.closing-cover { @extend #title-slide; }
+
+// The thank-you itself is the slide's own h2, moved to the bottom of the frame rather than written
+// twice — the outline, the menu and the PDF bookmark all read "Thank you" from this heading, and a
+// visually-hidden duplicate would be read aloud twice by a screen reader.
+// Bottom 9% clears reveal's progress bar and the slide number; the text sits over the lower veil
+// (`linear-gradient(0deg, rgba(6,16,31,0.42) ...)`), which is what makes it legible against the
+// bright limb of the Earth on the right of the photograph.
+.reveal .slides section.closing-cover h2 {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 9%;
+  z-index: 2;
+  margin: 0;
+  padding-left: 0;
+  text-align: center;
+  font-family: $title-serif;
+  font-weight: 600;
+  font-size: 1.5em;
+  color: $ink;
+  text-shadow: 0 2px 24px rgba(6, 16, 31, 0.85);
+}
+// Kill the left accent bar every other h2 carries — it would float at the far left of a centred
+// line — and re-centre the amber underline the .has-dark-background rule left-aligns.
+.reveal .slides section.closing-cover h2::before { display: none; }
+.reveal .slides section.closing-cover h2::after { margin: 0.45em auto 0; }
 
 // Alt-text equivalent for the meaningful background image, available to assistive technology
 // without creating visible copy or affecting the title-card layout.
