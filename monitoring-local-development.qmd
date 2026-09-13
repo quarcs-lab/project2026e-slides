@@ -50,13 +50,15 @@ format:
 
 [The problem]{.kicker}
 
+![](figures/fig-motivation.webp){fig-align="center" fig-alt="A night landscape runs from a lit city on the left, through rural towns, to remote mountain villages on the right. Above it, data points are dense over the city, thin over the towns and almost absent over the villages. Along the bottom, one census snapshot is followed by a long row of empty years."}
+
 - Local development statistics are scarce, expensive, and outdated.
 - Many municipalities are too small or too remote to survey often.
 - A census is a snapshot, not a series.
 
 > The places that most need watching are the ones surveys reach last.
 
-![](figures/fig-motivation.webp){fig-align="center" fig-alt="A night landscape runs from a lit city on the left, through rural towns, to remote mountain villages on the right. Above it, data points are dense over the city, thin over the towns and almost absent over the villages. Along the bottom, one census snapshot is followed by a long row of empty years."}
+
 
 ## A new dataset to study subnational development in Bolivia
 
@@ -252,12 +254,14 @@ Places that look alike get similar numbers. No single number has a name.
 
 [Discussion]{.kicker}
 
+![](figures/fig-discussion.webp){fig-align="center" fig-alt="Two panels under one satellite. WHAT SATELLITES SEE: a bright top-down map of rooftops, roads and fields, captioned housing, roads and land cover, beside an R² gauge filled most of the way. WHAT SATELLITES CANNOT SEE: the satellite's view blocked by a row of dark roofs hiding health, gender and justice icons, beside an R² gauge that is almost empty."}
+
 - Some goals are built from things satellites can **see**: housing, roads, land cover.
 - Others from things they **cannot**: health, gender, justice.
 
 > Poverty leaves a footprint visible from outer space (R² = **0.69**); institutions leave none (R² = **−0.05**).
 
-![](figures/fig-discussion.webp){fig-align="center" fig-alt="Two panels under one satellite. WHAT SATELLITES SEE: a bright top-down map of rooftops, roads and fields, captioned housing, roads and land cover, beside an R² gauge filled most of the way. WHAT SATELLITES CANNOT SEE: the satellite's view blocked by a row of dark roofs hiding health, gender and justice icons, beside an R² gauge that is almost empty."}
+
 
 
 # Which goals can we map and how well? {background-color="#06101F" .center}
