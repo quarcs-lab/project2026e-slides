@@ -316,7 +316,7 @@ Poverty's clusters reappear: **80%** agreement with the actual map.
 :::
 :::
 
-> Use population-weighted satellite data to better monitor local development **between** surveys and census.
+> Use multiple population-weighted satellite data to better monitor local development **between** surveys and census.
 
 
 
