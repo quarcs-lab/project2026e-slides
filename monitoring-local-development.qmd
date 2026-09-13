@@ -326,8 +326,8 @@ Poverty's clusters reappear: **80%** agreement with the actual map.
 <!-- The closing card is the COVER again, with the thank-you set across the bottom (the h2 above,
      which theme.scss positions there). The card below repeats the front-matter metadata by hand
      because a Quarto template partial renders only once, on #title-slide, and there is no way to
-     re-emit it from inside the body. Keep these five lines in sync with the YAML at the top of this
-     file: title, subtitle, author + author-site, affil-school, affil-university, affil-country.
+     re-emit it from inside the body. Keep these lines in sync with the YAML at the top of this
+     file: title, subtitle, author, author-site, affil-school, affil-university, affil-country.
      The background veil and every type rule are shared with the real cover — see theme.scss
      § TITLE SLIDE, where `.closing-cover` @extends `#title-slide` rather than copying it. -->
 <!-- NOT INDENTED, deliberately: four leading spaces inside a raw HTML block make Pandoc treat the
@@ -336,7 +336,8 @@ Poverty's clusters reappear: **80%** agreement with the actual map.
 <h1 class="title">Predicting and monitoring local development from outer space</h1>
 <p class="subtitle">Evidence from the Bolivian municipalities</p>
 <div class="author-block">
-<p class="author"><a href="https://carlos-mendez.org">Carlos Mendez</a></p>
+<p class="author">Carlos Mendez</p>
+<p class="author-site"><a href="https://carlos-mendez.org">https://carlos-mendez.org</a></p>
 <p class="affil">Graduate School of International Development</p>
 <p class="affil">Nagoya University</p>
 <p class="affil">Japan</p>

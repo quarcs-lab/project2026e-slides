@@ -13,7 +13,7 @@
      Declared in the document head, url() resolves against the HTML file, so `fonts/...` is correct
      and stays correct.
 
-     Both faces are variable fonts (one file, full 100-900 weight axis) under the SIL Open Font
+     All three faces are variable fonts (one file, full 100-900 weight axis) under the SIL Open Font
      License; the licences ship beside them in fonts/.
 
      ONE src PER FACE, and that is deliberate too. Each @font-face used to list the same file
@@ -37,6 +37,14 @@
     font-family: "Source Serif 4";
     src: url("fonts/SourceSerif4-Variable.ttf") format("truetype-variations");
     font-weight: 100 900;
+    font-style: normal;
+    font-display: block;
+  }
+  /* Fira Code: used only for the website line on the cover and the closing card. */
+  @font-face {
+    font-family: "Fira Code";
+    src: url("fonts/FiraCode-Variable.ttf") format("truetype-variations");
+    font-weight: 300 700;
     font-style: normal;
     font-display: block;
   }

@@ -1,6 +1,6 @@
 <!-- Quarto reveal.js title-slide partial (referenced via `template-partials:` in the deck YAML).
      Image-led academic cover: serif title, a subtitle framed by a thin rule, then a
-     left-aligned author/affiliation block (the NAME is the link to author-site) and a small-caps footer
+     left-aligned author block (name, then the author-site URL as a link, then affiliations) and a small-caps footer
      (venue · date, paper/project link). Driven by the deck's top-level metadata: title, subtitle,
      author, author-site, affil-school, affil-university, affil-country, venue, date, paper-url. Any absent field is
      omitted. All visual styling lives in theme.scss, scoped to #title-slide so other slides are untouched.
@@ -13,8 +13,11 @@ $if(subtitle)$
 $endif$
   <div class="author-block">
 $for(author)$
-    <p class="author">$if(author-site)$<a href="https://$author-site$">$author$</a>$else$$author$$endif$</p>
+    <p class="author">$author$</p>
 $endfor$
+$if(author-site)$
+    <p class="author-site"><a href="https://$author-site$">https://$author-site$</a></p>
+$endif$
 $if(affil-school)$
     <p class="affil">$affil-school$</p>
 $endif$

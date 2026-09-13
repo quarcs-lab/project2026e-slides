@@ -250,18 +250,20 @@ async () => {
   // `:loaded` is a race, not a test — it reported different answers for the same file depending
   // on what the browser had got round to. document.fonts.load() resolves either way, so a face
   // that is still not `loaded` afterwards genuinely cannot be loaded.
-  for (const fam of ['Inter', '"Source Serif 4"']) {
+  for (const fam of ['Inter', '"Source Serif 4"', '"Fira Code"']) {
     try { await document.fonts.load(`400 40px ${fam}`); } catch (e) { /* report via status */ }
   }
   await document.fonts.ready;
   // Measure a family against monospace. If the family is missing the browser falls back to the
   // same monospace, the widths coincide, and the delta is exactly 0. That is the whole test:
   // a bundled webfont that failed to load does not error, it silently substitutes.
-  const delta = (fam) => {
+  // Fira Code is itself monospaced and can share the fallback's advance width, so it is measured
+  // against serif instead; the control is repeated against serif for the same reason.
+  const delta = (fam, base = 'monospace') => {
     const c = document.createElement('canvas').getContext('2d');
-    c.font = `40px ${fam}, monospace`;
+    c.font = `40px ${fam}, ${base}`;
     const a = c.measureText('Hamburgefonstiv').width;
-    c.font = '40px monospace';
+    c.font = `40px ${base}`;
     return +(a - c.measureText('Hamburgefonstiv').width).toFixed(2);
   };
   const h2 = document.querySelector('.reveal h2') || document.querySelector('.reveal h1');
@@ -273,7 +275,9 @@ async () => {
     headingFamily: h2 ? getComputedStyle(h2).fontFamily : null,
     interDelta: delta('Inter'),
     serifDelta: delta('"Source Serif 4"'),
+    monoDelta: delta('"Fira Code"', 'serif'),
     bogusDelta: delta('"NoSuchFace12345"'),
+    bogusSerifDelta: delta('"NoSuchFace12345"', 'serif'),
   };
 }
 """
@@ -296,18 +300,20 @@ def report_fonts(probe: dict) -> int:
     loaded = {f.split(":")[0] for f in faces if f.endswith(":loaded")}
     fails = []
 
-    if probe.get("bogusDelta") != 0:
+    if probe.get("bogusDelta") != 0 or probe.get("bogusSerifDelta") != 0:
         print(f"[✗] fonts: the probe itself is broken — a nonexistent family measured "
-              f"{probe['bogusDelta']} against monospace instead of 0. Ignore the results below.")
+              f"{probe['bogusDelta']} / {probe['bogusSerifDelta']} against monospace / serif "
+              "instead of 0. Ignore the results below.")
         return EXIT_FAIL
 
-    for want, delta_key in (("Inter", "interDelta"), ("Source Serif 4", "serifDelta")):
+    for want, delta_key in (("Inter", "interDelta"), ("Source Serif 4", "serifDelta"),
+                            ("Fira Code", "monoDelta")):
         d = probe.get(delta_key)
         if want not in loaded:
             fails.append(f"{want!r} is not in document.fonts as loaded (saw: {sorted(loaded)})")
         elif d == 0:
-            fails.append(f"{want!r} reports loaded but measures identically to monospace "
-                         "— it is not actually rendering")
+            fails.append(f"{want!r} reports loaded but measures identically to "
+                         "its fallback — it is not actually rendering")
 
     if fails:
         print("[✗] fonts: bundled webfonts did not take effect")
@@ -318,7 +324,8 @@ def report_fonts(probe: dict) -> int:
         return EXIT_FAIL
 
     print(f"[✓] fonts: bundled webfonts loaded and rendering  "
-          f"(Inter Δ{probe['interDelta']}, Source Serif 4 Δ{probe['serifDelta']}, control 0)")
+          f"(Inter Δ{probe['interDelta']}, Source Serif 4 Δ{probe['serifDelta']}, "
+          f"Fira Code Δ{probe['monoDelta']}, control 0)")
     for label, key in (("title", "titleFamily"), ("headings", "headingFamily")):
         if probe.get(key):
             print(f"    {label}: {probe[key]}")
