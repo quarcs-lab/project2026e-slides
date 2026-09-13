@@ -17,7 +17,6 @@ format:
       - title-slide.html
     include-in-header: fonts.html   # @font-face MUST live here, not in theme.scss — see fonts.html
     output-file: index.html    # GitHub Pages serves <repo>/index.html from the root
-    footer: "Predicting and monitoring local development from outer space"
     slide-number: c/t
     progress: true
     menu: true
@@ -47,7 +46,7 @@ format:
 # Motivation {background-color="#06101F" .center}
 
 
-## Where development data is scarcest, it is needed most
+## Where development data is scarcest, it is needed most {.banner-bottom .banner-short}
 
 [The problem]{.kicker}
 
@@ -57,14 +56,15 @@ format:
 
 > The places that most need watching are the ones surveys reach last.
 
+![](figures/fig-motivation.webp){fig-align="center" fig-alt="A night landscape runs from a lit city on the left, through rural towns, to remote mountain villages on the right. Above it, data points are dense over the city, thin over the towns and almost absent over the villages. Along the bottom, one census snapshot is followed by a long row of empty years."}
 
-## Satellite imagery: A modern instrument for measuring local development {.figure-with-source}
+
+## Satellite imagery: A modern instrument for measuring local development {.figure-hero}
 
 [Three ways to see Bolivia]{.kicker}
 
 ![](figures/fig-data-layers.png){fig-align="center"}
 
-[All three for 2017, on the same frame · VIIRS nighttime lights · AlphaEarth embeddings, first three principal components as red, green and blue · GHS-POP gridded population]{.source}
 
 
 
@@ -78,7 +78,7 @@ format:
 
 > A predicted global average may not be useful for local monitoring.
 
-![](figures/fig-rq-concept-ai.webp){fig-align="center" fig-alt="A satellite beams down to two panels. READ: a municipal map with one place outlined and a thermometer gauging its level. MAP: the same map with a red cluster and a blue cluster of neighbouring municipalities. Below, an average line fits the bars, but the predicted clusters sit offset from the true ones."}
+![](figures/fig-rq-concept-ai.webp){fig-align="center" }
 
 
 
@@ -169,7 +169,7 @@ Places that look alike get similar numbers. No single number has a name.
 
 ![](figures/fig-pipeline.svg){fig-align="center"}
 
-## Prediction and monitoring methods
+## Prediction and monitoring methods {.banner-bottom .banner-short}
 
 [How each question is answered]{.kicker}
 
@@ -190,7 +190,9 @@ Places that look alike get similar numbers. No single number has a name.
 :::
 :::
 
-[One learner and one neighbourhood definition throughout — nothing selected per goal or per view]{.source}
+![](figures/fig-methods.webp){fig-align="center" fig-alt="Two illustrated sequences. PREDICT: many decision trees merge into one prediction, a dial tunes the model, and a map with one region lifted out is tested on unseen data. MONITOR: a municipality linked to the neighbours it touches, a scatter plot with an upward trend showing global clustering, and a map with a red cluster, a blue cluster and one outlier."}
+
+
 
 
 # Can satellites read development? {background-color="#06101F" .center}

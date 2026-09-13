@@ -494,20 +494,21 @@ $divider-dark: $bg-deep;
   max-height: 340px;
 }
 
-// A landscape figure on a slide that carries a TWO-LINE title, a kicker AND a source line. Same
-// pixels-not-vh reasoning as above. On the three-ways-to-see-Bolivia slide the figure is bound by
-// `max-width: 94%` (it is ~3:1, so 94% of the 1280px canvas renders it ~405px tall), and with the
-// title wrapping to two lines the source line underneath landed ON the footer hairline — the two
-// ran together in the rendered screenshot. No static checker sees this: each element fits on its
-// own, only the stack overflows.
-//
-// Budget on the 720px logical canvas: a two-line title (~180px with its margin), the kicker
-// (~40px), the source line (~45px with its top margin) and the footer band (~55px) leave ~400px.
-// 350px keeps a clear gap between the source line and the hairline without shrinking the three
-// maps' internal labels the way .figure-with-quote's 340px would.
-.reveal .slides section.figure-with-source img {
-  max-height: 350px;
+// The hero figure: the three-ways-to-see-Bolivia slide, the most impactful image in the deck. It
+// carries a two-line title and a kicker and nothing else, so the figure takes every remaining pixel.
+// The image is ~2.5:1, so at `max-width: 100%` (the full 1280px canvas, not the global 94%) it is
+// WIDTH-bound and renders ~515px tall, its bottom ~28px clear of the footer band. Measured at
+// 1280x720: kicker bottom ~153px, footer band top ~709px. The 520px cap is only a guard, so that a
+// regenerated figure that came out taller cannot run under the footer. The kicker's bottom margin
+// and the paragraph's margins are trimmed on this slide only, so the pixels go to the figure.
+.reveal .slides section.figure-hero .kicker { margin-bottom: 0.4em; }
+.reveal .slides section.figure-hero p:has(> img),
+.reveal .slides section.figure-hero .quarto-figure p { margin: 0; }
+.reveal .slides section.figure-hero img {
+  max-height: 520px;
+  max-width: 100%;
   width: auto;
+  margin: 0 auto;
 }
 
 // A banner illustration in the bottom third of a text slide. One third of the 720px canvas is 240px;
@@ -516,6 +517,13 @@ $divider-dark: $bg-deep;
   max-height: 225px;
   width: auto;
   margin: 0.3em auto 0;
+}
+// For slides whose text pushes the banner lower: under the methods slide's two .cards it measured a
+// 690px bottom at 225px, and under the motivation slide's three bullets and quote it overflowed to a
+// 734px scrollHeight. 195px, with no top margin, fits both inside the 720px canvas.
+.reveal .slides section.banner-bottom.banner-short img {
+  max-height: 195px;
+  margin-top: 0;
 }
 
 // Small caption / source line — the third text step. Before this existed, captions were set in the
@@ -527,31 +535,6 @@ $divider-dark: $bg-deep;
   display: block;
   margin-top: 0.5em;
 }
-
-// ====================================================================
-//  FOOTER BAND
-//  The bottom third of every content slide was empty, and empty read as *missing* because the
-//  composition had no base. A hairline and a running title give it one, so the whitespace above
-//  becomes margin. Offset from the left edge to clear the chalkboard/menu controls.
-// ====================================================================
-.reveal .footer {
-  color: $ink-faint;
-  font-size: 0.4em;
-  letter-spacing: 0.04em;
-  // A plain border-top, not an absolutely positioned ::before. The pseudo-element version resolved
-  // its offsets against .reveal rather than the footer (the footer is not itself positioned) and
-  // rendered nowhere visible — it silently did nothing in the first build.
-  border-top: 1px solid rgba(42, 81, 131, 0.55);
-  padding-top: 0.55em;
-  margin: 0 3.5%;
-  bottom: 10px !important;
-}
-// The cover and the full-bleed dividers are whole-canvas moments; a running footer only clutters
-// them. Needs :has() because the footer is a sibling of .slides, not of the slide itself — a
-// descendant or sibling selector from the section cannot reach it. Browsers without :has() simply
-// keep showing the footer, which is a cosmetic loss and not a broken deck.
-.reveal:has(.slides section.present.has-dark-background) .footer,
-.reveal:has(#title-slide.present) .footer { opacity: 0; }
 
 .reveal .slide-number {
   color: $ink-faint;
