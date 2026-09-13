@@ -194,6 +194,8 @@ Places that look alike get similar numbers. No single number has a name.
 
 > Intuition: a principal-components index of the landscape, with **64** components instead of one.
 
+[AlphaEarth Foundations satellite embeddings · [explore how they work, in pictures ↗](https://quarcs-lab.github.io/project2026e-slides/embeddings.html){target="_blank" rel="noopener"}]{.source}
+
 
 ## From pixels to municipalities {.figure-lede}
 

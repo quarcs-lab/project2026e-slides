@@ -594,6 +594,14 @@ $divider-dark: $bg-deep;
   display: block;
   margin-top: 0.5em;
 }
+// A link inside a source line stays at the caption's quiet grey; only its underline says "clickable".
+.reveal .slide .source a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: $accent-dim;
+  text-underline-offset: 0.2em;
+}
+.reveal .slide .source a:hover { color: $accent; text-decoration-color: $accent; }
 
 .reveal .slide-number {
   color: $ink-faint;
