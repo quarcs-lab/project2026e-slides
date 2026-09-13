@@ -62,13 +62,13 @@ format:
 
 [Three ways to see Bolivia]{.kicker}
 
-![](figures/fig-data-layers.png){fig-align="center" fig-alt="Three maps of Bolivia side by side on an identical frame. Left, nighttime lights: brightest at La Paz, Cochabamba and Santa Cruz, with the road network between them and scattered smaller settlements across the lowlands and highlands clearly visible; the light is tightly concentrated and thins out across the Chaco and altiplano. Centre, daytime embeddings as false colour: every pixel carries information, and the altiplano, Andean flank, Amazon lowlands and Chaco separate into distinct colour regions. Right, gridded population: inhabited cells form a thin scatter through the highland valleys and around the cities, leaving most of the territory empty."}
+![](figures/fig-data-layers.png){fig-align="center"}
 
 [All three for 2017, on the same frame · VIIRS nighttime lights · AlphaEarth embeddings, first three principal components as red, green and blue · GHS-POP gridded population]{.source}
 
 
 
-## Two questions, and they are not the same question
+## Research questions
 
 [What we ask]{.kicker}
 
@@ -84,75 +84,73 @@ format:
 
 
 
-## What we predict is not satellite data
+## The prediction targets: 15 development goals
 
-[15 outcome variables]{.kicker}
+[The outcome variable]{.kicker}
 
 :::: {.columns}
-::: {.column width="50%"}
+::: {.column width="44%"}
 <div class="chain">
-<div class="chain-step"><strong>15</strong> indices about the Sustainable Development Goals</div>
+<div class="chain-step"><strong>62</strong> indicators from official statistics</div>
 <div class="chain-arrow">&#9660;</div>
-<div class="chain-step">one value for each of <strong>339</strong> municipalities, 2017</div>
+<div class="chain-step"><strong>15</strong> goal indices, each scored 0–100 — higher is better</div>
+<div class="chain-arrow">&#9660;</div>
+<div class="chain-step">a 2017 value for each of <strong>339</strong> municipalities</div>
 </div>
 :::
-::: {.column width="50%"}
-- From Bolivia's Municipal Atlas of the SDGs (Andersen et al., 2020).
-- These indices are the ground truth we predict.
+::: {.column width="56%"}
+<div class="goal-grid">
+<div class="goal"><span class="goal-num">SDG 1</span>Poverty</div>
+<div class="goal"><span class="goal-num">SDG 2</span>Hunger</div>
+<div class="goal"><span class="goal-num">SDG 3</span>Health</div>
+<div class="goal"><span class="goal-num">SDG 4</span>Education</div>
+<div class="goal"><span class="goal-num">SDG 5</span>Gender</div>
+<div class="goal"><span class="goal-num">SDG 6</span>Water</div>
+<div class="goal"><span class="goal-num">SDG 7</span>Energy</div>
+<div class="goal"><span class="goal-num">SDG 8</span>Jobs</div>
+<div class="goal"><span class="goal-num">SDG 9</span>Infrastructure</div>
+<div class="goal"><span class="goal-num">SDG 10</span>Inequality</div>
+<div class="goal"><span class="goal-num">SDG 11</span>Cities</div>
+<div class="goal"><span class="goal-num">SDG 13</span>Climate</div>
+<div class="goal"><span class="goal-num">SDG 15</span>Land</div>
+<div class="goal"><span class="goal-num">SDG 16</span>Institutions</div>
+<div class="goal"><span class="goal-num">SDG 17</span>Partnerships</div>
+</div>
 :::
 ::::
 
+[Municipal Atlas of the Sustainable Development Goals in Bolivia (Andersen et al., 2020) · only two of the 62 indicators come from satellites]{.source}
 
-## Nighttime lights: the proxy economists already know
 
-![](figures/fig-nasa-viirs.jpg){fig-align="center" fig-alt="Global map of Earth at night showing dense networks of artificial light across North America, Europe, India, eastern China, Japan, and major coastal and urban corridors, while sparsely populated regions remain largely dark."}
+## Nighttime lights: the predictor economists already know
 
-[NASA Black Marble · Suomi NPP VIIRS · global context, not the study raster]{.source}
+![](figures/fig-nasa-viirs.jpg){fig-align="center"}
+
+[NASA Black Marble · Suomi NPP VIIRS · 8 bands]{.source}
 
 
 ## Example: Nighttime lights and SDG 1 (no poverty)
 
-![](figures/fig-ntl-sdg1-scatter.svg){fig-align="center" fig-alt="Scatter plot of 339 Bolivian municipalities. The horizontal axis is population-weighted mean nighttime-lights radiance in nanowatts per steradian per square centimetre, on a logarithmic scale running from 0.1 to 90. The vertical axis is the Poverty, SDG 1, index for 2017, running from 0 to 100. The cloud of points slopes clearly upward and a fitted straight line runs through it, annotated with a slope of 10.9 index points per log nanowatt and an in-sample ordinary-least-squares R squared of 0.54."}
+![](figures/fig-ntl-sdg1-scatter.svg){fig-align="center"}
 
-[VIIRS annual composite, population-weighted municipal means · ordinary least squares, in-sample]{.source}
-
-
+[VIIRS annual composite, population-weighted municipal means · 2017ordinary least squares, in-sample]{.source}
 
 
-## Daytime embeddings: the new proxy to study local development {.figure-with-quote}
+## Daytime embeddings: new predictors to study local development {.figure-with-quote}
 
-- A year of images of one patch of land, compressed into **64** numbers.
-- An numerical AI-summary of the visual characteristics of that location.
+- A collection of satellite images of one patch of land, compressed into **64** numbers.
+  - Intuition: Similar to a principal component analysis applied to satellite imagery
 - Learned with no social, economic, or luminosity data.
 
-![](figures/fig-dte-alphaearth.png){fig-align="center" fig-alt="Conceptual workflow in which six daytime satellite-image tiles showing agriculture, a city, forest, wetlands, mountains, and dry terrain flow through the AlphaEarth Model into a sixty-four-dimensional satellite embedding represented by an eight-by-eight colored grid and a shortened numeric vector."}
+![](figures/fig-dte-alphaearth.png){fig-align="center"}
 
 [Conceptual illustration · multiple daytime observations become one compact embedding]{.source}
-
-::: {.notes}
-This is the one technical idea the talk depends on, so I will be plain about it.
-Google's AlphaEarth model takes a year of daytime observations of a ten-metre patch of land and
-compresses them into sixty-four numbers. Those numbers are coordinates in a learned space, not a
-development score, and the model that produced them never saw a poverty rate or a census table.
-The economist's analogy is a fixed effect: a compact summary of everything persistent about a place,
-estimated without reference to the outcome you later regress on it. Whether that summary carries
-socioeconomic signal is exactly the empirical question.
-:::
 
 ## From pixels to municipalities {.figure-lede}
 
 > Average every pixel equally  or weight each pixel by the people on it.
 
-![](figures/fig-pipeline.svg){fig-align="center" fig-alt="Flow chart in four columns. Left, three inputs: nighttime lights from the 2017 VIIRS annual composite with eight brightness bands, daytime embeddings from the 2017 AlphaEarth mosaic with 64 numbers per 10-metre pixel, and, in a dashed outline, the GHS-POP population surface. Both sensors feed one step, averaging the pixels inside each of the 339 municipal boundaries. That step forks into two: every pixel counted equally, the simple mean, and every pixel weighted by the people on it, with the population surface feeding the weighted branch by a dashed arrow. Both branches produce the output table, one row per municipality, 339 rows and 8 plus 64 predictors, built once under each scheme."}
-
-::: {.notes}
-The bridge, and it takes twenty seconds. Two sensors, one aggregation step, one table per scheme.
-The only thing to remember is the fork. Averaging over a municipality is a modelling choice with two
-defensible answers, and it looks like a technical detail. Three slides from now it turns out to be
-worth more than the choice of sensor.
-Population comes from a gridded surface, split down to the embeddings' grid in a way that preserves
-each cell's head count.
-:::
+![](figures/fig-pipeline.svg){fig-align="center"}
 
 ## Prediction and monitoring methods
 
@@ -162,7 +160,7 @@ each cell's head count.
 ::: {.card}
 [Prediction · machine learning]{.card-head}
 
-- Random forest, one model per goal index.
+- Random forest, one model for each goal index.
 - Tuned by Bayesian search, inside a nested cross-validation.
 - Scored out of sample: random folds, then whole departments held out.
 :::
@@ -170,204 +168,110 @@ each cell's head count.
 [Monitoring · spatial dependence]{.card-head}
 
 - Neighbours are municipalities whose borders touch — queen contiguity.
-- Global Moran's *I* — how strongly a goal clusters.
+- Global Moran's *I* — how strong is the clustering process.
 - Local indicators of spatial association — hotspot, coldspot, or outlier.
 :::
 :::
 
 [One learner and one neighbourhood definition throughout — nothing selected per goal or per view]{.source}
 
-::: {.notes}
-Two methods, thirty seconds each, because the room already knows the machinery.
-On the prediction side: a random forest on the satellite features, one model per goal index,
-hyperparameters tuned by a Bayesian sampler inside a nested cross-validation so the tuning never
-sees the data it is scored on. Two out-of-sample protocols — random folds, which lets a
-municipality learn from its neighbours, and holding out whole departments, which does not. Slide
-eighteen is the gap between them.
-On the monitoring side: nothing exotic either. Two municipalities are neighbours if their borders
-touch, row-standardised, with the handful of islands reconnected to their nearest neighbours.
-Global Moran's I is the single number for how much a goal clusters; the local version splits that
-into a label per municipality — high surrounded by high, low surrounded by low, or a place unlike
-its neighbours. The monitoring question is then simply whether the predicted surface produces the
-same labels as the actual one.
-The discipline worth naming: one learner and one neighbourhood definition throughout, applied
-identically to lights, embeddings and the combination. Nothing is selected per goal, so the
-comparisons on the next slides are like for like.
-:::
-
 
 # Can satellites read development? {background-color="#06101F" .center}
 
 [Part one · Prediction]{.kicker}
 
-## On the raw average, the lights win the headline goals
+## On the raw average, the nighlights win the headline goals
 
-![](figures/fig-r2-master-simple.svg){fig-align="center" fig-alt="Dumbbell plot of out-of-sample R-squared for all fifteen goal indices under a simple municipal average, comparing nighttime lights and daytime embeddings. Nighttime lights lead on the headline goals of poverty and energy; daytime embeddings lead on only eight of the fifteen."}
+![](figures/fig-r2-master-simple.svg){fig-align="center"}
 
 [Simple average · out of sample · 339 municipalities · daytime embeddings lead on only 8 of 15 — and trail on poverty and energy]{.source}
 
-::: {.notes}
-The honest starting point. Average every pixel in a municipality equally and the daytime embeddings
-are only middling — the cheap luminosity proxy reads the two goals we care about most, poverty and
-energy, better than the imagery does. On poverty it is 0.52 against 0.38, on energy 0.51 against
-0.32, and the embeddings lead on just 8 of 15. Do not sell the imagery yet. The next slide is why.
-:::
-
-## Most land is empty — weight where people live {.figure-with-quote}
+## Most land is empty, weight where people live and daytime embeddings win {.figure-with-quote}
 
 [The methodological turn]{.kicker}
 
-> Weight each pixel by the people on it and the embeddings rise from **0.29 to 0.41**. The lights do not gain — they slip from **0.25 to 0.22**.
+> Weight each pixel by the people on it and the daytime embeddings rise from **0.29 to 0.41**. The lights do not gain — they slip from **0.25 to 0.22**.
 
-![](figures/fig-data-layers.png){fig-align="center" fig-alt="Three maps of Bolivia side by side: nighttime lights, a false-colour map of daytime satellite embeddings, and gridded population. People and lights concentrate in a few valleys and cities while most of the territory is dark, empty land."}
+![](figures/fig-data-layers.png){fig-align="center"}
 
-::: {.notes}
-This is the paper's central methodological point, and the most transferable to other work.
-Lights, embeddings and people side by side: the lights and the population pile into a few valleys
-and cities, and everything else is empty. The lights gain nothing from weighting because luminosity
-already reads the built footprint — it is self-weighting. The embeddings describe all land equally,
-so they have to be told where the people are.
-One caveat worth saying aloud: weighting sharpens a signal only where one already exists.
-:::
+## Weight where people live and daytime embeddings win
 
-## Weight where people live — the embeddings pull ahead
-
-![](figures/fig-r2-master.svg){fig-align="center" fig-alt="Dumbbell plot of out-of-sample R-squared for all fifteen goal indices, comparing nighttime lights and daytime embeddings under population weighting. Daytime embeddings lead on fourteen of fifteen goals; both views approach zero for Peace, Justice and Strong Institutions."}
+![](figures/fig-r2-master.svg){fig-align="center"}
 
 [Weighted by population · out of sample · daytime embeddings now lead on 14 of 15 goals (8 → 14) — though the lead clears fold noise on only 5 of the 15]{.source}
 
-::: {.notes}
-Same fifteen goals, same axis as two slides ago, and the embeddings have swung ahead. Walk the
-gradient: the top of the chart is poverty, energy, climate, hunger — the physically written goals;
-the bottom is institutions, essentially unpredictable by either view. The scoreboard flips from 8
-of 15 to 14 of 15. Do not dwell on individual goals; the shape is the point. And note the caption's
-concession: as a point estimate, 14 of 15 clears fold noise on only five.
-:::
-
 ## What a goal is made of decides whether satellites see it {.vcenter}
 
-::: {.incremental}
-- Some goals are built from things you can **see**: housing, roads, land cover.
-- Others from things you **cannot**: health, gender, justice.
-- Poverty, the most physically written, reaches **0.69**.
-- Institutions, the least, sits at **−0.05**.
-- So construction predicts legibility — the full ladder is in the appendix.
-:::
+[Discussion]{.kicker}
 
-::: {.notes}
-Here is the substantive finding, and it is a claim you could have made before seeing the data.
-What a development index is built from decides whether a satellite can see it. Goals written into
-the physical fabric read well; goals assembled from social and administrative records barely read
-at all, and institutions is not merely hard — it is worse than predicting the national mean.
-This is why the contribution is a map of legibility rather than a single accuracy number. A referee
-who asks "so can satellites measure the Sustainable Development Goals?" is asking the wrong
-question: they measure some well, some not at all, and the dividing line is predictable in advance.
-:::
+- Some goals are built from things satellites can **see**: housing, roads, land cover.
+- Others from things they **cannot**: health, gender, justice.
+
+> Poverty leaves a footprint visible from ourter space (R² = **0.69**); institutions leave none (**−0.05**).
 
 
-# Which goals can we map  and how well? {background-color="#06101F" .center}
+# Which goals can we map and how well? {background-color="#06101F" .center}
 
 [Part two · Monitoring]{.kicker}
 
-## Integrating nighttime lights and daytime embeddings for better prediction 
+## Integrating nighttime lights and daytime embeddings provides a better prediction 
 
-![](figures/fig-combined-range.svg){fig-align="center" fig-alt="Dumbbell plot of the estimation range for the combined predictor across fifteen goals. Hollow markers show the department-transfer lower bound, filled markers the random five-fold upper bound. No Poverty spans 0.54 to 0.72; three goals clear the 0.60 threshold at the upper bound."}
+![](figures/fig-combined-range.svg){fig-align="center"}
 
 [Each goal spans the two ways of testing · The three goals above the 0.60 line are the ones we map next]{.source}
-
-::: {.notes}
-The gap is not error to be explained away — it is the reach of spatial autocorrelation, and it cuts
-both ways. As a feature: poverty clusters, so reading a place's landscape and implicitly its
-neighbours' is genuinely informative. As a caution: the same dependence is leakage under random
-folds and flatters transfer to a region the model has never seen. Neither bound is the answer;
-reporting both is the candid way to state what imagery delivers.
-Concrete evidence the lower bound is doing work: under department transfer poverty's per-department
-R² runs from plus 0.75 to minus 0.50, and in four of the nine held-out departments the prediction is
-worse than simply using that department's mean. A single pooled number hides that completely.
-:::
 
 
 ## The combined satellite view recovers the geography of no poverty (SDG1)
 
-![](figures/fig-views-lisa-sdg1.png){fig-align="center" fig-alt="Four cluster maps of Bolivia from local indicators of spatial association, comparing actual poverty clusters with those recovered from nighttime lights, daytime embeddings, and the combined predictor. Nighttime lights agree with 77% of all cluster classes and 53% of the actual hotspots and coldspots; daytime embeddings reach 78% and 80%, and the combined predictor 80% and 75%. The combined map reproduces the actual pattern most closely overall; global Moran's I is 0.50 actual, 0.33 lights, 0.60 embeddings, 0.50 combined."}
+![](figures/fig-views-lisa-sdg1.png){fig-align="center"}
 
 [Red: clusters of low poverty · Blue: poverty traps · Each panel reports its agreement with the actual map and its clustering strength]{.source}
 
-::: {.notes}
-Policy cares about where the clusters are, because poverty feeds on itself in space. The blue
-low-low clusters are spatial poverty traps: a high-poverty municipality surrounded by others.
-The lights flatten the pattern. They agree with 77% of all cluster classes, but of the 104
-municipalities the real map flags as a hotspot or a coldspot they place only 53% correctly — the
-classes that actually matter are the ones they miss.
-The combined view agrees with 80% of the whole classification, more than either view alone, and on
-how strong the clustering is it is almost exact: Moran's I of 0.50 against a real 0.50.
-Say the concession rather than waiting for the objection: on hotspots and coldspots specifically the
-embeddings alone reach 80% against the fusion's 75%. The fusion draws the better whole map.
-:::
-
 ## The combined satellite view recovers the geography of affordable and clean energy (SDG7)
 
-![](figures/fig-views-lisa-sdg7.png){fig-align="center" fig-alt="Four cluster maps of Bolivia from local indicators of spatial association for the clean energy index, comparing actual clusters with those recovered from nighttime lights, daytime embeddings, and the combined predictor. Nighttime lights agree with 77% of all cluster classes but only 49% of the actual hotspots and coldspots; daytime embeddings reach 83% and 75%, and the combined predictor 82% and 70%. Global Moran's I is 0.43 actual, 0.28 lights, 0.49 embeddings, 0.40 combined."}
+![](figures/fig-views-lisa-sdg7.png){fig-align="center"}
 
 [Red: clusters of good access · Blue: traps of poor access · The lights reach *r* = 0.73 on the level, and half that on the pattern]{.source}
 
-::: {.notes}
-Clean energy is the best sanity check in the talk, because luminosity is very nearly a direct
-measure of electrification — and the sharpest illustration that prediction and monitoring are
-different tasks.
-On the level the lights do fine: correlation of 0.73 with the actual index, and they agree with 77%
-of all cluster classes. But the actual map flags 91 municipalities as a hotspot or a coldspot, and
-the lights get only 49% of them right. Reading how much clean-energy access a place has is not the
-same as knowing where access clusters.
-The daytime embeddings answer that, lifting agreement to 83% and hotspot recovery to 75%; the
-combined view is a shade behind at 82% and 70%. Clean energy is also the least clustered of the
-three goals we map, at 0.43, and the combined view comes closest to that strength at 0.40 — the
-lights understate at 0.28, the embeddings overstate at 0.49.
-:::
-
 ## The combined satellite view recovers the geography of climate action (SDG13)
 
-![](figures/fig-views-lisa-sdg13.png){fig-align="center" fig-alt="Four cluster maps of Bolivia from local indicators of spatial association for the climate action index. Nighttime lights agree with 64% of all cluster classes and 50% of the actual hotspots and coldspots; daytime embeddings reach 79% and 91%, and the combined predictor 81% and 92%. Global Moran's I is 0.65 actual, 0.50 lights, 0.81 embeddings and 0.84 combined, so both embedding-based views show markedly stronger spatial clustering than the actual map."}
+![](figures/fig-views-lisa-sdg13.png){fig-align="center"}
 
 [Red: clusters of strong action · Blue: traps of weak action · Best cluster recovery of the three goals — but both embedding views make the map look more clustered than it is]{.source}
 
-::: {.notes}
-Climate action is the mirror image of energy: it emits no light, so the daytime imagery carries
-essentially the whole result. The lights agree with only 64% of classes and find half the hotspots
-and coldspots.
-This is the best cluster recovery of the three goals — the combined view finds 92% of the 124 real
-hotspots and coldspots, the embeddings 91%. But on clustering strength both embedding-based views
-overshoot badly: Moran's I of 0.84 and 0.81 against a real 0.65, and here the combined view is the
-furthest off of the three. The cheap lights, at 0.50, come nearest.
-Two honest limits. The claim on this goal is "it finds the right places", not "it reproduces the
-geography faithfully". And the actual map has six spatial outliers, municipalities unlike their
-neighbours; neither embedding-based view recovers a single one.
+
+## Satellites can monitor the material geography of development {background-color="#06101F" .center}
+
+[Concluding remarks]{.kicker}
+
+::: {.cards}
+::: {.card}
+[1 · Weight by where people live]{.card-head}
+
+Daytime embeddings' average R² rises from **0.29** to **0.41**; they lead on **14** of 15 goals.
+:::
+::: {.card}
+[2 · What a goal is made of matters]{.card-head}
+
+Poverty reads at **0.69**; health, gender and institutions barely register.
+:::
+::: {.card}
+[3 · Combine both views]{.card-head}
+
+Lights plus embeddings read poverty at **0.54&nbsp;to&nbsp;0.72** out of sample, across the two tests.
+:::
+::: {.card}
+[4 · Map the clusters]{.card-head}
+
+Poverty's clusters and traps reappear: **80%** agreement with the actual map.
+:::
 :::
 
+> Track legible goals from space **between** surveys; survey the rest.
+
+[Validated on the 2017 cross-section · carrying it forward between rounds is a projection, not a measurement]{.source}
 
 
-## Satellites see the material geography of development {background-color="#06101F" .center}
-
-Let imagery track the goals it reads **between** survey rounds, and spend scarce survey effort on the goals it cannot read at all.
-
-Poverty reads at **0.54 to 0.72** out of sample, and its clusters and traps are recoverable well enough to target scarce effort.
-
-Justice stays invisible; health and gender barely register.
-
-[Validated on the 2017 cross-section. Carrying it forward between rounds is a projection, not a measurement.]{.source}
-
-::: {.notes}
-Land the decision first, then the limit — an audience remembers the last thing said, and the limit
-is what keeps the claim honest.
-The decision is concrete and a statistics office can act on it: for the goals the imagery reads
-well, let it carry the years between survey rounds; for the goals it cannot read, that is where the
-survey budget should go. Not "satellites replace surveys" — rather, here is the map of which goals
-they carry, and it tells you where to spend.
-Price it if asked. Of the 104 municipalities the real poverty map flags as a cluster or a trap, the
-combined view puts three in four in the right class — exactly the places a targeting rule acts on.
-If the room wants one sentence: what a development goal is made of decides whether satellites can
-see it, and weighting by where people live decides how well.
-:::
 
 ## Thank you {background-color="#06101F" background-image="figures/fig-title-orbital-monitoring.png" background-size="cover" background-position="center center" .closing-cover}
 
@@ -395,116 +299,3 @@ see it, and weighting by where people live decides how well.
      same line here. -->
 <div class="title-footer"></div>
 </div>
-
-::: {.notes}
-Sign-off. Leave this up for questions. The appendix is one press of the right arrow away, or press
-M for the menu and jump straight to the slide a questioner is asking about.
-:::
-
-# Appendix {background-color="#06101F" .center}
-
-[Backup slides · not part of the twenty minutes]{.kicker}
-
-## Objections, answered — one of two
-
-[Devil's advocate]{.kicker}
-
-::: {.incremental}
-- **"14 of 15 is a point estimate."** — It clears fold noise for only five goals.
-- **"It depends on the test."** — In a new region the flip is 7 to 8, not 8 to 14.
-- **"Nearby places leak in."** — Hence both bounds, always reported side by side.
-:::
-
-::: {.notes}
-Steel-man each critique before a referee does.
-The 8-to-14 headline is the interpolation upper bound; under department transfer the same comparison
-is 7 to 8, a far more modest claim. And poverty does worse than the local mean in four departments
-of nine, which is why the lower bound is reported at all rather than treated as pessimism.
-:::
-
-## Objections, answered — two of two
-
-[Devil's advocate]{.kicker}
-
-::: {.incremental}
-- **"Climate action is circular."** — Its deforestation component is measured from space; poverty's is not.
-- **"Combining always wins?"** — No: the embeddings alone find more hotspots on poverty and energy.
-- **"How much circularity?"** — Two of **62** indicators are satellite-derived, so it is bounded.
-:::
-
-::: {.notes}
-Circularity is bounded, not fatal. Two of the 62 component indicators are satellite-derived —
-Climate Action's deforestation rate and Life on Land's biodiversity loss. The embeddings do read
-that deforestation component well, at 0.45, but it is only modestly correlated with its own goal
-index, so the shared lineage inflates those two goals' apparent legibility rather than driving it.
-Climate Action's single most legible component is not satellite-derived at all, and neither poverty
-nor clean energy contains such a component.
-On the second point: the combined predictor draws the closest overall cluster map on poverty and
-climate action, but on hotspot and coldspot recovery the embeddings alone beat it on poverty, 80 to
-75, and on clean energy, 75 to 70 — and on climate action its Moran's I of 0.84 is the furthest of
-any view from the actual 0.65. "Best single instrument" is a claim about the whole map, not about
-every statistic on it.
-:::
-
-<!-- Climate-change vulnerability's own R² of 0.61 used to be quoted in the note above. It was
-     dropped, not lost: the `index.qmd` sentence carrying it moved to Supplementary Section S2.3
-     in the 2026-07-20 restructure, and it sits in the THIRD SDG 13 row of
-     tables/tbl-circularity-deforestation.csv — while Tier S matches on a table's first column
-     only, so it cannot be declared against a cell. Stating the claim qualitatively is better than
-     fabricating a provenance entry for it. The 0.45 in the same note IS a first-match cell and is
-     declared in numbers.toml. -->
-
-## The full legibility ladder {.vcenter}
-
-[Population-weighted daytime embeddings, out of sample]{.kicker}
-
-- Read well: poverty **0.69**, clean energy **0.63**, climate action **0.63**, zero hunger **0.58**.
-- Barely read: institutions **−0.05**, gender **0.27**, health **0.28**.
-- Best-read of the socially defined goals: reduced inequalities at **0.57**.
-- Weighting's one casualty: life on land at **0.10**.
-
-::: {.notes}
-The values cut from the main path, kept here for questions.
-Reduced Inequalities is the interesting exception and worth a sentence: income inequality in Bolivia
-is spatially organised in a way the landscape apparently carries.
-Life on Land is the goal population weighting actively costs us — its signal lives in the unsettled
-forest that weighting discards. That is an honest cost of the method, not a defect of the imagery.
-:::
-
-## Lights, landscape, and people: three ways to see Bolivia
-
-![](figures/fig-data-layers.png){fig-align="center" fig-alt="Three maps of Bolivia side by side on an identical frame. Left, nighttime lights: brightest at La Paz, Cochabamba and Santa Cruz, with the road network between them and scattered smaller settlements across the lowlands and highlands clearly visible; the light is tightly concentrated and thins out across the Chaco and altiplano. Centre, daytime embeddings as false colour: every pixel carries information, and the altiplano, Andean flank, Amazon lowlands and Chaco separate into distinct colour regions. Right, gridded population: inhabited cells form a thin scatter through the highland valleys and around the cities, leaving most of the territory empty."}
-
-[All three for 2017, on the same frame · VIIRS nighttime lights · AlphaEarth embeddings, first three principal components as red, green and blue · GHS-POP gridded population]{.source}
-
-::: {.notes}
-Three instruments, same country, same frame.
-Lights first. The bright cores are the axis of the country's economy and the threads between them
-are roads — real economic signal, but notice how concentrated it is. Luminosity measures
-electrification, so where there is infrastructure it reads it well, and where there is not it has
-almost nothing to say.
-The centre panel fills exactly the space the lights leave. Every pixel carries information, and
-nobody labelled any of it. Be careful with the claim, though: the colours are arbitrary, and this is
-a map of how the landscape differs, not of development.
-The third panel matters most methodologically. Almost none of the territory is inhabited.
-:::
-
-## How the estimate is produced {.vcenter}
-
-[For the methods question]{.kicker}
-
-- A random forest maps the satellite numbers onto each goal index.
-- Hyperparameters tuned by a Bayesian sampler, Optuna's Tree-structured Parzen Estimator.
-- Nested cross-validation, so the tuning never sees the data it is scored on.
-- Reported R² is the mean of per-fold R², never a pooled R² over the concatenated series.
-- One weighting scheme applied to both sensors, not a per-goal selection.
-
-::: {.notes}
-The pooled-versus-mean distinction matters and is worth defending if pressed: a pooled R² computed
-over the concatenated out-of-fold vector runs consistently higher than the mean of per-fold R², so
-the numbers here are the conservative convention. Pearson r is identical under both, which makes it
-the right cross-check.
-Population comes from a gridded surface. It is an extensive count, so it is split down to the
-embeddings' ten-metre grid in a way that preserves each cell's head count; radiance is intensive, so
-the lights are copied up to the population grid instead.
-:::

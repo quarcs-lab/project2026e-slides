@@ -347,6 +347,36 @@ $divider-dark: $bg-deep;
 // A .card holding one bare line of prose instead of a list still needs the list's optical size.
 .reveal .slide .card p { font-size: 0.78em; line-height: 1.32; margin: 0; }
 
+// A grid of labelled tiles, for a set the audience must see whole rather than read: the fifteen goal
+// indices on the outcome-variable slide. Tiles stay in SDG order and uncoloured on purpose — the
+// manuscript no longer groups the goals (see scripts/fig-r2-master.py), so nothing here implies a
+// taxonomy. The label mirrors .card-head.
+.reveal .slide .goal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.32em;
+  margin: 0.2em 0;
+}
+.reveal .slide .goal {
+  background: $surface;
+  border: 1px solid rgba($accent, 0.20);
+  border-radius: 10px;
+  padding: 0.3em 0.55em 0.34em;
+  font-size: 0.68em;
+  font-weight: 600;
+  line-height: 1.2;
+  color: $ink;
+}
+.reveal .slide .goal .goal-num {
+  display: block;
+  color: $accent;
+  font-size: 0.62em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.15em;
+}
+
 // ====================================================================
 //  TABLES
 // ====================================================================
