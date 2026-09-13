@@ -15,7 +15,9 @@ format:
     theme: [default, theme.scss]
     template-partials:
       - title-slide.html
-    include-in-header: fonts.html   # @font-face MUST live here, not in theme.scss — see fonts.html
+    include-in-header:
+      - fonts.html    # @font-face MUST live here, not in theme.scss — see fonts.html
+      - plotly.html   # plotly.js for the four interactive charts — see plotly.html
     output-file: index.html    # GitHub Pages serves <repo>/index.html from the root
     slide-number: c/t
     progress: true
@@ -78,11 +80,11 @@ format:
 
 [Two complementary yet different questions]{.kicker}
 
-- Can satellites **read (predict)** development — how much a place has?
-- Can satellites **map (monitor)** it — where the clusters and outliers sit?
+- Can satellites **read (predict)** development — what is their predictive accuracy?
+- Can satellites **map (monitor)** it — where development clusters and outliers sit?
 
 
-> A predicted global average may not be useful for local monitoring.
+> Global predictive accurace may not be useful for local monitoring.
 
 ![](figures/fig-rq-concept-ai.webp){fig-align="center" }
 
@@ -161,7 +163,9 @@ How many nights were observed, and how many were cloud-free: data quality, not l
 
 ## Example: Nighttime lights and SDG 1 (no poverty)
 
-![](figures/fig-ntl-sdg1-scatter.svg){fig-align="center"}
+```{=html}
+{{< include figures/fig-ntl-sdg1-scatter.html >}}
+```
 
 [VIIRS annual composite, population-weighted municipal means · 2017 · ordinary least squares, in-sample]{.source}
 
@@ -229,7 +233,9 @@ Places that look alike get similar numbers. No single number has a name.
 
 ## On the raw average, nightlights win headline goals
 
-![](figures/fig-r2-master-simple.svg){fig-align="center"}
+```{=html}
+{{< include figures/fig-r2-master-simple.html >}}
+```
 
 [Simple average · out of sample · 339 municipalities · daytime embeddings lead on only 8 of 15 — and trail on poverty and energy]{.source}
 
@@ -241,7 +247,9 @@ Places that look alike get similar numbers. No single number has a name.
 
 ## Weight pixels by population and daytime embeddings win
 
-![](figures/fig-r2-master.svg){fig-align="center"}
+```{=html}
+{{< include figures/fig-r2-master.html >}}
+```
 
 [Weighted by population · out of sample · daytime embeddings now lead on 14 of 15 goals (8 → 14) — though the lead clears fold noise on only 5 of the 15]{.source}
 
@@ -265,26 +273,34 @@ Places that look alike get similar numbers. No single number has a name.
 
 ## Integrating nighttime lights and daytime embeddings provides a better prediction 
 
-![](figures/fig-combined-range.svg){fig-align="center"}
+```{=html}
+{{< include figures/fig-combined-range.html >}}
+```
 
 [Each goal spans the two ways of testing · The three goals above the 0.60 line are the ones we map next]{.source}
 
 
 ## The combined satellite view recovers the geography of no poverty (SDG1)
 
-![](figures/fig-views-lisa-sdg1.png){fig-align="center"}
+```{=html}
+{{< include figures/fig-views-lisa-sdg1.html >}}
+```
 
 [Red: clusters of low poverty · Blue: poverty traps · Each panel reports its agreement with the actual map and its clustering strength]{.source}
 
 ## The combined satellite view recovers the geography of affordable and clean energy (SDG7)
 
-![](figures/fig-views-lisa-sdg7.png){fig-align="center"}
+```{=html}
+{{< include figures/fig-views-lisa-sdg7.html >}}
+```
 
 [Red: clusters of good access · Blue: traps of poor access · The lights reach *r* = 0.73 on the level, and half that on the pattern]{.source}
 
 ## The combined satellite view recovers the geography of climate action (SDG13)
 
-![](figures/fig-views-lisa-sdg13.png){fig-align="center"}
+```{=html}
+{{< include figures/fig-views-lisa-sdg13.html >}}
+```
 
 [Red: clusters of strong action · Blue: traps of weak action · Best cluster recovery of the three goals — but both embedding views make the map look more clustered than it is]{.source}
 

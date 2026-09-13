@@ -88,11 +88,11 @@ ax.set_ylim(0, 100)
 ax.grid(axis="y", lw=0.8, alpha=0.5)
 ax.set_axisbelow(True)
 
-# The two statistics, upper left, where the point cloud is thinnest. INK, not amber: amber is the
+# The fit statistic, upper left, where the point cloud is thinnest. INK, not amber: amber is the
 # sensor's colour in this deck, and a statistic drawn in it reads as a property of the sensor
-# rather than of the fit.
+# rather than of the fit. The slope used to sit above it and was removed at the author's request
+# (2026-09-13); it is still computed, drawn as the line, and printed below.
 ax.text(0.025, 0.965,
-        f"slope = {slope:.1f} index points per log nW\n"
         f"{L.R2} = {r2:.2f}   (OLS, in-sample, n = {len(df)})",
         transform=ax.transAxes, ha="left", va="top",
         fontsize=15, linespacing=1.5, color=DECK["ink"])
@@ -101,3 +101,49 @@ out = DECKDIR / "figures/fig-ntl-sdg1-scatter.svg"
 fig.savefig(out)
 print(f"wrote {out.name}  (slope = {slope:.4f}, intercept = {intercept:.4f}, "
       f"r = {r:.4f}, R2 = {r2:.4f}, n = {len(df)}; x = log {BAND} {L.POPW})")
+
+# ---- interactive twin: figures/fig-ntl-sdg1-scatter.html (what the slide shows) -------------------
+# Same points, same fit, same statistic. What interactivity adds is the one thing the static
+# figure deliberately withholds: WHICH municipality a point is. It is shown on hover only, so the
+# slide itself still names no outlier (see the header). Drag zooms, double-click resets.
+import plotly.graph_objects as go        # noqa: E402
+
+import _interactive as I                 # noqa: E402
+
+names = pd.read_csv(_paths.data("regionNames/regionNames.csv"))[["asdf_id", "mun", "dep"]]
+hov = df.merge(names, on="asdf_id", how="left", validate="one_to_one")
+assert len(hov) == N_MUNI and hov["mun"].notna().all(), "a municipality has no name"
+
+TICKS = [0.1, 0.3, 1, 3, 10, 30, 90]
+ifig = go.Figure()
+ifig.add_trace(go.Scatter(
+    x=hov[BAND], y=hov[GOAL], mode="markers", name="Municipality", showlegend=False,
+    marker=dict(size=10, color=NTL, opacity=0.75, line=dict(color=DECK["bg_deep"], width=0.8)),
+    customdata=hov[["mun", "dep"]].to_numpy(),
+    hovertemplate=("<b>%{customdata[0]}</b> · %{customdata[1]}<br>"
+                   "Radiance: %{x:.2f} nW/sr/cm²<br>"
+                   f"{L.GOAL_LABEL[GOAL]} index: %{{y:.1f}}<extra></extra>"),
+))
+ifig.add_trace(go.Scatter(
+    x=np.exp(grid), y=intercept + slope * grid, mode="lines", showlegend=False,
+    line=dict(color=DECK["ink"], width=3), hoverinfo="skip",
+))
+ifig.add_annotation(
+    x=0.01, y=0.99, xref="paper", yref="paper", xanchor="left", yanchor="top", showarrow=False,
+    align="left", font=dict(size=17, color=DECK["ink"]),
+    text=f"{L.R2} = {r2:.2f}   (OLS, in-sample, n = {len(df)})",
+)
+ifig.update_layout(I.layout(
+    width=980, margin=dict(l=90, r=20, t=10, b=75), hovermode="closest", dragmode="zoom",
+    xaxis=I.axis(type="log", tickvals=TICKS, ticktext=[f"{t:g}" for t in TICKS], fixedrange=False,
+                 title=dict(text=f"{L.NTL}, {L.POPW_PROSE} mean radiance  (nW/sr/cm², log scale)",
+                            font=dict(size=I.TITLE))),
+    yaxis=I.axis(range=[0, 100], fixedrange=False, showgrid=True,
+                 gridcolor="rgba(42,81,131,0.5)",   # DECK["hairline"] at the SVG's grid alpha
+                 title=dict(text=f"{L.GOAL_LABEL[GOAL]} index, 2017", font=dict(size=I.TITLE))),
+))
+I.write(ifig, "fig-ntl-sdg1-scatter", script="fig-ntl-sdg1-scatter.py",
+        alt=(f"Interactive scatter of {N_MUNI} Bolivian municipalities: {L.GOAL_LABEL[GOAL]} index "
+             f"against log {L.POPW_PROSE} nighttime-light radiance, with a rising OLS fit line. "
+             "Hover a point for its municipality and department."))
+print("wrote fig-ntl-sdg1-scatter.html  (interactive)")

@@ -260,13 +260,24 @@ def queen_weights(g):
     return w
 
 
-def clusters(values, w):
-    """LISA classes at p < 0.05, non-significant otherwise. Returns (labels, Moran's I)."""
+def lisa(values, w):
+    """One LISA run. Returns (labels, global Moran's I, local Moran's I per unit, pseudo p per unit).
+
+    Labels are LISA classes at p < 0.05, non-significant otherwise. The local I and p are the SAME
+    run's `Is` and `p_sim` the labels were cut from, so the interactive map tooltips can never
+    disagree with the classes `verify_against_paper()` checked.
+    """
     from esda.moran import Moran, Moran_Local
 
-    lisa = Moran_Local(values, w, permutations=N_PERMUTATIONS, seed=LISA_SEED)
-    labels = pd.Series(np.where(lisa.p_sim < SIG, lisa.q, 0)).map(QUAD).to_numpy()
-    return labels, float(Moran(values, w).I)
+    ml = Moran_Local(values, w, permutations=N_PERMUTATIONS, seed=LISA_SEED)
+    labels = pd.Series(np.where(ml.p_sim < SIG, ml.q, 0)).map(QUAD).to_numpy()
+    return labels, float(Moran(values, w).I), np.asarray(ml.Is), np.asarray(ml.p_sim)
+
+
+def clusters(values, w):
+    """LISA classes at p < 0.05, non-significant otherwise. Returns (labels, Moran's I)."""
+    labels, moran_i, _, _ = lisa(values, w)
+    return labels, moran_i
 
 
 def hotcold_agreement(labels: dict, view: str, reference: str = "actual") -> float:

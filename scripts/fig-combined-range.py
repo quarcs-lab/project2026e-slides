@@ -103,5 +103,56 @@ fig.savefig(out)
 
 top = df.iloc[-1]
 n_over = int((df["up"] >= THRESHOLD).sum())
+
+# ---- interactive twin: figures/fig-combined-range.html (what the slide shows) ---------------------
+# Same encoding and ordering; hovering a row shows both bounds, the gap between them (the reach of
+# spatial autocorrelation) and the goal's full official name. The legend sits above the plot, as in
+# the SVG — and clicking an entry hides that bound.
+import plotly.graph_objects as go        # noqa: E402
+
+import _interactive as I                 # noqa: E402
+
+seg_x, seg_y = [], []
+for _, r in df.iterrows():
+    seg_x += [r["lo"], r["up"], None]
+    seg_y += [r["label"], r["label"], None]
+
+ifig = go.Figure()
+ifig.add_trace(go.Scatter(x=seg_x, y=seg_y, mode="lines", showlegend=False, hoverinfo="skip",
+                          line=dict(color=DECK["muted"], width=2.4)))
+ifig.add_trace(go.Scatter(
+    x=df["lo"], y=df["label"], mode="markers", name="Lower bound — tested in a new region",
+    marker=dict(symbol="circle-open", size=14, color=EMB, line=dict(width=2.4)),
+    customdata=df["Goal"],
+    hovertemplate="%{customdata}<br>Lower bound: %{x:.3f}<extra></extra>",
+))
+ifig.add_trace(go.Scatter(
+    x=df["up"], y=df["label"], mode="markers", name="Upper bound — tested within a region it knows",
+    marker=dict(symbol="circle", size=14, color=EMB),
+    customdata=(df["up"] - df["lo"]).to_numpy(),
+    hovertemplate="Upper bound: %{x:.3f}<br>Gap: %{customdata:.3f}<extra></extra>",
+))
+ifig.add_shape(type="line", x0=THRESHOLD, x1=THRESHOLD, y0=0, y1=1, yref="paper",
+               line=dict(color=DECK["muted"], width=1.6, dash="dash"))
+ifig.add_annotation(x=THRESHOLD, y=1, xref="x", yref="paper", xanchor="left", yanchor="bottom",
+                    xshift=6, showarrow=False, text=f"{THRESHOLD:.2f} — mapped in space",
+                    font=dict(size=14, color=DECK["muted"]))
+ifig.update_layout(I.layout(
+    margin=dict(l=220, r=20, t=52, b=62), hovermode="y unified",
+    legend=dict(orientation="h", x=0.5, y=1.06, xanchor="center", yanchor="bottom",
+                font=dict(size=16), itemwidth=30, tracegroupgap=0),
+    xaxis=I.axis(range=[float(df["lo"].min()) - 0.06, max(float(df["up"].max()), THRESHOLD) + 0.14],
+                 title=dict(text=f"Out-of-sample {L.R2}  ({L.lc(L.COMBINED)} predictor)",
+                            font=dict(size=I.TITLE))),
+    # tickvals pinned: left to itself plotly thins fifteen category labels to every other one.
+    yaxis=I.axis(type="category", categoryorder="array", categoryarray=list(df["label"]),
+                 tickvals=list(df["label"]), ticksuffix="  "),
+))
+I.write(ifig, "fig-combined-range", script="fig-combined-range.py",
+        alt=(f"Interactive range chart of out-of-sample {L.R2} for 15 goals with the "
+             f"{L.lc(L.COMBINED)} predictor: a hollow lower bound (tested in a new region) and a "
+             f"filled upper bound (tested within a known region), with a dashed line at "
+             f"{THRESHOLD:.2f}. Hover a row for both bounds."))
+print("wrote fig-combined-range.html  (interactive)")
 print(f"wrote {out.name}  (best: {top['Goal']} {top['lo']:.3f}–{top['up']:.3f}; "
       f"{n_over} goal(s) clear {THRESHOLD:.2f} at the upper bound)")

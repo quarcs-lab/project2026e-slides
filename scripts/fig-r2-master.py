@@ -79,3 +79,49 @@ ax.tick_params(axis="x", labelsize=14)
 out = DECKDIR / "figures" / out_name
 fig.savefig(out)
 print(f"wrote {out.name}  ({L.lc(L.EMB)} lead on {n_lead} of {len(df)} goals, {weighting})")
+
+# ---- interactive twin: figures/<same stem>.html (what the slide shows) ----------------------------
+# Same ordering, same shared x-axis, same square/circle convention. Hovering a row shows both R²
+# and the embeddings' lead for that goal; clicking a legend entry hides that series.
+import plotly.graph_objects as go        # noqa: E402
+
+import _interactive as I                 # noqa: E402
+
+ticks = [G.tick(v) for v in df[L.GOAL_INDEX]]
+gap = (emb - ntl).to_numpy()
+seg_x, seg_y = [], []
+for i, t in enumerate(ticks):
+    seg_x += [ntl.iloc[i], emb.iloc[i], None]
+    seg_y += [t, t, None]
+
+ifig = go.Figure()
+ifig.add_trace(go.Scatter(x=seg_x, y=seg_y, mode="lines", showlegend=False, hoverinfo="skip",
+                          line=dict(color=DECK["muted"], width=2)))
+ifig.add_trace(go.Scatter(
+    x=ntl, y=ticks, mode="markers", name=L.NTL,
+    marker=dict(symbol="square", size=13, color=NTL),
+    hovertemplate=f"{L.NTL}: %{{x:.3f}}<extra></extra>",
+))
+ifig.add_trace(go.Scatter(
+    x=emb, y=ticks, mode="markers", name=L.EMB, customdata=gap,
+    marker=dict(symbol="circle", size=14, color=EMB),
+    hovertemplate=(f"{L.EMB}: %{{x:.3f}}<br>"
+                   "Embeddings' lead: %{customdata:+.3f}<extra></extra>"),
+))
+ifig.add_shape(type="line", x0=0, x1=0, y0=0, y1=1, yref="paper",
+               line=dict(color=DECK["ink"], width=1))
+ifig.update_layout(I.layout(
+    margin=dict(l=210, r=20, t=10, b=62), hovermode="y unified",
+    legend=dict(x=1, y=0, xanchor="right", yanchor="bottom", font=dict(size=16)),
+    xaxis=I.axis(range=[min(0.0, float(all_vals.min()) - 0.04), float(all_vals.max()) + 0.06],
+                 title=dict(text=f"Out-of-sample {L.R2}", font=dict(size=I.TITLE)),
+                 showspikes=False),
+    # tickvals pinned: left to itself plotly may thin fifteen category labels to every other one.
+    yaxis=I.axis(type="category", categoryorder="array", categoryarray=ticks, tickvals=ticks,
+                 showline=False, ticks="", ticksuffix="  "),
+))
+I.write(ifig, out.stem, script="fig-r2-master.py",
+        alt=(f"Interactive dumbbell chart of out-of-sample {L.R2} for 15 goals, {weighting} "
+             f"aggregation: {L.lc(L.NTL)} (squares) against {L.lc(L.EMB)} (circles). "
+             f"{L.EMB} lead on {n_lead} of 15. Hover a row for both values."))
+print(f"wrote {out.stem}.html  (interactive)")
