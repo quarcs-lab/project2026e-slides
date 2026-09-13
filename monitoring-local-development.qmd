@@ -53,7 +53,7 @@ format:
 ![](figures/fig-motivation.webp){fig-align="center" fig-alt="A night landscape runs from a lit city on the left, through rural towns, to remote mountain villages on the right. Above it, data points are dense over the city, thin over the towns and almost absent over the villages. Along the bottom, one census snapshot is followed by a long row of empty years."}
 
 - Local development statistics are scarce, expensive, and outdated.
-- Many municipalities are too small or too remote to survey often.
+- Some subnational regions are too small or too remote to survey often.
 - A census is a snapshot, not a series.
 
 > The places that most need planning and monitoring are the ones surveys reach last.
@@ -92,21 +92,20 @@ format:
 
 
 
-## The prediction targets: 15 development goals
+## The prediction targets: 15 development goals {.outcome-atlas}
 
 [The outcome variable]{.kicker}
 
-:::: {.columns}
-::: {.column width="44%"}
+![](figures/fig-atlas2020-book.webp){fig-align="center" fig-alt="Cover of the book Atlas Municipal de los Objetivos de Desarrollo Sostenible en Bolivia 2020, showing a snow-covered Andean plain under a blue sky beside the grid of SDG icons."}
+
 <div class="chain">
 <div class="chain-step"><strong>62</strong> indicators from official statistics</div>
-<div class="chain-arrow">&#9660;</div>
+<div class="chain-arrow">&#9654;</div>
 <div class="chain-step"><strong>15</strong> goal indices, each scored 0–100 — higher is better</div>
-<div class="chain-arrow">&#9660;</div>
+<div class="chain-arrow">&#9654;</div>
 <div class="chain-step">a 2017 value for each of <strong>339</strong> municipalities</div>
 </div>
-:::
-::: {.column width="56%"}
+
 <div class="goal-grid">
 <div class="goal"><span class="goal-num">SDG 1</span>Poverty</div>
 <div class="goal"><span class="goal-num">SDG 2</span>Hunger</div>
@@ -124,8 +123,6 @@ format:
 <div class="goal"><span class="goal-num">SDG 16</span>Institutions</div>
 <div class="goal"><span class="goal-num">SDG 17</span>Partnerships</div>
 </div>
-:::
-::::
 
 [Municipal Atlas of the Sustainable Development Goals in Bolivia (Andersen et al., 2020) · only two of the 62 indicators come from satellites]{.source}
 

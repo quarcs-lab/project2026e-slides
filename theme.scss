@@ -415,6 +415,28 @@ $divider-dark: $bg-deep;
   margin-bottom: 0.15em;
 }
 
+// The outcome-variable slide leads with the cover of the 2020 atlas the ground data come from, centred
+// under the kicker. To make room below it, the chain runs as one row and the goal grid as five columns
+// (three rows, SDG order kept). The cover cap is in pixels (see .portrait-figure for why not vh).
+.reveal .slides section.outcome-atlas .kicker { margin-bottom: 0.3em; }
+.reveal .slides section.outcome-atlas .quarto-figure,
+.reveal .slides section.outcome-atlas figure,
+.reveal .slides section.outcome-atlas p:has(> img) { margin: 0; }
+.reveal .slides section.outcome-atlas img {
+  max-height: 235px;
+  width: auto;
+  margin: 0 auto;
+}
+.reveal .slides section.outcome-atlas .chain {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.4em;
+  margin: 0.3em 0 0.35em;
+}
+.reveal .slides section.outcome-atlas .chain-step { flex: 1; text-align: center; font-size: 0.66em; }
+.reveal .slides section.outcome-atlas .chain-arrow { margin: 0; }
+.reveal .slides section.outcome-atlas .goal-grid { grid-template-columns: repeat(5, 1fr); }
+
 // ====================================================================
 //  TABLES
 // ====================================================================
