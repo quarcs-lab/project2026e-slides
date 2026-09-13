@@ -233,7 +233,7 @@ Places that look alike get similar numbers. No single number has a name.
 
 [Simple average · out of sample · 339 municipalities · daytime embeddings lead on only 8 of 15 — and trail on poverty and energy]{.source}
 
-## Most land is empty, let's weight each pixel by the people on it  {.figure-with-quote}
+## Most land is empty, let's weight each pixel by the people on it {.figure-hero}
 
 [Key methodological choice]{.kicker}
 
