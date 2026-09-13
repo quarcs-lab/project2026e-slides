@@ -594,6 +594,11 @@ $divider-dark: $bg-deep;
   display: block;
   margin-top: 0.5em;
 }
+// Slides with an interactive (Plotly) figure: the source line sits 4px under the figure, not 12px.
+// The figures are sized to end at y = 669 on that assumption (scripts/_interactive.py BOX_*), which
+// is what lets them grow into the space below. The <p>'s margin and the span's collapse into one gap.
+.reveal .slides section:has(.plotly-figure) p:has(> .source) { margin-top: 4px; }
+.reveal .slides section:has(.plotly-figure) p > .source { margin-top: 0; }
 // A link inside a source line stays at the caption's quiet grey; only its underline says "clickable".
 .reveal .slide .source a {
   color: inherit;

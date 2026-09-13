@@ -117,35 +117,35 @@ for _, r in df.iterrows():
     seg_x += [r["lo"], r["up"], None]
     seg_y += [r["label"], r["label"], None]
 
+S = I.fit(I.WIDTH, I.HEIGHT, I.BOX_TWO_LINE)   # designed at 1120 x 460, enlarged uniformly
 ifig = go.Figure()
 ifig.add_trace(go.Scatter(x=seg_x, y=seg_y, mode="lines", showlegend=False, hoverinfo="skip",
-                          line=dict(color=DECK["muted"], width=2.4)))
+                          line=dict(color=DECK["muted"], width=2.4 * S)))
 ifig.add_trace(go.Scatter(
     x=df["lo"], y=df["label"], mode="markers", name="Lower bound — tested in a new region",
-    marker=dict(symbol="circle-open", size=14, color=EMB, line=dict(width=2.4)),
+    marker=dict(symbol="circle-open", size=14 * S, color=EMB, line=dict(width=2.4 * S)),
     customdata=df["Goal"],
     hovertemplate="%{customdata}<br>Lower bound: %{x:.3f}<extra></extra>",
 ))
 ifig.add_trace(go.Scatter(
     x=df["up"], y=df["label"], mode="markers", name="Upper bound — tested within a region it knows",
-    marker=dict(symbol="circle", size=14, color=EMB),
+    marker=dict(symbol="circle", size=14 * S, color=EMB),
     customdata=(df["up"] - df["lo"]).to_numpy(),
     hovertemplate="Upper bound: %{x:.3f}<br>Gap: %{customdata:.3f}<extra></extra>",
 ))
 ifig.add_shape(type="line", x0=THRESHOLD, x1=THRESHOLD, y0=0, y1=1, yref="paper",
-               line=dict(color=DECK["muted"], width=1.6, dash="dash"))
+               line=dict(color=DECK["muted"], width=1.6 * S, dash="dash"))
 ifig.add_annotation(x=THRESHOLD, y=1, xref="x", yref="paper", xanchor="left", yanchor="bottom",
-                    xshift=6, showarrow=False, text=f"{THRESHOLD:.2f} — mapped in space",
-                    font=dict(size=14, color=DECK["muted"]))
+                    xshift=6 * S, showarrow=False, text=f"{THRESHOLD:.2f} — mapped in space",
+                    font=dict(size=14 * S, color=DECK["muted"]))
 ifig.update_layout(I.layout(
-    margin=dict(l=220, r=20, t=52, b=62), hovermode="y unified",
+    S, margin=dict(l=220 * S, r=20 * S, t=52 * S, b=62 * S), hovermode="y unified",
     legend=dict(orientation="h", x=0.5, y=1.06, xanchor="center", yanchor="bottom",
-                font=dict(size=16), itemwidth=30, tracegroupgap=0),
-    xaxis=I.axis(range=[float(df["lo"].min()) - 0.06, max(float(df["up"].max()), THRESHOLD) + 0.14],
-                 title=dict(text=f"Out-of-sample {L.R2}  ({L.lc(L.COMBINED)} predictor)",
-                            font=dict(size=I.TITLE))),
+                font=dict(size=16 * S), itemwidth=30 * S, tracegroupgap=0),
+    xaxis=I.axis(S, range=[float(df["lo"].min()) - 0.06, max(float(df["up"].max()), THRESHOLD) + 0.14],
+                 title=dict(text=f"Out-of-sample {L.R2}  ({L.lc(L.COMBINED)} predictor)")),
     # tickvals pinned: left to itself plotly thins fifteen category labels to every other one.
-    yaxis=I.axis(type="category", categoryorder="array", categoryarray=list(df["label"]),
+    yaxis=I.axis(S, type="category", categoryorder="array", categoryarray=list(df["label"]),
                  tickvals=list(df["label"]), ticksuffix="  "),
 ))
 I.write(ifig, "fig-combined-range", script="fig-combined-range.py",

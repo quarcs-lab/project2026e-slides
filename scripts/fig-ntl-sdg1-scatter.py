@@ -115,10 +115,12 @@ hov = df.merge(names, on="asdf_id", how="left", validate="one_to_one")
 assert len(hov) == N_MUNI and hov["mun"].notna().all(), "a municipality has no name"
 
 TICKS = [0.1, 0.3, 1, 3, 10, 30, 90]
+NATIVE_W = 980                           # designed at 980 x I.HEIGHT, enlarged uniformly by S
+S = I.fit(NATIVE_W, I.HEIGHT, I.BOX_ONE_LINE)
 ifig = go.Figure()
 ifig.add_trace(go.Scatter(
     x=hov[BAND], y=hov[GOAL], mode="markers", name="Municipality", showlegend=False,
-    marker=dict(size=10, color=NTL, opacity=0.75, line=dict(color=DECK["bg_deep"], width=0.8)),
+    marker=dict(size=10 * S, color=NTL, opacity=0.75, line=dict(color=DECK["bg_deep"], width=0.8 * S)),
     customdata=hov[["mun", "dep"]].to_numpy(),
     hovertemplate=("<b>%{customdata[0]}</b> · %{customdata[1]}<br>"
                    "Radiance: %{x:.2f} nW/sr/cm²<br>"
@@ -126,21 +128,21 @@ ifig.add_trace(go.Scatter(
 ))
 ifig.add_trace(go.Scatter(
     x=np.exp(grid), y=intercept + slope * grid, mode="lines", showlegend=False,
-    line=dict(color=DECK["ink"], width=3), hoverinfo="skip",
+    line=dict(color=DECK["ink"], width=3 * S), hoverinfo="skip",
 ))
 ifig.add_annotation(
     x=0.01, y=0.99, xref="paper", yref="paper", xanchor="left", yanchor="top", showarrow=False,
-    align="left", font=dict(size=17, color=DECK["ink"]),
+    align="left", font=dict(size=17 * S, color=DECK["ink"]),
     text=f"{L.R2} = {r2:.2f}   (OLS, in-sample, n = {len(df)})",
 )
 ifig.update_layout(I.layout(
-    width=980, margin=dict(l=90, r=20, t=10, b=75), hovermode="closest", dragmode="zoom",
-    xaxis=I.axis(type="log", tickvals=TICKS, ticktext=[f"{t:g}" for t in TICKS], fixedrange=False,
-                 title=dict(text=f"{L.NTL}, {L.POPW_PROSE} mean radiance  (nW/sr/cm², log scale)",
-                            font=dict(size=I.TITLE))),
-    yaxis=I.axis(range=[0, 100], fixedrange=False, showgrid=True,
+    S, width=NATIVE_W, margin=dict(l=90 * S, r=20 * S, t=10 * S, b=75 * S),
+    hovermode="closest", dragmode="zoom",
+    xaxis=I.axis(S, type="log", tickvals=TICKS, ticktext=[f"{t:g}" for t in TICKS], fixedrange=False,
+                 title=dict(text=f"{L.NTL}, {L.POPW_PROSE} mean radiance  (nW/sr/cm², log scale)")),
+    yaxis=I.axis(S, range=[0, 100], fixedrange=False, showgrid=True, gridwidth=S,
                  gridcolor="rgba(42,81,131,0.5)",   # DECK["hairline"] at the SVG's grid alpha
-                 title=dict(text=f"{L.GOAL_LABEL[GOAL]} index, 2017", font=dict(size=I.TITLE))),
+                 title=dict(text=f"{L.GOAL_LABEL[GOAL]} index, 2017")),
 ))
 I.write(ifig, "fig-ntl-sdg1-scatter", script="fig-ntl-sdg1-scatter.py",
         alt=(f"Interactive scatter of {N_MUNI} Bolivian municipalities: {L.GOAL_LABEL[GOAL]} index "

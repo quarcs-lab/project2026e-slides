@@ -156,6 +156,8 @@ for k, c in enumerate(FV.PLOT_ORDER):
 
 minx, miny, maxx, maxy = g.total_bounds
 GAP, TOP, BOTTOM = 0.004, 0.85, 0.08
+NATIVE_W = 1180                          # designed at 1180 x I.HEIGHT, enlarged uniformly by S
+S = I.fit(NATIVE_W, I.HEIGHT, I.BOX_TWO_LINE)
 ifig = go.Figure()
 geo_layout = {}
 for k, col in enumerate(FV.VIEW_COLS):
@@ -168,14 +170,14 @@ for k, col in enumerate(FV.VIEW_COLS):
     ifig.add_trace(go.Choropleth(
         geo=gid, meta="geo", featureidkey="id", locations=g["asdf_id"],
         z=[CODE[c] for c in labels[col]], zmin=0, zmax=n - 1, colorscale=scale, showscale=False,
-        marker=dict(line=dict(color="rgba(238,243,249,0.28)", width=0.4)),   # DECK["ink"], faint
+        marker=dict(line=dict(color="rgba(238,243,249,0.28)", width=0.4 * S)),   # DECK["ink"], faint
         customdata=custom, hovertemplate=hover, name=FV.PANEL_TITLES[col],
         # left-aligned even when the label flips to the cursor's left (panels c-d): plotly would
         # otherwise right-align it and the indented second line of each view would stop reading as one.
         hoverlabel=dict(align="left"),
     ))
     ifig.add_trace(go.Scattergeo(geo=gid, meta="outline", lon=[], lat=[], mode="lines",
-                                 line=dict(color=FV.OUTLINE, width=1.1), hoverinfo="skip",
+                                 line=dict(color=FV.OUTLINE, width=1.1 * S), hoverinfo="skip",
                                  showlegend=False))
     if col == "actual":
         sub = f"reference · I = {morans[col]:.2f}"
@@ -186,21 +188,21 @@ for k, col in enumerate(FV.VIEW_COLS):
     ifig.add_annotation(
         x=(x0 + x1) / 2, y=1.0, xref="paper", yref="paper", xanchor="center", yanchor="top",
         showarrow=False, align="center",
-        text=(f"<span style='font-size:16px'>{FV.PANEL_TITLES[col]}</span><br>"
-              f"<span style='font-size:13px;color:{DECK['muted']}'>{sub}</span>"))
+        text=(f"<span style='font-size:{16 * S:.1f}px'>{FV.PANEL_TITLES[col]}</span><br>"
+              f"<span style='font-size:{13 * S:.1f}px;color:{DECK['muted']}'>{sub}</span>"))
 
 # Legend swatches: empty traces, one per class, in the PNG's legend order. Not clickable — hiding a
 # swatch would hide nothing on the map and read as a broken control.
 for c in FV.LEGEND_ORDER:
     ifig.add_trace(go.Scattergeo(geo="geo", lon=[None], lat=[None], mode="markers",
                                  name=CLASS_LABEL[c], hoverinfo="skip",
-                                 marker=dict(symbol="square", size=15, color=FV.CLUSTER_COLORS[c],
-                                             line=dict(color="rgba(238,243,249,0.6)", width=1))))
+                                 marker=dict(symbol="square", size=15 * S, color=FV.CLUSTER_COLORS[c],
+                                             line=dict(color="rgba(238,243,249,0.6)", width=S))))
 
 ifig.update_layout(I.layout(
-    width=1180, height=460, margin=dict(l=0, r=0, t=0, b=0), dragmode="pan", hovermode="closest",
+    S, width=NATIVE_W, margin=dict(l=0, r=0, t=0, b=0), dragmode="pan", hovermode="closest",
     legend=dict(orientation="h", x=0.5, y=0.02, xanchor="center", yanchor="bottom",
-                font=dict(size=15), itemclick=False, itemdoubleclick=False),
+                font=dict(size=15 * S), itemclick=False, itemdoubleclick=False),
     **geo_layout,
 ))
 
@@ -208,7 +210,7 @@ ifig.update_layout(I.layout(
 # locked zoom/pan: any panel's relayout is copied to the other three.
 POST = f"""
 var st=document.createElement("style");
-st.textContent="#"+id+" path.choroplethlocation.hl{{stroke:{DECK['ink']}!important;stroke-width:2.2px!important}}";
+st.textContent="#"+id+" path.choroplethlocation.hl{{stroke:{DECK['ink']}!important;stroke-width:{2.2 * S:.2f}px!important}}";
 document.head.appendChild(st);
 var off=null;
 function mark(loc){{gd.querySelectorAll("path.choroplethlocation").forEach(function(p){{

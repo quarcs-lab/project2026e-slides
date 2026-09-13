@@ -38,13 +38,28 @@ from plotly.offline import get_plotlyjs, get_plotlyjs_version
 import _paths
 from _palette import DECK
 
-# 460 = the 64vh image cap of theme.scss on the 720px canvas, so an interactive chart occupies the
-# same box its static SVG did and every slide keeps the vertical budget it was measured against.
+# NATIVE design size. Every figure is DESIGNED at this scale (460 px tall, the old 64vh image cap)
+# and then enlarged as a whole by a per-figure factor S (see fit()), so text, markers and lines keep
+# the proportions they were tuned at. A figure passes its own native width.
 HEIGHT = 460
 WIDTH = 1120
 FONT = "Inter, 'Helvetica Neue', Arial, sans-serif"
 TICK = 16
 TITLE = 19
+HOVER = 15
+
+# The room a figure may fill, in the slide's logical 1280 x 720 coordinates. Measured, not guessed:
+#   title ends at y = 52 (one line) or 104 (two lines); the figure starts 25 px below it;
+#   below the figure: 4 px gap (theme.scss, section:has(.plotly-figure)), the 23 px source line,
+#   then a 24 px bottom margin  ->  the figure must end by 720 - 24 - 23 - 4 = 669.
+#   Width: the title's accent bar and the source line both start at x = 0, so the full 1280.
+BOX_ONE_LINE = (1280, 669 - 77)       # 1280 x 592
+BOX_TWO_LINE = (1280, 669 - 129)      # 1280 x 540
+
+
+def fit(width: float, height: float, box: tuple[int, int]) -> float:
+    """Largest uniform enlargement of a width x height design that fits `box` (proportions kept)."""
+    return min(box[0] / width, box[1] / height)
 
 # Presentation config: no floating toolbar over the slide, no scroll-zoom (the wheel would fight
 # reveal's navigation), double-click resets a zoom. Hover and legend-click toggles stay on.
@@ -52,29 +67,29 @@ CONFIG = {"displayModeBar": False, "scrollZoom": False, "doubleClick": "reset",
           "responsive": False, "showTips": False}
 
 
-def axis(**kw) -> dict:
+def axis(scale: float = 1.0, **kw) -> dict:
     base = dict(showgrid=False, zeroline=False, showline=True, linecolor=DECK["hairline"],
-                linewidth=1, ticks="outside", tickcolor=DECK["hairline"], ticklen=5,
-                tickfont=dict(size=TICK, color=DECK["ink"]),
-                title=dict(font=dict(size=TITLE, color=DECK["ink"]), standoff=10),
+                linewidth=scale, ticks="outside", tickcolor=DECK["hairline"], ticklen=5 * scale,
+                tickfont=dict(size=TICK * scale, color=DECK["ink"]),
+                title=dict(font=dict(size=TITLE * scale, color=DECK["ink"]), standoff=10 * scale),
                 fixedrange=True,
                 # "y unified" hover draws a row spike; plotly's default is a loud white dotted rule.
-                spikecolor=DECK["hairline"], spikethickness=1, spikedash="solid")
+                spikecolor=DECK["hairline"], spikethickness=scale, spikedash="solid")
     base["title"].update(kw.pop("title", {}))      # merge, so a caller's text keeps the standoff
     base.update(kw)
     return base
 
 
-def layout(**kw) -> dict:
-    """Transparent, palette-only base layout. Transparent for the same reason the SVGs are:
-    the slide background is a gradient."""
+def layout(scale: float = 1.0, width: float = WIDTH, height: float = HEIGHT, **kw) -> dict:
+    """Transparent, palette-only base layout, `width` x `height` native px enlarged by `scale`.
+    Transparent for the same reason the SVGs are: the slide background is a gradient."""
     base = dict(
-        width=WIDTH, height=HEIGHT, autosize=False,
+        width=round(width * scale), height=round(height * scale), autosize=False,
         paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
-        font=dict(family=FONT, size=TICK, color=DECK["ink"]),
+        font=dict(family=FONT, size=TICK * scale, color=DECK["ink"]),
         hoverlabel=dict(bgcolor=DECK["bg_alt"], bordercolor=DECK["hairline"],
-                        font=dict(family=FONT, size=15, color=DECK["ink"])),
-        legend=dict(font=dict(size=15, color=DECK["ink"]), bgcolor="rgba(0,0,0,0)"),
+                        font=dict(family=FONT, size=HOVER * scale, color=DECK["ink"])),
+        legend=dict(font=dict(size=15 * scale, color=DECK["ink"]), bgcolor="rgba(0,0,0,0)"),
         dragmode=False,
     )
     base.update(kw)
