@@ -133,7 +133,7 @@ format:
 
 ![](figures/fig-ntl-sdg1-scatter.svg){fig-align="center"}
 
-[VIIRS annual composite, population-weighted municipal means · 2017ordinary least squares, in-sample]{.source}
+[VIIRS annual composite, population-weighted municipal means · 2017 · ordinary least squares, in-sample]{.source}
 
 
 ## Daytime embeddings: new predictors to study local development {.figure-with-quote}
@@ -180,7 +180,7 @@ format:
 
 [Part one · Prediction]{.kicker}
 
-## On the raw average, the nighlights win the headline goals
+## On the raw average, the nightlights win the headline goals
 
 ![](figures/fig-r2-master-simple.svg){fig-align="center"}
 
@@ -207,7 +207,7 @@ format:
 - Some goals are built from things satellites can **see**: housing, roads, land cover.
 - Others from things they **cannot**: health, gender, justice.
 
-> Poverty leaves a footprint visible from ourter space (R² = **0.69**); institutions leave none (**−0.05**).
+> Poverty leaves a footprint visible from outer space (R² = **0.69**); institutions leave none (**−0.05**).
 
 
 # Which goals can we map and how well? {background-color="#06101F" .center}
