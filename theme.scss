@@ -554,6 +554,13 @@ $divider-dark: $bg-deep;
   max-height: 195px;
   margin-top: 0;
 }
+// With the illustration moved above the text, a two-line quote pushed the motivation slide to a
+// 756px scrollHeight. Tighter quote padding and a smaller gap under the image bring it back inside 720.
+.reveal .slides section.banner-bottom.banner-short blockquote {
+  padding: 0.45em 0.9em;
+  margin: 0.4em 0 0;
+}
+.reveal .slides section.banner-bottom.banner-short .quarto-figure { margin-bottom: 0; }
 
 // Small caption / source line — the third text step. Before this existed, captions were set in the
 // same muted grey as secondary body copy and competed with it.
