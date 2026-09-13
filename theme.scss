@@ -357,6 +357,14 @@ $divider-dark: $bg-deep;
 .reveal .slide .cards.cards-3 .card { padding: 0.45em 0.65em 0.5em; }
 .reveal .slide .cards.cards-3 .card p { font-size: 0.66em; }
 
+// Four panels, one per pair of the eight nighttime-lights bands, under the world-at-night image.
+.reveal .slide .cards.cards-4 {
+  grid-template-columns: repeat(4, 1fr);
+  margin: 0.2em 0 0.3em;
+}
+.reveal .slide .cards.cards-4 .card { padding: 0.45em 0.6em 0.5em; }
+.reveal .slide .cards.cards-4 .card p { font-size: 0.62em; }
+
 // The embeddings slide: a landscape figure with a card row and a one-line quote below it. Same
 // pixels-not-vh reasoning as .figure-with-quote; the cap is the room left after the title, the cards
 // (~130px), the quote and the footer band.
@@ -372,6 +380,10 @@ $divider-dark: $bg-deep;
   padding: 0.45em 0.9em;
   margin: 0.3em 0 0;
 }
+// The nighttime-lights slide borrows .embedding-explainer, but its cards wrap to four lines and it
+// carries a source line, so the world image gives back the height (scrollHeight 723px at the 320px cap).
+// Must stay below the rule above, which it overrides at equal specificity.
+.reveal .slides section.ntl-explainer img { max-height: 290px; }
 
 // A grid of labelled tiles, for a set the audience must see whole rather than read: the fifteen goal
 // indices on the outcome-variable slide. Tiles stay in SDG order and uncoloured on purpose — the
@@ -511,6 +523,24 @@ $divider-dark: $bg-deep;
   margin: 0 auto;
 }
 
+// The methods slide: the illustration leads and the two cards caption it. The figure is the intuition
+// for how both methods work, so it gets the larger share; the cards are set one step smaller than the
+// default .card so the pair fits under a ~3.5:1 figure inside the 720px canvas.
+.reveal .slides section.methods-explainer .kicker { margin-bottom: 0.4em; }
+.reveal .slides section.methods-explainer p:has(> img),
+.reveal .slides section.methods-explainer .quarto-figure,
+.reveal .slides section.methods-explainer figure,
+.reveal .slides section.methods-explainer .quarto-figure p { margin: 0; }
+.reveal .slides section.methods-explainer img {
+  max-height: 330px;
+  width: auto;
+  margin: 0 auto;
+}
+.reveal .slides section.methods-explainer .cards { margin: 0.3em 0 0; gap: 0.5em; }
+.reveal .slides section.methods-explainer .card { padding: 0.45em 0.65em 0.5em; }
+.reveal .slides section.methods-explainer .card .card-head { font-size: 0.56em; margin-bottom: 0.35em; }
+.reveal .slides section.methods-explainer .card li { font-size: 0.66em; line-height: 1.28; }
+
 // A banner illustration in the bottom third of a text slide. One third of the 720px canvas is 240px;
 // 225px keeps the image clear of the footer hairline. At ~3.4:1 it runs ~755px wide, centred.
 .reveal .slides section.banner-bottom img {
@@ -518,9 +548,8 @@ $divider-dark: $bg-deep;
   width: auto;
   margin: 0.3em auto 0;
 }
-// For slides whose text pushes the banner lower: under the methods slide's two .cards it measured a
-// 690px bottom at 225px, and under the motivation slide's three bullets and quote it overflowed to a
-// 734px scrollHeight. 195px, with no top margin, fits both inside the 720px canvas.
+// For slides whose text pushes the banner lower: under the motivation slide's three bullets and quote
+// it overflowed to a 734px scrollHeight at 225px. 195px, with no top margin, fits inside the 720px canvas.
 .reveal .slides section.banner-bottom.banner-short img {
   max-height: 195px;
   margin-top: 0;

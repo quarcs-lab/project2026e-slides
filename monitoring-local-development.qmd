@@ -124,11 +124,36 @@ format:
 [Municipal Atlas of the Sustainable Development Goals in Bolivia (Andersen et al., 2020) · only two of the 62 indicators come from satellites]{.source}
 
 
-## Nighttime lights: the predictor economists already know
+## Nighttime lights: the predictor economists already know {.embedding-explainer .ntl-explainer}
 
-![](figures/fig-nasa-viirs.jpg){fig-align="center"}
+![](figures/fig-nasa-viirs.jpg){fig-align="center" fig-alt="NASA Black Marble composite of the Earth at night, with cities and road networks visible as clusters of light."}
 
-[NASA Black Marble · Suomi NPP VIIRS · 8 bands]{.source}
+::: {.cards .cards-4}
+::: {.card}
+[Mean · Median]{.card-head}
+
+Typical brightness of each pixel across every cloud-free night of 2017.
+:::
+::: {.card}
+[Masked mean · median]{.card-head}
+
+The same, with background glow, fires and aurora removed: stable human light only.
+:::
+::: {.card}
+[Minimum · Maximum]{.card-head}
+
+The dimmest and brightest nights: how steady or episodic the light is.
+:::
+::: {.card}
+[Two coverage counts]{.card-head}
+
+How many nights were observed, and how many were cloud-free: data quality, not light.
+:::
+:::
+
+> Six radiance statistics plus two counts, aggregated to each municipality: all **8** enter the model together.
+
+[NASA Black Marble · Suomi NPP VIIRS day/night band, annual composite · radiance in nW/cm²/sr]{.source}
 
 
 ## Example: Nighttime lights and SDG 1 (no poverty)
@@ -169,9 +194,11 @@ Places that look alike get similar numbers. No single number has a name.
 
 ![](figures/fig-pipeline.svg){fig-align="center"}
 
-## Prediction and monitoring methods {.banner-bottom .banner-short}
+## Prediction and monitoring methods {.methods-explainer}
 
 [How each question is answered]{.kicker}
+
+![](figures/fig-methods.webp){fig-align="center" fig-alt="Two illustrated sequences. PREDICT: many decision trees merge into one prediction, a dial tunes the model, and a map with one region lifted out is tested on unseen data. MONITOR: a municipality linked to the neighbours it touches, a scatter plot with an upward trend showing global clustering, and a map with a red cluster, a blue cluster and one outlier."}
 
 ::: {.cards}
 ::: {.card}
@@ -189,8 +216,6 @@ Places that look alike get similar numbers. No single number has a name.
 - Local indicators of spatial association — hotspot, coldspot, or outlier.
 :::
 :::
-
-![](figures/fig-methods.webp){fig-align="center" fig-alt="Two illustrated sequences. PREDICT: many decision trees merge into one prediction, a dial tunes the model, and a map with one region lifted out is tested on unseen data. MONITOR: a municipality linked to the neighbours it touches, a scatter plot with an upward trend showing global clustering, and a map with a red cluster, a blue cluster and one outlier."}
 
 
 
@@ -219,14 +244,16 @@ Places that look alike get similar numbers. No single number has a name.
 
 [Weighted by population · out of sample · daytime embeddings now lead on 14 of 15 goals (8 → 14) — though the lead clears fold noise on only 5 of the 15]{.source}
 
-## What a goal is made of decides whether satellites see it {.vcenter}
+## What a goal is made of decides whether satellites see it {.banner-bottom .banner-short}
 
 [Discussion]{.kicker}
 
 - Some goals are built from things satellites can **see**: housing, roads, land cover.
 - Others from things they **cannot**: health, gender, justice.
 
-> Poverty leaves a footprint visible from outer space (R² = **0.69**); institutions leave none (**−0.05**).
+> Poverty leaves a footprint visible from outer space (R² = **0.69**); institutions leave none (R² = **−0.05**).
+
+![](figures/fig-discussion.webp){fig-align="center" fig-alt="Two panels under one satellite. WHAT SATELLITES SEE: a bright top-down map of rooftops, roads and fields, captioned housing, roads and land cover, beside an R² gauge filled most of the way. WHAT SATELLITES CANNOT SEE: the satellite's view blocked by a row of dark roofs hiding health, gender and justice icons, beside an R² gauge that is almost empty."}
 
 
 # Which goals can we map and how well? {background-color="#06101F" .center}
