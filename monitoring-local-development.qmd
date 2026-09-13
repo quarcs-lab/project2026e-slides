@@ -68,7 +68,7 @@ format:
 
 
 
-## Research questions
+## Research questions {.banner-bottom}
 
 [What we ask]{.kicker}
 
@@ -76,7 +76,9 @@ format:
 - Can satellites **map (monitor)** it — where the good and bad clusters sit?
 
 
-> A global average prediction may not be useful for local monitoring purposes.
+> A predicted global average may not be useful for local monitoring.
+
+![](figures/fig-rq-concept-ai.webp){fig-align="center" fig-alt="A satellite beams down to two panels. READ: a municipal map with one place outlined and a thermometer gauging its level. MAP: the same map with a red cluster and a blue cluster of neighbouring municipalities. Below, an average line fits the bars, but the predicted clusters sit offset from the true ones."}
 
 
 
@@ -136,15 +138,30 @@ format:
 [VIIRS annual composite, population-weighted municipal means · 2017 · ordinary least squares, in-sample]{.source}
 
 
-## Daytime embeddings: new predictors to study local development {.figure-with-quote}
+## Daytime embeddings: what the new predictors are {.embedding-explainer}
 
-- A collection of satellite images of one patch of land, compressed into **64** numbers.
-  - Intuition: Similar to a principal component analysis applied to satellite imagery
-- Learned with no social, economic, or luminosity data.
+![](figures/fig-dte-alphaearth.png){fig-align="center" fig-alt="Six daytime satellite-image tiles showing agriculture, a city, forest, wetlands, mountains, and dry terrain flow through the AlphaEarth Model into a 64-dimensional satellite embedding represented by an 8-by-8 colored grid and a shortened numeric vector."}
 
-![](figures/fig-dte-alphaearth.png){fig-align="center"}
+::: {.cards .cards-3}
+::: {.card}
+[1 · A year of images]{.card-head}
 
-[Conceptual illustration · multiple daytime observations become one compact embedding]{.source}
+Each patch of land, observed again and again through 2017.
+:::
+::: {.card}
+[2 · Compressed by a model]{.card-head}
+
+A neural network trained worldwide, with no social, economic, or nighttime-light data.
+:::
+::: {.card}
+[3 · Into 64 numbers]{.card-head}
+
+Places that look alike get similar numbers. No single number has a name.
+:::
+:::
+
+> Intuition: a principal-components index of the landscape, with **64** components instead of one.
+
 
 ## From pixels to municipalities {.figure-lede}
 
@@ -263,13 +280,12 @@ Lights plus embeddings read poverty at **0.54&nbsp;to&nbsp;0.72** out of sample,
 ::: {.card}
 [4 · Map the clusters]{.card-head}
 
-Poverty's clusters and traps reappear: **80%** agreement with the actual map.
+Poverty's clusters reappear: **80%** agreement with the actual map.
 :::
 :::
 
 > Track legible goals from space **between** surveys; survey the rest.
 
-[Validated on the 2017 cross-section · carrying it forward between rounds is a projection, not a measurement]{.source}
 
 
 

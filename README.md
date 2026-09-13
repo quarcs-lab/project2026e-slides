@@ -1,24 +1,24 @@
 # Predicting and monitoring local development from outer space
 
 A self-contained Quarto reveal.js conference talk on reading Bolivian municipal development from
-satellite imagery — 24 slides, about 15–20 minutes.
+satellite imagery — 24 slides, about 20 minutes, ending on the Thank-you cover with no appendix.
 Everything needed to view it, render it, regenerate every figure, and verify every number it
 asserts is in this repository.
 Nothing here reaches outside this folder.
 
-The talk draws on the working paper *Monitoring local development from outer space: Evidence from
-the Bolivian municipalities* (Carlos Mendez, Nagoya University).
+The talk draws on the working paper *Predicting and monitoring local development from outer space:
+Evidence from the Bolivian municipalities* (Carlos Mendez, Nagoya University).
 It was extracted from that project's repository, [`project2026e`](https://github.com/quarcs-lab/project2026e), and the inputs it depends on travel with it as a frozen snapshot in [`sources/`](sources/).
 
 ## Quick start
 
-**View it.** The rendered deck is published to GitHub Pages at the URL in this repository's
-About panel. There is nothing to install.
+**View it.** The rendered deck is published to GitHub Pages at
+<https://quarcs-lab.github.io/project2026e-slides/>. There is nothing to install.
 
 **Render it.** Needs Quarto and nothing else — the deck has no executable code cells.
 
 ```bash
-quarto render monitoring-local-development.qmd     # -> index.html (~21 MB, self-contained)
+quarto render monitoring-local-development.qmd     # -> index.html (~25 MB, self-contained)
 ```
 
 **Regenerate a figure.** Needs Python. `uv sync` once, then:
@@ -52,8 +52,8 @@ uv run --extra qa python scripts/_browser_checks.py . all   # Tiers A/A'/C — t
 
 | Path | What it is | What breaks if you touch it |
 | --- | --- | --- |
-| `monitoring-local-development.qmd` | The deck. Slide content, speaker notes, and the format block. | The single source of the talk. Its front matter fixes the packaging — see [Delivery](#delivery). |
-| `theme.scss` | The dark "Nightlight" theme. The single source of colour truth. | Change a colour here and `_palette.py` disagrees; Tier B's palette-drift check fires on the next figure rebuild. **The two files change together.** |
+| `monitoring-local-development.qmd` | The deck. Slide content and the format block. It currently carries no speaker notes. | The single source of the talk. Its front matter fixes the packaging — see [Delivery](#delivery). |
+| `theme.scss` | The dark "Nightlight" theme. The single source of colour truth. Also defines the HTML layout primitives slides use instead of figures: `.chain` (a vertical sequence of steps), `.cards` (a two-column panel grid), `.goal-grid` (the 15 goal tiles) and `.stat`. | Change a colour here and `_palette.py` disagrees; Tier B's palette-drift check fires on the next figure rebuild. **The two files change together.** The primitives use existing palette variables only, so adding one does not touch `_palette.py`. |
 | `_palette.py` | The same palette for matplotlib, plus figure style and font registration. | See above. Also fixes SVG determinism — see [Figures](#figures). |
 | `title-slide.html` | Title-slide template partial (serif title, framed subtitle, author block). | Referenced by `template-partials:`. Its `data-background-image` is the cover image. |
 | `fonts.html` | `@font-face` for the two bundled webfonts, injected into the document head. | **Read the comment at the top before editing.** Moving these rules into `theme.scss` breaks the fonts *silently* — see [Fonts](#fonts). |
@@ -66,12 +66,13 @@ uv run --extra qa python scripts/_browser_checks.py . all   # Tiers A/A'/C — t
 | `derived/` | Anything the deck computes, as opposed to the frozen inputs. | Gitignored. Kept separate from `sources/` on purpose — see [Verification](#verification). |
 | `_quarto.yml` | Makes this folder a standalone Quarto project. | Two lines. Without it, a parent Quarto project would try to absorb the deck. |
 | `pyproject.toml`, `uv.lock` | The Python environment for figures and checks. | Two dependencies look unused and are not — the file says which and why. |
-| `.github/workflows/pages.yml` | Renders and publishes to GitHub Pages on push to `main`. | Also asserts the artifact really is self-contained. See [Deploying](#deploying). |
+| `index.html` | The rendered deck, **committed**. GitHub Pages serves it straight from `main`. | Stale the moment the `.qmd` changes; re-render before committing. See [Deploying](#deploying). |
+| `_qa/` | Screenshots and a PDF from the browser checks. | Tracked since the initial upload, but those files are stale. Regenerate them locally; do not commit the updates. |
 
 ## Delivery
 
 The deck ships as **one self-contained file**. `embed-resources: true` plus
-`output-file: index.html` produce a single ~21 MB `index.html` with every image, font and script
+`output-file: index.html` produce a single ~25 MB `index.html` with every image, font and script
 base64-inlined: it works offline, it emails, and GitHub Pages serves it from the repository root
 with no configuration.
 
@@ -89,13 +90,13 @@ this change and accept a folder instead of a file:
 Delivery then becomes `index.html` plus an `index_files/` folder of about 8 MB and 117 files, and
 both have to travel together.
 
-**`index.html` is not committed.** CI builds it and Pages serves it; for offline delivery, attach
-it to a GitHub Release. The reason is history: 21 MB of base64 does not delta-compress, so
-committing it would add ~21 MB of permanent history every time anyone re-rendered, in a repository
-whose entire tracked content is about 35 MB. A fresh clone has no `index.html` until you run one
-command.
+**`index.html` is committed.** There is no CI: GitHub Pages serves the file exactly as it sits on
+`main`, so a fresh clone can present straight away. The cost is history. Base64 does not
+delta-compress, so every commit that re-renders the deck adds up to ~25 MB of permanent history.
+Batch slide edits into fewer rendered commits rather than committing `index.html` after each one.
 
-Audience keys during the talk: `M` menu · `O` slide overview · `S` speaker notes · `F` fullscreen.
+Audience keys during the talk: `M` menu · `O` slide overview · `F` fullscreen. `S` opens the
+speaker view, which is currently empty because the deck carries no notes.
 
 ## Paths
 
@@ -163,6 +164,15 @@ the figure computes  0.79479  →  format to 2 dp →  0.79   ← what the audie
 
 Two numbers in this deck sit on that edge; `numbers.toml` flags both. When a source table carries
 fewer decimals than the figure computes from, quote it at the table's own precision or not at all.
+
+**Tier B's overflow flag is a character count, not a measurement,** and it is wrong in both
+directions. It counts raw source characters, HTML tags included, and gives `.cards` slides no extra
+allowance (only `.columns` slides get one). So it flags the outcome-variable, methods and
+concluding slides, all of which fit. It also cannot see a composition that overflows even though
+each element is short. The first draft of the concluding slide passed the count and measured
+732px against the 720px canvas. The only real test is the browser: open the slide at 1280×720 and
+check that `scrollHeight` is at most 720. The screenshots from `_browser_checks.py . shots` show
+the same thing.
 
 **Tier S failing and `_sync_check` failing are different problems.** Tier S says the *deck* is
 wrong — fix the slide or the manifest. `_sync_check` says the *paper* moved, or that someone
@@ -272,29 +282,36 @@ resolves to Regular in figures. Figure hierarchy has to come from size, not weig
 
 ## Deploying
 
-The workflow at `.github/workflows/pages.yml` renders the deck on every push to `main` and
-publishes it.
+GitHub Pages is set to **Deploy from a branch: `main`, `/` (root)**. There is no workflow and no
+build step on GitHub: whatever `index.html` is committed is what the audience sees, a minute or so
+after the push. That makes the local render the release step, so do these in order:
 
-1. In **Settings → Pages**, set **Source = GitHub Actions**. Not "Deploy from a branch":
-   `index.html` is gitignored, so a branch deploy would serve a repository with no deck in it.
-2. Push to `main`. The build takes about 40 seconds — Quarto only, no Python.
-3. `.nojekyll` sits at the root so nothing beginning with `_` is skipped and `README.md` is not
-   built into a page. It is redundant under the Actions path and free to keep.
+1. `quarto render monitoring-local-development.qmd`
+2. Run the checks from [Verification](#verification). Tier B′ in particular confirms the file is
+   fresh and that every figure was inlined. A linked-resources render is ~70 KB and looks perfect
+   locally, because `figures/` sits right beside it, then shows broken images on Pages.
+3. Commit the `.qmd` and `index.html` together, then push.
 
-After rendering, the workflow asserts three things that would otherwise ship broken silently: that
-`index.html` exists, that it is over 5 MB (a linked-resources render is ~70 KB and looks perfect
-locally, because `figures/` is sitting right beside it), and that both the `<img>` payloads and the
-title slide's `data-background-image` really embedded.
+Committing a `.qmd` change without re-rendering publishes nothing, and the live deck quietly goes
+on showing the old version.
 
 ## Known limits
 
 - **No chalkboard.** The cost of single-file delivery; see [Delivery](#delivery).
-- **`index.html` is about 21 MB** and takes a few seconds to open on a slow connection. About
+- **`index.html` is about 25 MB** and takes a few seconds to open on a slow connection. About
   3.6 MB of that is one 3-panel map used on two slides, which pandoc inlines twice — the cost of
-  a deliberate callback.
+  a deliberate callback. Because the file is committed, each re-render grows the repository's
+  history by about that much.
 - **Tier S cannot see double rounding**, and certifies rather than failing. See
   [Verification](#verification).
-- **`_qa/` is about 32 MB** of regenerable screenshots and a PDF. Gitignored.
+- **Tier B's overflow heuristic misfires** on HTML-primitive slides and misses composition
+  overflow. Measure in a browser. See [Verification](#verification).
+- **`_qa/` is about 40 MB** of regenerable screenshots and a PDF. It is *not* gitignored: 25 files
+  from the initial upload are tracked, and they now show the pre-appendix-removal deck. Leave local
+  regenerations unstaged.
+- **`numbers.toml` still declares some numbers that no slide shows any more** (from the removed
+  appendix and earlier cuts). Tier S does not flag unused entries, so they are harmless, but a
+  stale `claim` label is not evidence that the number is on screen.
 - **Figure weights are all Regular** in matplotlib. See [Fonts](#fonts).
 - **Two dependencies look removable and are not.** `contextily` and `scikit-learn` are imported at
   module level by vendored files the deck never calls into; `pyproject.toml` says so at the point

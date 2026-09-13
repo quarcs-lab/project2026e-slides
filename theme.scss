@@ -347,6 +347,32 @@ $divider-dark: $bg-deep;
 // A .card holding one bare line of prose instead of a list still needs the list's optical size.
 .reveal .slide .card p { font-size: 0.78em; line-height: 1.32; margin: 0; }
 
+// Three panels, one per stage of a left-to-right figure directly above them: the embeddings slide,
+// where each card captions the stage it sits under (images -> model -> 64 numbers). The cards are
+// the explanation; the figure is the picture of it, so the two must read as one row.
+.reveal .slide .cards.cards-3 {
+  grid-template-columns: repeat(3, 1fr);
+  margin: 0.2em 0 0.3em;
+}
+.reveal .slide .cards.cards-3 .card { padding: 0.45em 0.65em 0.5em; }
+.reveal .slide .cards.cards-3 .card p { font-size: 0.66em; }
+
+// The embeddings slide: a landscape figure with a card row and a one-line quote below it. Same
+// pixels-not-vh reasoning as .figure-with-quote; the cap is the room left after the title, the cards
+// (~130px), the quote and the footer band.
+.reveal .slides section.embedding-explainer img {
+  max-height: 320px;
+  width: auto;
+}
+.reveal .slides section.embedding-explainer .quarto-figure,
+.reveal .slides section.embedding-explainer figure,
+.reveal .slides section.embedding-explainer img { margin-bottom: 0; }
+.reveal .slides section.embedding-explainer blockquote {
+  font-size: 0.72em;
+  padding: 0.45em 0.9em;
+  margin: 0.3em 0 0;
+}
+
 // A grid of labelled tiles, for a set the audience must see whole rather than read: the fifteen goal
 // indices on the outcome-variable slide. Tiles stay in SDG order and uncoloured on purpose — the
 // manuscript no longer groups the goals (see scripts/fig-r2-master.py), so nothing here implies a
@@ -482,6 +508,14 @@ $divider-dark: $bg-deep;
 .reveal .slides section.figure-with-source img {
   max-height: 350px;
   width: auto;
+}
+
+// A banner illustration in the bottom third of a text slide. One third of the 720px canvas is 240px;
+// 225px keeps the image clear of the footer hairline. At ~3.4:1 it runs ~755px wide, centred.
+.reveal .slides section.banner-bottom img {
+  max-height: 225px;
+  width: auto;
+  margin: 0.3em auto 0;
 }
 
 // Small caption / source line — the third text step. Before this existed, captions were set in the

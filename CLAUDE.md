@@ -1,9 +1,10 @@
 # CLAUDE.md — AI assistant instructions
 
-**What this repository is:** a self-contained Quarto reveal.js conference talk (24 slides, ~15–20
-min) on predicting and monitoring Bolivian municipal development from satellite imagery. It
-renders, regenerates every figure, and verifies every number it asserts with no reference to any
-other repository.
+**What this repository is:** a self-contained Quarto reveal.js conference talk (24 slides, ~20
+min, no appendix, no speaker notes) on predicting and monitoring Bolivian municipal development
+from satellite imagery. It renders, regenerates every figure, and verifies every number it asserts
+with no reference to any other repository. The live deck is
+<https://quarcs-lab.github.io/project2026e-slides/>.
 
 **Read [`README.md`](README.md) first** — it is the reasoning behind every rule below. This file
 is the short imperative form.
@@ -11,6 +12,10 @@ is the short imperative form.
 **First actions in a session:** read this file, then `README.md`, then `outline.md` for the
 narrative arc. Run `uv run python scripts/_sync_check.py .` to confirm the snapshot is intact
 before changing anything.
+
+**`outline.md` lags the deck.** Its arc table still describes the 30-section cut with an appendix
+and older slide titles. Where it disagrees with the `.qmd`, the `.qmd` is right. Read the slide
+titles from the `.qmd` itself.
 
 ---
 
@@ -29,6 +34,8 @@ before changing anything.
 5. **Never hand-edit a number inside a figure.** Regenerate it: `uv run python scripts/fig-*.py`.
 6. **Every number on a slide needs a `numbers.toml` entry** (or an explicit `[meta] ignore`).
    Tier S is fail-closed by design — a new number with no entry is a build failure, not a warning.
+   It skips years, single digits, `100`, and any `SDG N` label, so a label like `SDG 13` needs
+   no entry.
 7. **`theme.scss` and `_palette.py` are one palette in two files.** Change both, then re-run
    Tier B, or the figures drift from the slides.
 8. **Never read `data/satelliteEmbeddings/rasters/bolivia_embeddings_2017.tif`** (~3 GB, and not
@@ -37,8 +44,14 @@ before changing anything.
 9. **`chalkboard:` and `embed-resources: true` are mutually exclusive.** The chalkboard is
    absent on purpose. Do not "fix" it; if a venue needs it, make the two-line trade documented in
    `README.md` § Delivery and accept folder delivery.
-10. **Never commit** `index.html`, `index_files/`, `_qa/`, `.quarto/`, `derived/`, or a copy of
-    the 118 MB VIIRS raster. `.gitignore` covers all of them and explains each.
+10. **`index.html` IS committed. It is the published deck.** Pages deploys from the root of `main`,
+    with no CI. So re-render and run the checks before committing it, and commit it together with
+    the `.qmd` it was rendered from. A `.qmd` commit without a fresh render publishes nothing.
+    Each render adds ~25 MB of history, so don't commit it after every small edit unless the user
+    asks. **Never commit** `index_files/`, `.quarto/`, `derived/`, a copy of the 118 MB VIIRS
+    raster, or regenerated `_qa/` screenshots. `_qa/` is tracked from the initial upload but not
+    gitignored, so leave its modifications unstaged. `.gitignore` covers only `.quarto/` and
+    `derived/`; the rest relies on you.
 11. **Do not add `__init__.py` under `sources/`.** The vendored modules are imported flat on
     purpose; a package named `code` would shadow Python's own `code` module.
 12. **`quarto render` BY FILE**, never `quarto render .` — the latter also builds `outline.md`
@@ -48,7 +61,7 @@ before changing anything.
 
 ```bash
 # render (Quarto only; the deck has no executable cells)
-quarto render monitoring-local-development.qmd            # -> index.html, ~21 MB, self-contained
+quarto render monitoring-local-development.qmd            # -> index.html, ~25 MB, self-contained
 
 # environment
 uv sync                                                   # figures + checks
@@ -81,7 +94,8 @@ DECK_SOURCE_ROOT=/path/to/project2026e uv run python scripts/fig-r2-master.py
 | Path | Role |
 | --- | --- |
 | `monitoring-local-development.qmd` | the deck; its front matter fixes the packaging |
-| `theme.scss` · `_palette.py` | one palette, two files — always change together |
+| `theme.scss` · `_palette.py` | one palette, two files — always change together. `theme.scss` also holds the HTML primitives `.chain` `.cards` `.goal-grid` `.stat`; reuse them before inventing a layout, and use existing palette variables only |
+| `index.html` | the rendered, committed, published deck — see rule 10 |
 | `title-slide.html` · `fonts.html` | head/template partials; `fonts.html` carries a postmortem, read it |
 | `figures/` · `fonts/` | committed assets; figures are generated, never hand-edited |
 | `scripts/` | `_paths` (all path resolution) · `_rasters` `_fourview` `_goals` (shared) · `fig-*` · five checkers |
@@ -98,6 +112,9 @@ A change is complete when all of these hold:
 - `_html_checks.py .` exits 0, and reports `artifact: index.html`
 - `_qa_checks.py .` reports 0 contrast failures and 0 palette drift
 - `_sync_check.py .` exits 0
+- every slide you changed was measured in a browser at 1280×720: `scrollHeight` ≤ 720 and nothing
+  clipped. Playwright is in the `qa` extra. Tier B's overflow line doesn't count as this check
+- if publishing: `index.html` was re-rendered from the exact `.qmd` being committed
 - if a figure changed: it was regenerated by its script, not edited
 - if a number changed: `numbers.toml` was updated in the same change
 
@@ -125,6 +142,13 @@ Each of these has already happened in this project.
   versions, including patch versions and including SVG — a bump moves every path coordinate in a
   visually identical chart. `uv.lock` pins the version so `uv sync` rebuilds reproduce the
   committed bytes. Judge figures by `verify_against_paper()` and Tier S, never by the diff size.
+- **Trusting Tier B's overflow line in either direction.** It counts raw source characters,
+  HTML tags included, and gives `.cards` no column allowance. It flags the outcome-variable,
+  methods and concluding slides, which all fit. It also passed a first draft of the concluding
+  slide that measured 732px against 720. Measure in the browser.
+- **Following the Reveal horizontal index to a slide.** Quarto nests `##` slides under each `#`
+  divider, so `getHorizontalSlides()[h]` returns the divider's stack, not the slide. Find the
+  slide by its `h2`, then `Reveal.getIndices(slide)`, or a screenshot shows the wrong slide.
 - **Applying the parent project's 6×4in/300dpi figure convention.** This deck's conventions are
   its own; see `README.md` § Figures.
 
