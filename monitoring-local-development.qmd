@@ -58,6 +58,10 @@ format:
 
 ![](figures/fig-motivation.webp){fig-align="center" fig-alt="A night landscape runs from a lit city on the left, through rural towns, to remote mountain villages on the right. Above it, data points are dense over the city, thin over the towns and almost absent over the villages. Along the bottom, one census snapshot is followed by a long row of empty years."}
 
+## A new dataset to study subnational development in Bolivia
+
+![](figures/fig-atlas.jpg){fig-align="center"}
+
 
 ## Satellite imagery: A modern instrument for measuring local development {.figure-hero}
 
