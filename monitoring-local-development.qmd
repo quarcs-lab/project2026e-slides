@@ -43,7 +43,7 @@ format:
 
 
 
-# Motivation {background-color="#06101F" .center}
+# Motivation and questions {background-color="#06101F" .center}
 
 
 ## Where development data is scarcest, it is needed most {.banner-bottom .banner-short}
@@ -227,21 +227,19 @@ Places that look alike get similar numbers. No single number has a name.
 
 [Part one · Prediction]{.kicker}
 
-## On the raw average, the nightlights win the headline goals
+## On the raw average, nightlights win headline goals
 
 ![](figures/fig-r2-master-simple.svg){fig-align="center"}
 
 [Simple average · out of sample · 339 municipalities · daytime embeddings lead on only 8 of 15 — and trail on poverty and energy]{.source}
 
-## Most land is empty, weight where people live and daytime embeddings win {.figure-with-quote}
+## Most land is empty, let's weight each pixel by the people on it  {.figure-with-quote}
 
-[The methodological turn]{.kicker}
-
-> Weight each pixel by the people on it and the daytime embeddings rise from **0.29 to 0.41**. The lights do not gain — they slip from **0.25 to 0.22**.
+[Key methodological choice]{.kicker}
 
 ![](figures/fig-data-layers.png){fig-align="center"}
 
-## Weight where people live and daytime embeddings win
+## Weight pixels by population and daytime embeddings win
 
 ![](figures/fig-r2-master.svg){fig-align="center"}
 
@@ -318,7 +316,7 @@ Poverty's clusters reappear: **80%** agreement with the actual map.
 :::
 :::
 
-> Track legible goals from space **between** surveys; survey the rest.
+> Use population-weighted satellite data to better monitor local development **between** surveys and census.
 
 
 
